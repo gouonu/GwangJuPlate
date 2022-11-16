@@ -2,7 +2,6 @@ package com.smart.project.config;
 
 import com.smart.project.filter.CookieAutoLoginFilter;
 import com.smart.project.security.InternCookieResolver;
-import com.smart.project.security.LoginUserCookieInterceptor;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -85,7 +84,7 @@ public class MvcConfig implements WebMvcConfigurer {
                         /* 정적 자원 */
                         "/favicon**",
                         "/resources/**",
-                        "/js/*",
+                        "/static/js/*",
                         "/css/*",
                         "/json",
                         /* 공통 */
