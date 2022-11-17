@@ -5,6 +5,7 @@ import com.smart.project.component.CommonCodeComponent;
 import com.smart.project.component.LocCodeComponent;
 import com.smart.project.component.data.CodeObject;
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +29,16 @@ public class HomeDataAct {
     public List<ResVO>  getSearch(@RequestParam(value="searchInput") String input){
 
         List<ResVO> r = test.selectRes(input);
-//        log.error("{}", r);
-
-
         return r;
+    }
+
+    @PostMapping("/mainList")
+    public Map<String, Object> getMainList(){
+        Map<String, Object> data = new HashMap<>();
+        List<MainVO> m = test.mainList();
+        data.put("list",m);
+        log.error("{}", data);
+        return data;
     }
 
 

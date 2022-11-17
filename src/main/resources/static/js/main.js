@@ -7,6 +7,7 @@
 // Use this file to add JavaScript to your project
 "use strict";
 
+
 $(()=>{
     new Main();
 })
@@ -16,6 +17,7 @@ class Main {
     constructor() {
         console.log("Main");
         this.eventBinding();
+        this.mainListEvent();
     }
 
 
@@ -27,8 +29,18 @@ class Main {
 
     }
 
+    mainListEvent() {
+        console.log("메인리스트이벤트");
 
+        let listTemplate = require('/listCard.html');
+        // import listTemplate from list;
 
+        axios.post('/mainList',{}).then((data)=>{
+
+            $('.popular_top_list_wrap').append(listTemplate(data));
+        });
+
+    }
 
 
 

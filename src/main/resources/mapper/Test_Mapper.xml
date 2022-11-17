@@ -14,5 +14,10 @@
         select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%');
     </select>
 
+    <select id="mainList" resultType="com.smart.project.web.home.vo.MainVO">
+        select * from resMainList;
+    </select>
+
+
 
 </mapper>
