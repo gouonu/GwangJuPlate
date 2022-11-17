@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+/* CSS */
+.grid-image {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    margin:30px 0;
+}
+.grid-image img {
+    width:calc(18% - 10px);
+    margin:0 15px 15px 0;
+}
+.grid-image img:nth-of-type(3n),
+.grid-image img:last-child {
+    margin-right:0;
+}
+@media screen and (max-width:640px){
+    .grid-image img {
+        width:calc(50% - 15px);
+    }
+}
+@media screen and (max-width:480px){
+    .grid-image img:nth-of-type(2n) {
+        margin-right:0;
+    }
+    .grid-image img:nth-of-type(3n) {
+        margin-right:15px;
+    }
+}
+.nav-item{
+    text-align: right;
+    position: relative;
+    top: 10px;
+}
+.icon {
+    width: 60px;  /* 아이콘 테두리 크기 지정 */
+    height: 60px;
+    display: inline-flex; /* 정렬 방식 inline-flex로 지정 */
+    align-items: center; /* 테두리 중앙 정렬 */
+    justify-content: center; /* 아이콘 중앙 정렬 */
+    font-size: 30px; /* 아이콘 크기 지정 */
+    color: black; /* 아이콘 컬러 블랙으로 지정 */
+    border-radius: 50%; /* 아이콘 테두리 원형으로 변경 */
+    outline: 2px solid #fff; /* 테두리 너비 2px, 화이트 컬러 지정 */
+    transition-property: outline-offset, outline-color, background-color; /* 트랜지션 설정 */
+    transition-duration: .3s; /* 애니메이션 .3s 만큼 진행 */
+}
+.icon:hover{
+    outline-offset: 4px; /* 마우스 오버시 테두리 외곽 4px 이동 */
+}
+.icon:hover i{
+    animation: shake .3s; /* 마우스 오버시 아이콘 .3s 동안 흔듦 */
+}
+.icon--blog:hover { /* 블로그 아이콘 마우스 오버시 배경색, 테두리 색상 변경 */
+    background-color: #4aa8d8;
+    outline-color: #4aa8d8;
+}
+.icon--review:hover { /* 인스타 아이콘 마우스 오버시 배경색, 테두리 색상 변경 인스타 배경색은 그라데이션 효과를 주어 인스타 아이콘에 알맞게 설정  */
+    background-image: radial-gradient(circle at 30% 107%,  #a1a1a1 0%, #fdf497 5%, #a1a1a1 45%,  #a1a1a1 60%, #4f5050 90%);
+    outline-color: #a1a1a1;
+}
+.icon--star:hover { /* 깃헙 아이콘 마우스 오버시 배경색, 테두리 색상 변경 */
+    background-color: #ffcd39;
+    outline-color: #fdf497;
+}
+@keyframes shake { /* @keyframes를 이용해 shake의 각도를 좌우 15deg로 조정 */
+    10%{transform: rotate(15deg);}
+    20%{transform: rotate(-15deg);}
+    30%{transform: rotate(15deg);}
+    40%{transform: rotate(-15deg);}
+}
+
+.me-2{
+    width: 500px;
+}
+
+#box-text {
+
+    font-size: 10px;            /* 글자 크기 */
+    color: #000000;              /* 글자 색깔 */
+    border: 1px solid #cecaca;    /* 글자 요소에 border 추가 */
+    /*margin: 10px;               !* 부모 요소 기준, 10px 줄임 (4군데 모두) *!*/
+    white-space: nowrap;        /* 글자 길어져도 계속 우측으로 길어지게. */
+    overflow: hidden;           /* 글자 넘어가면 짤리게 */
+    text-overflow: ellipsis;    /* 글자 넘어가면 ... 으로 표시 */
+
+}
+hr{
+    width: 800px;
+}
+.menu{
+    text-decoration:  underline;
+    text-decoration-color: #eae9e9;
+    text-decoration-thickness: 2px;
+}
+
+#brand{
+    position: absolute;
+    top:10px;
+}
+
+.sdiv{
+    border-style: solid;
+    border-color: lightgrey;
+    position: relative;
+    top: 0px;
+    height: 60px;
+}
+
+.table {
+    width: 50%;
+}
+
+.utable{
+    border: 1px;
+}
+.un{
+    border-bottom: 1px solid #6a6a6a;
+    border-top: 1px solid #6a6a6a;
+}
+.tu{
+    border-top: 1px solid #6a6a6a;
+}
+#nav-style{
+    border-style:solid;
+
+    border-color: lightgrey;
+}
+
+.nav-link2{
+    position: relative;
+    top: 8px;
+}
+
+#mdiv{
+    height: 60px;
+    position: absolute;
+    right: 150px;
+}
+
+#cart{
+    position: relative;
+    left: 60px;
+    top:10px;
+}
+.title{
+    position: relative;
+    left: 20%;
+}
+
+.review{
+    color: lightgrey;
+    font-size: x-large;
+}
+
+.restaurant_name{
+    font-size:x-large;
+}
+
+.restaurant_action_button_wrap{
+    position: relative;
+    left: 20%;
+}
+.btn-penstar{
+    position: relative;
+    left: 500px;
+}
+#iclass{
+    position: relative;
+    color: #888888;
+}
+
+th:not(.not){
+    color: #b7b7b7;
+    font-size: small;
+}
+
+td{
+    font-size: small;
+}
