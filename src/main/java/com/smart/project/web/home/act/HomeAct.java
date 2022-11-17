@@ -39,5 +39,7 @@ public class HomeAct {
 		return "search";
 	}
 
+	@RequestMapping("/list")
+	public String list(){ return "list"; }
 
 }
