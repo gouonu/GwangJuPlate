@@ -19,14 +19,14 @@ import java.util.Map;
 
 abstract class CodeComponent {
 
-	final Map<String, CodeObject> codeMap = new LinkedHashMap<>();
+	final Map<Integer, CodeObject> codeMap = new LinkedHashMap<Integer, CodeObject>();
 	@Autowired ApplicationContext applicationContext;
 	@PostConstruct
 	public void init() {
 		String jsonFileName = jsonPath();
 		List<CodeObject> codeObjectList = getListFromJson(jsonFileName);
 
-		codeObjectList.forEach(data -> codeMap.put((data.getId()), data));
+		codeObjectList.forEach(data -> codeMap.put((data.getNum()), data));
 	}
 
 	private List<CodeObject> getListFromJson(String jsonPath) {
@@ -110,8 +110,10 @@ abstract class CodeComponent {
 	 * @작성자   : 김성훈
 	 * @변경이력  :
 	 **********************************************************************************************/
-	public Map<String, CodeObject> getAll() {
+	public Map<Integer, CodeObject> getAll() {
 		return codeMap;
 	}
+
+
 
 }

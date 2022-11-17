@@ -39,5 +39,8 @@ public class HomeAct {
 		return "search";
 	}
 
-
+	@RequestMapping("/join")
+	public String join(){
+		return "dddd/join";
+	}
 }

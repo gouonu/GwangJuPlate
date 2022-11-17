@@ -15,7 +15,8 @@ public class CommonCodeComponent extends CodeComponent {
 
 	@Override
 	String jsonPath() {
-		return "classpath:json/commonCode.json";
+
+		return "classpath:json/gwangjuRes.json";
 	}
 
 }

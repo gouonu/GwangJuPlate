@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layoutContents.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원</title>
+</head>
+<body>
+<div id="wrap">
+    <div style="text-align : center; ">
+        <form method="post" action="/register">
+            <h3>아이디</h3>
+            <div class="userID">
+                <input type="text" class="input" placeholder="아이디" name="userID" title="아이디" maxlength="20">
+            </div>
+                     <h3>비밀번호</h3>
+            <div class="userPw">
+                <input type="password" class="input" placeholder="비밀번호" name="userPassword" title="비밀번호" maxlength="20">
+            </div>
+            <h3>비밀번호 확인</h3>
+            <div class="userPwchk">
+                <input type="password" class="input" placeholder="비밀번호확인" name="userPasswordchk" title="비밀번호" maxlength="20">
+            </div>
+
+
+            <h3>이름</h3>
+            <div class="userName">
+                <input type="text" class="input" placeholder="이름" name="userName" title="이름" maxlength="20">
+            </div>
+            <h3>생년월일</h3>
+            <div class="userDate">
+                <input type="date" class="input" placeholder="생년월일" name="userDate">
+            </div>
+            <br>
+            <br>
+            <h3>성별</h3>
+            <div class="userSex">
+                <input type="radio" name="userSex" value="M" title="성별">
+                남자
+                <input type="radio" name="userSex" value="F" title="성별">
+                여자
+            </div>
+           <h3>핸드폰 번호</h3>
+            <div class="userPhnum">
+                <input type="text" name = "userPhnum" class="input" placeholder="핸드폰 번호" title="핸드폰 번호" maxlength="20">
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class = "userPolicy">
+               이용약관,개인정보 수집 및 이용, 위치기반 서비스에 동의합니다.<input type="checkbox" name = "userPolicy" >
+            </div>
+            <br>
+            <br>
+            <br>
+            <input type="submit" class="bt_join" value="가입">
+            <input type="button" class= "bt_join2" value="취소" onclick="index.html">
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

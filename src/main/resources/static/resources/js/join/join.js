@@ -11,6 +11,7 @@ export class Join
 	constructor() {
 		console.log('join')
 		this.eventBindgin();
+		this.eventBindgin3();
 	}
 
 	locEvent(key){
@@ -76,6 +77,54 @@ export class Join
 			console.log('aaaaaa')
 			this.locEvent($(e.currentTarget).data());
 		})
+
+
+	}
+	eventBindgin3(){
+		$('.btn_member').on('click', (e)=>{
+			if(!$('#userId').val()){
+				$('.join_txt:first').css('color', 'red');
+				$('#userID').focus();
+				return false;
+			}
+
+			if(!$('#userPw').val()){
+				return false;
+			}
+
+			if($('#userPw').val() != $('#userPwchk').val()){
+				$('#userPwchk').focus();
+				return false;
+			}
+
+			if(!$('#userPwchk').val()){
+				return false;
+			}
+
+			if(!$('#userName').val()){
+				$('#userName').focus();
+				return false;
+			}
+			if(!$('#userDate').val()){
+				$('#userDate').focus();
+				return false;
+			}
+			if(!$('#userSex').val()){
+				$('#userSex').focus();
+				return false;
+			}
+			if(!$('#userPhnum').val()){
+				$('#userPhnum').focus();
+				return false;
+			}
+
+			// 남 or 녀 여부
+
+			// 태어난 년도 여부
+
+			// 체크 여부
+
+		});
 
 
 	}

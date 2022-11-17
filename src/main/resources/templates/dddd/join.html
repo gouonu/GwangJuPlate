@@ -3,254 +3,135 @@
 		xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorate="~{layouts/layoutContents.html}">
+
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/m_yby_member.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<!--        <link rel="icon" type="image/x-icon" href="assets/profile_icon.ico" />-->
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css2/styles.css" rel="stylesheet" />
+	<meta charset="UTF-8">
+	<title>회원 가입</title>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
+	<script type="text/javascript">
+
+//		$(document).ready(function () {
+//			//기본형태
+//			//$('#registerForm').validate(); //유효성 검사를 적용
+//
+//			// validate signup form on keyup and submit
+//			//확장옵션
+//			$('#registerForm').validate({
+//				rules: {
+//					userId:{required:true, minlength:3, remote:"Validate"},
+//					userPw: "required",
+//					userPwchk: {required:true, equalTo:'#userPw'},
+//					userName: {required:true},
+//					userDate: {required:true},
+//					userSex: {required:true},
+//					userPhnum: {required:true},
+//					userPolicy: {required:true}
+//				},
+//				messages: {
+//					userId: {
+//						required: "아이디를 입력하시오.",
+//						minlength: jQuery.format("아이디는 {0}자 이상 입력해주세요!"),
+//						remote: jQuery.format("입력하신 {0}는 이미존재하는 아이디입니다. ")
+//					},
+//					userPw: "암호를 입력하시오.",
+//					userPwchk: {
+//						required: "암호확인를 입력하시오.",
+//						equalTo: "암호를 다시 확인하세요"
+//					},
+//					userName: {required: "이름을 입력하시오."},
+//					userDate: {
+//						required: "생년월일을 입력하시오."
+//					},
+//					userSex: {required: "성별을 선택 해 주세요"},
+//					userPhnum: {required: "핸드폰 번호를 입력해주세요"},
+//					userPolicy: {required: "약관에 동의하지 않으면 가입하실 수 없습니다."}
+//				}
+//여기부터
+// 				,
+// 				submitHandler: function (frm){
+// 					frm.submit();   //유효성 검사를 통과시 전송
+// 				},
+// 				success: function(e){
+// 					//
+// 				}
+//여기까지는 생략 가능
+				});
+		});
+
+
+	</script>
 </head>
-<div layout:fragment="content" class="pc__container">
-	<div class="member_bg">
-		<header class="header">
-			<button class="btn_back_area">
-				<div class="btn_back">
-					<span class="blind">뒤로</span>
-				</div>
-			</button>
-			<h1 class="header_txt">회원가입</h1>
-		</header>
-		<!-- #6215 랜딩페이지 수정: 상단 문구 삭제 -->
-		<!-- <div class="join_bnr">
-			<div class="join_bnr__txt join_bnr__txt-s">간단 무료회원가입으로</div>
-			<div class="join_bnr__txt join_bnr__txt-l">실제 결혼 이상형 프로필을 확인하세요</div>
-		</div> -->
-		<!-- // #6215 랜딩페이지 수정: 상단 문구 삭제 -->
-		<div class="join_container">
-			<div class="top_logo">
-				<img src="https://image.yeoboya.com/imgs/new_wedding/mobile/new_login/logo_yby2.png" alt="여보야 로고">
-				<p class="ment">해외 거주자나 동포 여러분도 가입 가능합니다.</p>
+<body>
+
+<div id="wrap">
+	<div style="text-align : center;">
+		<h1>회원가입</h1>
+		<form id = "registerForm" method="post" action="/register">
+			<h3>아이디</h3>
+			<div class="userID">
+				<input type="text" class="input" placeholder="아이디" name="userId"  id = "userId" title="아이디" maxlength="20"/>
 			</div>
-			<form>
-				<div class="join_box">
-					<ul class="flex_container">
-						<li>
-							<div class="member_input">
-								<input type="email" class="input_txt" maxlength="30" placeholder="이메일">
-								<label class="hidden">이메일 아이디 입력</label>
-								<a class="input_del blind"><span class="blind">지우기</span></a>
-							</div>
-						</li>
-						<li class="at_sign">@</li>
-						<li>
-							<div class="member_slct">
-								<label class="hidden">이메일 입력</label>
-								<select>
-									<option>naver.com</option>
-									<option>nate.com</option>
-									<option>daum.net</option>
-									<option>hanmail.net</option>
-									<option>gmail.com</option>
-									<option>직접입력</option>
-								</select>
-							</div>
-							<div class="member_input hidden">
-								<input type="text" class="input_txt">
-								<label class="hidden">이메일 입력</label>
-								<a class="input_del blind"><span class="blind">지우기</span></a>
-							</div>
-						</li>
-					</ul>
-					<!-- <p class="join_txt">※ 가입 후 수정이 불가능합니다. 정확히 입력 해 주세요.</p> -->
-					<p class="join_txt">※ 가입 후 수정이 불가능합니다. 정확히 입력 해 주세요.</p>
-					<!-- <p class="join_txt error">이메일 주소를 입력하세요.</p> -->
-				</div>
-				<div class="join_box password">
-					<div class="member_input">
-						<input type="password" class="input_txt" placeholder="비밀번호" maxlength="12">
-						<label class="hidden">비밀번호</label>
-						<a class="input_del blind"><span class="blind">지우기</span></a>
-					</div>
-					<div class="member_input">
-						<input type="password" class="input_txt" placeholder="비밀번호 확인" maxlength="12">
-						<label class="hidden">비밀번호 확인</label>
-						<a class="input_del blind"><span class="blind">지우기</span></a>
-					</div>
-					<!-- <p class="join_txt">※ 영어, 숫자(4자 ~ 12자)</p> -->
-					<!-- <p class="join_txt confirm">등록 가능합니다.</p> -->
-					<!-- <p class="join_txt error">4자 ~ 12자 영어, 숫자만 사용가능합니다.</p> -->
-					<p class="join_txt">※ 영어, 숫자(4자 ~ 12자)</p>
-				</div>
-				<div class="join_box">
-					<ul class="flex_container">
-						<li>
-							<div class="member_input">
-								<input type="text" class="input_txt" placeholder="대화명">
-								<label class="hidden">대화명</label>
-								<a class="input_del blind"><span class="blind">지우기</span></a>
-							</div>
-						</li>
-						<li>
-							<ul class="sex_slct">
-								<li class="slct_man">
-									<input type="radio" class="sex_input">
-									<label class="sex_lb"><span class="blind">남성</span></label>
-								</li>
-								<li class="slct_woman">
-									<input type="radio" class="sex_input">
-									<label class="sex_lb"><span class="blind">여성</span></label>
-								</li>
-							</ul>
-						</li>
-					</ul>
-					<p class="join_txt">※ 한글만 사용할 수 있습니다. (2자 ~ 8자)</p>
-				</div>
-				<div class="join_box">
-					<ul class="flex_container">
-						<li>
-							<div class="member_slct">
-								<label class="hidden">태어난 년도</label>
-								<select>
-									<option value="0000">태어난 년도</option> <!-- 20세 ~ 99세 -->
-									<option value="2002">2002</option>
-									<option value="2001">2001</option>
-									<option value="2000">2000</option>
-									<option value="1905">1905</option>
-									<option value="1904">1904</option>
-									<option value="1903">1903</option>
-								</select>
-							</div>
-						</li>
-						<li>
-							<div class="btn_slct_area" data-key="loc">
-								<input type="hidden" name="locWantKey" id="locWantKey">
-								<input type="hidden" name="locWant" id="locWant">
-								<a>지역&nbsp;&nbsp;&nbsp;&nbsp;국내/해외</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="join_box">
-					<div class="btn_hope_area" data-key="want">
-						<a class="">배우자 희망지역</a>
-						<input type="hidden" id="wantLoc" name="wantLoc" value="g,f,h">
-					</div>
-					<p class="join_txt error"></p>
-				</div>
-				<div class="agree_policy">
-					<div class="policy_chk_wrap">
-						<input type="checkbox" class="policy_chk">
-						<label class="policy_lb">약관 및 개인정보 보호 정책에 동의합니다.</label>
-					</div>
-					<a class="btn_view_policy"><u>[보기]</u></a>
-				</div>
-				<div class="btn_member">
-					<a>가입완료</a>
-				</div>
-				<p class="jn_msg">※ 한번가입으로 <span>PC 웹, 모바일 웹</span> 어디서나 사용이 가능합니다.</p>
-			</form>
-			<div class="join__bnr">
-				<img src="https://image.yeoboya.com/imgs/new_wedding/new_jsp/evnt/evnt_welcome/bnr_welcome.png" alt="웰컴 신규이벤트" class="join__bnr_img">
+			<h3>비밀번호</h3>
+			<div class="userPw">
+				<input type="password" id = "userPw" class="input" placeholder="비밀번호" name="userPw" title="비밀번호" maxlength="20"/>
 			</div>
-		</div>
+			<h3>비밀번호 확인</h3>
+			<div class="userPwchk">
+				<input type="password" id = "userPwchk" class="input" placeholder="비밀번호확인" name="userPwchk" title="비밀번호" maxlength="20"/>
+			</div>
+
+
+			<h3>이름</h3>
+			<div class="userName">
+				<input type="text" id = "userName" class="input" placeholder="이름" name="userName" title="이름" maxlength="20"/>
+			</div>
+			<h3>생년월일</h3>
+			<div class="userDate">
+				<input type="date" id = "userDate" class="input" placeholder="생년월일" name="userDate"/>
+			</div>
+
+			<h3>성별</h3>
+			<div class="userSex">
+				<input type="radio" id = "userSex" name="userSex" value="M" title="성별"/>
+				남자
+				<input type="radio" id = "userSex2" name="userSex" value="F" title="성별"/>
+				여자
+			</div>
+			<h3>핸드폰 번호</h3>
+			<div class="userPhnum">
+				<input type="text" id = "userPhnum" name = "userPhnum" class="input" placeholder="핸드폰 번호" title="핸드폰 번호" maxlength="20"/>
+
+			</div>
+			<br>
+			<br>
+			<br>
+			<div class = "userPolicy">
+				이용약관,개인정보 수집 및 이용, 위치기반 서비스에 동의합니다.<input type="checkbox" id = "userPolicy" name = "userPolicy"/>
+			</div>
+			<br>
+			<br>
+			<br>
+			<div>
+				<input class="btn_member" type="submit" value="가입완료">
+			</div>
+		</form>
 	</div>
 
-	<!--  지역 선택 모달 -->
-	<div class="normal_pop_wrap hidden">
-		<div class="full_modal"></div>
-		<div class="pop_region">
-			<div class="pop_region_hd">
-				<!-- 국내/해외 지역 미선택시 -->
-				<span id="addressTitle">지역 선택</span>
-				<!-- 국내 지역 선택시 -->
-				<!-- <span class="slct_city">광주</span>
-				<span class="slct_city_suf">상세지역을 선택하세요</span> -->
-				<div class="btn_cls"><a>닫기</a>
-				</div>
-			</div>
-			<div class="region_tab">
-				<ul class="flex_container">
-					<li><a class="slct_kr active"><span class="hidden">국내</span></a></li>
-					<li><a class="slct_abroad"><span class="hidden">해외</span></a></li>
-				</ul>
-			</div>
-			<!-- 국내 지역선택-->
-			<div class="pop_region_content region_content_kr">
-				<ul>
-					<!-- 지역 선택시 class="chk_active" 추가 -->
-					<li><a>서울</a></li>
-					<li><a>경기</a></li>
-					<li><a>인천</a></li>
-					<li><a>대전</a></li>
-					<li><a>대구</a></li>
-					<li><a>부산</a></li>
-					<li><a>광주</a></li>
-					<li><a>세종</a></li>
-					<li><a>울산</a></li>
-					<li><a>충북</a></li>
-					<li><a>충남</a></li>
-					<li><a>전북</a></li>
-					<li><a>전남</a></li>
-					<li><a>경북</a></li>
-					<li><a>경남</a></li>
-					<li><a>강원</a></li>
-					<li><a>제주</a></li>
-					<li><a>북한</a></li>
-				</ul>
-			</div>
-			<!-- 국내 상세 지역 선택 -->
-			<div class="pop_region_content region_content_kr_detail hidden">
-				<ul>
-					<li><a>광산구</a></li>
-					<li><a>남구</a></li>
-					<li><a>동구</a></li>
-					<li><a>북구</a></li>
-					<li><a>서구</a></li>
-				</ul>
-			</div>
-			<!-- 해외 지역선택 -->
-			<div class="pop_region_content region_content_abroad hidden">
-				<ul>
-					<li><a>중국</a></li>
-					<li><a>미국</a></li>
-					<li><a>일본</a></li>
-					<li><a>캐나다</a></li>
-					<li><a>호주</a></li>
-					<li><a>홍콩</a></li>
-					<li><a>베트남</a></li>
-					<li><a>뉴질랜드</a></li>
-					<li><a>대만</a></li>
-					<li><a>브라질</a></li>
-					<li><a>미얀마</a></li>
-					<li><a>필리핀</a></li>
-					<li><a>영국</a></li>
-					<li><a>독일</a></li>
-					<li><a>가나</a></li>
-					<li><a>가봉</a></li>
-					<li><a>가이아나</a></li>
-					<li><a>감비아</a></li>
-					<li><a>과델로프</a></li>
-					<li><a>과테말라</a></li>
-					<li><a>괌</a></li>
-					<li><a>교황청</a></li>
-					<li><a>그레나다</a></li>
-					<li><a>그루지아</a></li>
-				</ul>
-			</div>
-			<div class="botom_btn">
-				<div class="btn_half btn_prev" style="display:none;"
-				><a>이전</a>
-				</div>
-				<!-- 국내/해외 지역 선택시 class="active" 추가-->
-				<div class="btn_full btn_slct">
-					<a>선택</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 배우자 희망지역 모달 -->
-	<div class="normal_pop_wrap want_loc hidden">
-	</div>
 </div>
-<section layout:fragment="contentScriptFragment">
-	<script type="text/javascript" th:src="${@versionComponent.getVersion('/resources/build/join.bundle.js')}"></script>
-</section>
+<!--<script src = "/Scripts/jquery-2.2.1.js"></script>-->
+<!--<script src = "/Scripts/jquery.validate.js"></script>-->
+<!--<script type = "text/javascript" src = "/static/resources/js/join"></script>-->
+</body>
 </html>

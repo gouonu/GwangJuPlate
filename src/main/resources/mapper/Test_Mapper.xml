@@ -4,4 +4,18 @@
     <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">
         SELECT * FROM test;
     </select>
+    <insert id="insertjson" parameterType="java.util.List" >
+    insert into res_tb(num,tel,postcode,locaddr,roadaddr,road_post,workplace,state,coorx,coory) values
+    <foreach collection="list" item="item" separator=",">
+        (#{item.num},#{item.tel},#{item.postcode},#{locaddr},#{item.roadaddr},#{item.road_post},
+         #{item.workplce},#{item.state},#{item.coorx},#{item.coory})
+
+
+    </foreach>
+    </insert>
+    <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.MemberVO">
+        insert into userRegister (userId, userPw, userPwchk, userName, userDate, userSex, userPhnum, userPolicy)
+        values(#{userId},#{userPw},#{userPwchk},#{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy});
+
+    </insert>
 </mapper>
