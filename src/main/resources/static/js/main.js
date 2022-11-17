@@ -25,10 +25,9 @@ class Main {
             console.log("카테고리 클릭");
         });
 
-        $('#searchButton').on('click', (e)=>{
-            console.log("검색 버튼 클릭");
-        })
     }
+
+
 
 
 

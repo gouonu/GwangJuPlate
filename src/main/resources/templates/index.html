@@ -22,17 +22,6 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-<!--&lt;!&ndash;                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="nav-item dropdown">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">All Products</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><hr class="dropdown-divider" /></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -54,10 +43,11 @@
                 </div>
                 <br>
                 <div style="display: inline-block; text-align: center; width: 742px; height: 56px;">
-<!--                    <label class="text-white">검색</label>-->
+                    <form action="/searchInput" method="get">
                     <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
-                    <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식" style="width: 415px; height: 50px;">
+                        <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식" style="width: 415px; height: 50px;">
                     <button type="submit" id="searchButton" style="width:180px; height: 50px;">검  색</button>
+                    </form>
                 </div>
             </div>
         </header>
@@ -272,7 +262,7 @@
                             <div class="text-center" style="margin-bottom: 20px;">
                                 <h5 style="font-size:medium; font-weight: bold;">카테고리</h5>
                             </div>
-                            <div aria-live="">
+                            <div aria-live="" class="temp">
                                 <div class="category gwangsan-gu">광산구</div>
                                 <div class="category bug-gu">북구</div>
                                 <div class="category seo-gu">서구</div>

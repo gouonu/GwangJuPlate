@@ -2,6 +2,8 @@ package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
+import com.smart.project.web.home.vo.JoinVO;
+import com.smart.project.web.home.vo.ResVO;
 import com.smart.project.web.home.vo.TestVO;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
@@ -17,5 +19,9 @@ public interface Test {
 	 * @작성자 : 김남현
 	 * @변경이력 :
 	 **********************************************************************************************/
-	List<TestVO> sqlMenu2(String userId);
+//	List<TestVO> sqlMenu2(String userId);
+	List<ResVO> selectRes(String result);
+
+//	void joinInsert(JoinVO joinVO);
+
 }
