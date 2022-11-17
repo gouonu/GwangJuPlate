@@ -1,0 +1,13 @@
+{{each data.list}}
+<div class="col mb-5">
+    <div class="card h-100">
+        <img class="card-img-top" src="https://dummyimage.com/450x450/dee2e6/6c757d.jpg" alt="..." />
+        <div class="card-body p-4">
+            <div class="text-center">
+                <h5 class="fw-bolder" name="cardTitle" id="cardTitle" >{{$value.title}}</h5>
+                <p name="cardContext" id="cardContext">{{$value.context}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

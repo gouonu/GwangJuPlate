@@ -3,7 +3,7 @@
 
 
 $(()=>{
-	new Join();
+	// new Join();
 })
 
 export class Join

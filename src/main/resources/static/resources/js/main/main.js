@@ -12,7 +12,7 @@ $(()=>{
     new Main();
 })
 
-class Main {
+export class Main {
 
     constructor() {
         console.log("Main");
@@ -33,13 +33,19 @@ class Main {
     mainListEvent() {
         console.log("메인리스트이벤트");
 
-        let listTemplate = require('/listCard.html');
-        // import listTemplate from list;
+        // let listTemplate = require('@/listCard.art');
 
         axios.post('/mainList',{}).then((data)=>{
-
-            $('.popular_top_list_wrap').append(listTemplate(data));
+            console.log(data);
+            // let html = listTemplate(__dirname+'/listCard.art',{
+            //     value:{
+            //         title : data.getData,
+            //         context : data.getContext()
+            //     }
+            // })
+            // $('.popular_top_list_wrap').append(html);
         });
+
 
     }
     listEventBinding(){
