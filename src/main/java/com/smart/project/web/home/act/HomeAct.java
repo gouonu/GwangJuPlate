@@ -42,4 +42,7 @@ public class HomeAct {
 	@RequestMapping("/list")
 	public String list(){ return "list"; }
 
+	@RequestMapping("/search2")
+	public String search2(){ return "search2"; }
+
 }

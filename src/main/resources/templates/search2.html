@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7889d32beb468dca3fa2da2d86551821&libraries=services"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!--  <link rel="stylesheet" href="/css/list.css">-->
+  <link rel="stylesheet" href="css/search2.css">
+  <script src="https://kit.fontawesome.com/678d4b3e11.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+</head>
+<body id="bootstrap-overrides">
+<!-- navbar -->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
+<!--        <div class="container-fluid">-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">-->
+<!--                <a class="navbar-brand" href="#">Hidden brand</a>-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#">Home</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Link</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                    <a class="nav-link disabled">Disabled</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <form class="d-flex">-->
+<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand" href="#!">광주 플레이트</a>
+    <div style="display: inline-block; text-align: center;">
+      <img src="assets/search_ico.ico" style="height:30px;width: 30px; margin-right: 5px;">
+      <input name="search" id="search" maxlength="50" type="text" placeholder="지역, 식당 또는 음식" style="width: 300px; height: 33px;">
+      <!--                    <button type="submit" style="width:180px; height: 50px;">검  색</button>-->
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+      </ul>
+      <form class="d-flex">
+        <button class="btn btn-outline-dark" type="submit">
+          <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- list -->
+<main>
+  <article class="all_container">
+    <div class="column_wrapper">
+      <div class="column_contents">
+        <div class="category_wrapper">
+          <h4><span class="category_title">title</span> 맛집 인기순위</h4>
+        </div>
+        <ul class="list_restaurants_wrapper" style="list-style: none">
+          <!-- list 1, 2div -->
+          <li class="list_restaurant">
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="image/bamsil.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>밤실마을 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="image/cafe.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>카페304 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list_restaurant">
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="bamsil.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>밤실마을 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="cafe.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>카페304 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list_restaurant">
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="bamsil.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>밤실마을 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="cafe.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>카페304 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list_restaurant">
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="bamsil.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>밤실마을 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="list_item">
+              <div class="restaurant_image_wrapper">
+                <a href="#"><img src="cafe.jpg" class="restaurant_img"></a>
+              </div>
+              <div class="restaurant_info">
+                <a href="#"><h5>카페304 3.3</h5></a>
+                <div>
+                  <small>
+                    광주 북구 - 한정식 / 백반 / 정통 한식
+                  </small>
+                </div>
+                <div>
+                  <small>
+                    <i class="fa-solid fa-eye"></i>
+                    <small class="restaurant_views">123123</small>
+                    <i class="fa-solid fa-pencil"></i>
+                    <small class="restaurant_reviews">123123</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="column_side">
+      <!-- list map -->
+      <div class="list_map">
+        <div id="map" style="width:400px;height:500px;"></div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<!-- footer -->
+<footer class="footer">
+  <div>
+    <h1></h1>
+  </div>
+</footer>
+<!-- kakaomap api -->
+<script type="text/javascript">
+  var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+  var options = { //지도를 생성할 때 필요한 기본 옵션
+    center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+    level: 3 //지도의 레벨(확대, 축소 정도)
+  };
+
+  var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+</script>
+<script src="/js/main.js"></script>
+</body>
+</html>

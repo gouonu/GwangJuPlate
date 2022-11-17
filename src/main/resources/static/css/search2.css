@@ -1,0 +1,98 @@
+@import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+.spoka * { font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; }
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+    word-wrap: break-word;
+}
+/* a태그 밑줄 제거 */
+a{
+    text-decoration: none;
+}
+/* a태그 클릭시 바뀌는 색상 고정 */
+a:visited{
+    color: black; text-decoration: none;
+}
+/* a태그 텍스트 색상 */
+a:link{
+    color: black; text-decoration: none;
+}
+.all_container{
+    display: flex;
+}
+.navbar{
+    width: 100%;
+    border-bottom: 1px solid #dbdbdb;
+    /* navbar 명암 */
+    box-shadow: 0 4px 11px rgb(0 0 0 / 10%);
+}
+.category_wrapper{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 32px;
+    color: #ff792a;
+}
+.column_wrapper{
+    width: calc(100% - 400px);
+}
+.column_contents{
+    margin: 0 auto;
+    min-height: 1550px;
+    min-width: 800px;
+    width: 66.667%;
+    background-color: #fff;
+    /* border: 1px solid black; */
+    position: relative;
+}
+.list_restaurant{
+    margin-left: 5.5%;
+}
+.restaurant_info{
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.restaurant_info div{
+    color: #9b9b9b;
+}
+.list_item{
+    display: inline-block;
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+.restaurant_image_wrapper{
+    width: 360px;
+    height: 240px;
+}
+.restaurant_image_wrapper > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.column_side{
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 400px;
+    background-color: #ebebeb;
+}
+.restaurant_views{
+    margin-right: 10px;
+}
+.cou
+
+    /* kakao map */
+.list_map{
+    width: 100%;
+    height: auto;
+    border: 1px solid #dbdbdb;
+}
+/* footer */
+.footer{
+    width: 100%;
+    height: 300px;
+    background-color: #3e3e3e;
+}
