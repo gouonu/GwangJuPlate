@@ -19,7 +19,7 @@ form{
     transform: translate(-50%, -50%);
     /* border: 1px solid #000; */
     width : 400px;
-    height: 500px;
+    height: 600px;
     padding: 25px;
     border-radius: 5px;
     background-color: white;
@@ -66,6 +66,19 @@ input:focus::placeholder{
 
 
 }
+#register {
+    width:84%;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #5a6268;
+    border : none;
+    color : #fff;
+    margin-top: 25px;
+    margin-left: 35px;
+
+
+}
 
 #kakao {
     width: 75%;
@@ -84,7 +97,7 @@ input:focus::placeholder{
     position: absolute;
     margin-top: 50px;
     padding: 0;
-    height: 48px;
+    height: 55px;
     border: none;
     background: none;
     right: 55px;
