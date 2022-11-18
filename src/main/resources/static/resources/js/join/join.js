@@ -16,17 +16,88 @@ export class Join
 
 	locEvent(key){
 		console.log(key)
+
 		let locTmpl = require("@/join/want.html")
+
 		let callObj = {'key' : $('#locWantKey').val()};
+		console.log($('#locWantKey').val())
+
 
 		axios.post('/data/wantLoc', callObj).then((result)=>{
 			console.log(result);
 			result.data.title = key.key === 'loc' ? '자기지역' : '배우자 희망지역';
 			//console.log(locTmpl(result));
 			$('.want_loc').append(locTmpl(result));
+			this.wantLocEvent();
 			$('.want_loc').removeClass('hidden');
+			$('.hope_list > li').each((idx, obj)=> {
+				let $obj = $(obj).children('a');
+				if ($obj.hasClass('active')) {
+					$('.select_all').addClass('active');
+
+				}
+			})
 
 
+		})
+	}
+	wantLocEvent(){
+		//선택하면 값 보내기
+		$('.btn_complete').on('click', (e)=>{
+			let selectedKeyArray = new Array();
+			$('.hope_list > li').each((idx, obj)=>{
+				//console.log(idx, obj, $(obj).hasClass());
+				if($(obj).children('a').hasClass('active')){
+					let wantKey = $(obj).children('a').data('key');
+					//console.log(wantKey);
+					selectedKeyArray.push(wantKey);
+					console.log(selectedKeyArray);
+					console.log(_.join(selectedKeyArray, ','));
+				}
+			})
+
+			$('#locWantKey').val(_.join(selectedKeyArray, ','));
+			$('.want_loc').empty().addClass('hidden');
+		})
+		// 초기화
+		$('.btn_reset').on('click', (e)=>{
+			$('.hope_list > li').each((idx, obj)=>{
+				let $obj = $(obj).children('a');
+				if($obj.hasClass('active')){
+					$obj.removeClass('active');
+				}
+			})
+		})
+		// 체크
+		$('.hope_list > li > a').on('click', (e)=>{
+			console.log(e, e.currentTarget, $(e.currentTarget))
+
+			if($(e.currentTarget).hasClass('active')){
+				$(e.currentTarget).removeClass('active');
+
+			}else{
+				$(e.currentTarget).addClass('active'
+				);
+			}
+		})
+		$('.select_all').on('click', (e)=>{
+			$('.hope_list > li').each((idx, obj)=>{
+				let $obj = $(obj).children('a');
+
+				if($(e.currentTarget).hasClass('active')){
+					$obj.addClass('active');
+
+				}
+				else{
+					$obj.removeClass('active');
+
+				}
+			})
+		})
+
+		//닫기
+		$('.pop_cls').on('click', (e)=>{
+			$('.want_loc').empty().addClass('hidden');
 		})
 	}
 
@@ -77,9 +148,21 @@ export class Join
 			console.log('aaaaaa')
 			this.locEvent($(e.currentTarget).data());
 		})
+		$('.btn_hope_area').on('click', (e)=>{
+			// console.log('aaaaaa')
+			this.locEvent($(e.currentTarget).data());
+
+		})
 
 
 	}
+
+
+
+
+
+
+
 	eventBindgin3(){
 		$('.btn_member').on('click', (e)=>{
 			if(!$('#userId').val()){

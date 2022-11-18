@@ -43,4 +43,8 @@ public class HomeAct {
 	public String join(){
 		return "dddd/join";
 	}
+	@RequestMapping("/login")
+	public String login(){
+		return "apilogin";
+	}
 }

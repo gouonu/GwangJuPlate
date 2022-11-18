@@ -18,4 +18,8 @@
         values(#{userId},#{userPw},#{userPwchk},#{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy});
 
     </insert>
+    <insert id="kakaoInsert">
+        INSERT INTO kakao_table (USERID, USERPW, USERNAME, EMAIL, SNSID) VALUES
+            (#{userid}, #{userpw}, #{userName}, #{email}, #{snsId})
+    </insert>
 </mapper>
