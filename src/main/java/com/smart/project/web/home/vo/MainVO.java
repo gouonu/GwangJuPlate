@@ -8,4 +8,5 @@ public class MainVO {
     private String context;
     private int resNum;
     private int index;
+    private String image;
 }

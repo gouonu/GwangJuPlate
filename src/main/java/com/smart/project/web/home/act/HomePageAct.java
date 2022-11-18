@@ -18,12 +18,15 @@ public class HomePageAct {
 
 
     @GetMapping("/searchInput")
-    public String getSearch(Model model, @RequestParam(value="searchInput") String input){
+    public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
 
         List<ResVO> r = test.selectRes(input);
-        model.addAttribute("res",r);
+        model.addAttribute("res", r);
 
-        return "/search2";
+
+
+
+        return "search2";
     }
 
 }
