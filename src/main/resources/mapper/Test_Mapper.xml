@@ -18,6 +18,10 @@
         select * from resMainList;
     </select>
 
+    <select id="ListDetailMatch" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
+        select * from restaurant where num in (${resNumString});
+    </select>
+
 
 
 </mapper>

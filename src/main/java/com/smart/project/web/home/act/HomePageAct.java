@@ -1,7 +1,6 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,11 +20,10 @@ public class HomePageAct {
 
     @GetMapping("/searchInput")
     public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
-
         List<ResVO> r = test.selectRes(input);
         model.addAttribute("res", r);
         model.addAttribute("input", input);
-        return "search2";
+        return "search";
     }
 
     @PostMapping ("/searchInput")

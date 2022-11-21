@@ -1,13 +1,18 @@
 {{each data.list}}
 <div class="col mb-5">
+    <a id="resNum" href="/list?title={{$value.title}}&resNum={{$value.resNum}}" style="color:black; text-decoration: none;">
     <div class="card h-100">
         <img class="card-img-top" src="/main_image/{{$value.image}}" alt="..." />
         <div class="card-body p-4">
             <div class="text-center">
                 <h5 class="fw-bolder" name="cardTitle" id="cardTitle" >{{$value.title}}</h5>
+                <p class="hidden">/</p>
                 <p name="cardContext" id="cardContext">{{$value.context}}</p>
             </div>
         </div>
+            <div class="index hidden">{{$value.index}}</div>
+<!--            <div class="resNum hidden">{{$value.resNum}}</div>-->
     </div>
+    </a>
 </div>
 {{/each}}

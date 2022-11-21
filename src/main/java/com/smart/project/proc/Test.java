@@ -25,4 +25,6 @@ public interface Test {
 	List<MainVO> mainList();
 //	void joinInsert(JoinVO joinVO);
 
+	List<ResVO> ListDetailMatch(String resNumString);
+
 }

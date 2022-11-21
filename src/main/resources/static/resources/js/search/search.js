@@ -1,8 +1,8 @@
 "use strict";
 
 
-import listTemplate from "@/main/listCard.html";
-import searchTemplate from "@/search/seach2-1.html";
+import listTemplate from "@/main/mainListCard.html";
+import searchTemplate from "@/search/search2-1.html";
 
 $(()=>{
     new Search();
@@ -20,7 +20,7 @@ export class Search {
         // console.log("검색 이벤트");
         let query = $('#query').text();
         console.log("검색어 : ", query);
-        let searchTemplate = require('@/search/seach2-1.html');
+        let searchTemplate = require('@/search/search2-1.html');
 
         axios.post('/searchInput',{"query":query}).then((data)=>{
             console.log(data);

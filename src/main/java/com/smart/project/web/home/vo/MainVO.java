@@ -6,7 +6,7 @@ import lombok.Data;
 public class MainVO {
     private String title;
     private String context;
-    private int resNum;
+    private String resNum;
     private int index;
     private String image;
 }
