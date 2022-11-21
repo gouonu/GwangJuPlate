@@ -37,13 +37,13 @@ a:link{
 }
 .column_wrapper{
     width: calc(100% - 400px);
+    background-color: #fff;
 }
 .column_contents{
     margin: 0 auto;
     min-height: 1550px;
     min-width: 800px;
     width: 66.667%;
-    background-color: #fff;
     /* border: 1px solid black; */
     position: relative;
 }
@@ -82,14 +82,61 @@ a:link{
 .restaurant_views{
     margin-right: 10px;
 }
-.cou
-
-    /* kakao map */
+/* kakao map */
 .list_map{
     width: 100%;
     height: auto;
     border: 1px solid #dbdbdb;
 }
+/* pagination */
+/*
+	jquery.paginate.css
+	Version 0.1.1
+*/
+
+.paginate-pagination ul {
+
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+.paginate-pagination ul:after {
+
+    content: ' ';
+    display: table;
+    clear: both;
+
+}
+
+.paginate-pagination ul > li {
+
+    float: left;
+    margin-right: 3px;
+
+}
+
+.paginate-pagination ul > li > a.page {
+
+    display: block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.paginate-pagination ul > li > a.page:hover { opacity: 0.7; }
+.paginate-pagination ul > li > a.page.active { opacity: 0.7; cursor: default; }
+
+.paginate-pagination ul > li > a.page-next.deactive,
+.paginate-pagination ul > li > a.page-prev.deactive { opacity: 0.7; cursor: default; }
+
 /* footer */
 .footer{
     width: 100%;
