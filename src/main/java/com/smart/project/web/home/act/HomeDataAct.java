@@ -7,7 +7,6 @@ import com.smart.project.proc.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +17,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 public class HomeDataAct {
+
     final private
     CommonCodeComponent commonCodeComponent;
 
@@ -61,6 +61,49 @@ public class HomeDataAct {
         return data;
     }
 
+    @PostMapping("/data/loc")
+    public Map<String, Object> getLoc(@RequestBody Map param) {
+
+        Map<String, Object> data = new HashMap<>();
+        String keyData = String.valueOf(param.get("key"));
+        log.error("key===>{}", keyData);
+        List<CodeObject.Code> locCodeList =  locCodeComponent.getCodeList("m002");
+
+        for(CodeObject.Code codeObject : locCodeList){
+            if(codeObject.getCode().equals(keyData)) {
+                codeObject.setChecked(true);
+            } else {
+                codeObject.setChecked(false);
+            }
+        }
+        log.error(locCodeList.toString());
+
+        data.put("locData", locCodeComponent.getCodeList("m002"));
+        data.put("abroadData", commonCodeComponent.getCodeList("m003q"));
+        return data;
+    }
+
+    @PostMapping("/data/locMiddle")
+    public Map<String, Object> getLocMiddle(@RequestBody Map param) {
+        Map<String, Object> data = new HashMap<>();
+        String keyData = String.valueOf(param.get("key"));
+        String locData = String.valueOf(param.get("middleKey"));
+        log.error("keyData=>{}", keyData);
+        log.error("locData=>{}", locData);
+
+        List<CodeObject.Code> locMiddleData = locCodeComponent.getCodeList("m003".concat(keyData));
+
+        for (CodeObject.Code code : locMiddleData) {
+            if (code.getCode().equals(keyData)) {
+                code.setChecked(true);
+            } else {
+                code.setChecked(false);
+            }
+        }
 
 
+
+        data.put("locMiddleData", locMiddleData);
+        return data;
+    }
 }

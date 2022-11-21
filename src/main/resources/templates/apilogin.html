@@ -8,7 +8,7 @@
 </head>
 <body>
 <form>
-  <div class="login_info">
+  <div class="login_info" id="loggw">
     <p class = "text">로그인</p>
     <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
     <p>아이디</p>
@@ -18,6 +18,9 @@
   </div>
   <button id="login">Log in</button>
   <br>
+  <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
+  <br>
+
   <!--    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>-->
   <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>
   <br>

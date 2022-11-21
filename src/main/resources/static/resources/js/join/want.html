@@ -7,7 +7,7 @@
 	<div class="pop_content">
 		<div class="hope_area_txt">선택지역에 결혼·재혼을 원하는 이성의 프로필이 등록되면 알림을 받으실 수 있습니다!</div>
 		<ul class="flex_container hope_list">
-			<li><a class="chk_area">전체</a></li>
+			<li><a class="chk_area select_all">전체</a></li>
 			{{each data.wishLoc}}
 			<li><a class="chk_area {{if $value.checked == true }}active{{/if}}" data-key="{{$value.code}}">{{$value.codeName}}</a></li>
 			{{/each}}
