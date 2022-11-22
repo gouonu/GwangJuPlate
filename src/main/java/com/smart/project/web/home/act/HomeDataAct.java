@@ -55,6 +55,16 @@ public class HomeDataAct {
         return data;
     }
 
+    @PostMapping("detailRes")
+    @ResponseBody
+    public void detailRes(@RequestBody String place){
+//        model.addAttribute("workplace", place);
+        ResVO r = test.detailRes(place);
+        log.error("{}",r);
+
+    }
+
+
 
 
 

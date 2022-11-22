@@ -24,16 +24,23 @@ export class List {
         }
 
         let resNum = getQueryParam("resNum").split(",");
-        // let title = getQueryParam("title");
-        // console.log("Title : ",title);
+        let title = decodeURIComponent(getQueryParam("title"));
+        console.log("Title : ",title);
         console.log(resNum);
         let listDetailTemplate = require('@/list/listCard.html');
+        let listTitleTemplate = '<h1>${title}</h1>';
 
         axios.post("/listDetail", resNum).then((result)=>{
-            console.log("result :: ", result);
+            // console.log("result :: ", result);
             $('.listCardAppend').empty();
             $('.listCardAppend').append(listDetailTemplate(result));
         });
+
+        $('.header_inner > div').empty();
+        $('.header_inner > div').append(listTitleTemplate);
+
+
+
 
 
     }

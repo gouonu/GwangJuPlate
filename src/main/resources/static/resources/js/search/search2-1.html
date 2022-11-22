@@ -1,8 +1,8 @@
 {{each data.r}}
 <li class="list_restaurant">
+  <a href="/detail?place={{$value.workplace}}">
   <div class="list_item">
     <div class="restaurant_image_wrapper">
-
     </div>
     <div class="restaurant_info">
       <p class="resTitle"><h5>{{$value.workplace}}</h5></p>
@@ -21,5 +21,6 @@
       </div>
     </div>
   </div>
+  </a>
 </li>
 {{/each}}
