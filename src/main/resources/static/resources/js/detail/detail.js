@@ -21,12 +21,10 @@ export class Detail {
             );
             return result ? result[3]:false;
         }
-        let place = decodeURIComponent(getQueryParam("place"));
-        // console.log(place);
+        let num = getQueryParam("num");
+        console.log("num :",num);
 
-
-        let workplace;
-        axios.post("detailRes", {"place":place}).then((res)=>{
+        axios.post("detailRes", {"num":num}).then((res)=>{
             // console.log(place);
             // console.log(res);
             console.log(res.data);

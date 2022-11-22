@@ -22,8 +22,8 @@
         select * from restaurant where num in (${resNumString});
     </select>
 
-    <select id="detailRestaurant" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
-        select * from restaurant where workplace=#{workplace};
+    <select id="detailRestaurant" resultType="com.smart.project.web.home.vo.ResVO" parameterType="int">
+        select * from restaurant where num=#{num};
     </select>
 
 
