@@ -13,6 +13,7 @@ export class Search {
     constructor() {
         console.log("Search");
         this.searchEvent();
+        this.pageEventBinding();
     }
 
     searchEvent() {
@@ -42,15 +43,37 @@ export class Search {
             //     });
             // });
 
-            // pagination
-
-
 
         });
 
+
+
     }
 
-    // 맛집 클릭해서 상세 페이지로 넘어가는 이벤트
+
+    pageEvent(){
+        console.log("페이지 이벤트");
+        let query = $('#query').text();
+        console.log(query)
+        let searchTemplate = require('@/search/search2-1.html');
+
+        axios.post('/searchInput/page',{"query":query}).then((data)=>{
+            console.log(data);
+            $('.list_restaurants_wrapper').empty();
+            $('.list_restaurants_wrapper').append(searchTemplate(data));
+
+        });
+    }
+
+
+    // test
+    pageEventBinding(){
+        $('.paging > li').on('click', ()=>{
+            this.pageEvent();
+        })
+    }
+
+
 
 
 

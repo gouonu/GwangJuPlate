@@ -38,6 +38,16 @@ public class HomePageAct {
         return data;
     }
 
+    @PostMapping ("/searchInput/page")
+    @ResponseBody
+    public Map getSearchPage(@RequestBody Map map) {
+        Map<String, Object> data = new HashMap<>();
+        String param = String.valueOf(map.get("query")); // 이부분 잘모름
+        List<ResVO> r = test.selectRes2(param);
+        data.put("r",r);
+        return data;
+    }
+
 
 
 

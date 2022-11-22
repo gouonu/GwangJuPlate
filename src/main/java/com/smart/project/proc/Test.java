@@ -22,7 +22,9 @@ public interface Test {
 	 **********************************************************************************************/
 //	List<TestVO> sqlMenu2(String userId);
 	List<ResVO> selectRes(String result);
+	List<ResVO> selectRes2(String result);
 	List<MainVO> mainList();
 //	void joinInsert(JoinVO joinVO);
+
 
 }
