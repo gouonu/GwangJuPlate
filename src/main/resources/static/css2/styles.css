@@ -3945,6 +3945,7 @@ textarea.form-control-lg {
 }
 
 .nav {
+  position: sticky;
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
