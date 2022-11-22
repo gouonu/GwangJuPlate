@@ -334,6 +334,7 @@ export class Join
 	eventBindgin(){
 
 
+
 		$('.slct_man').on('click', ()=>{
 			bridge.startWin('/');
 		});

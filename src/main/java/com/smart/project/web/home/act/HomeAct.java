@@ -27,6 +27,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+
 public class HomeAct {
 
 	@RequestMapping("/")
@@ -47,4 +48,6 @@ public class HomeAct {
 	public String login(){
 		return "apilogin";
 	}
+
+
 }

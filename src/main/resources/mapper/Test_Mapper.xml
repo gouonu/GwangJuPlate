@@ -14,12 +14,15 @@
     </foreach>
     </insert>
     <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.MemberVO">
-        insert into userRegister (userId, userPw, userPwchk, userName, userDate, userSex, userPhnum, userPolicy)
-        values(#{userId},#{userPw},#{userPwchk},#{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy});
+        insert into userRegister (userId, userPw, userPwchk, userName, userDate, userSex, userPhnum, userPolicy, userAuth, appendDate, updateDate)
+        values(#{userId},#{userPw},#{userPwchk},#{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy}, #{userAuth}, #{appendDate}, #{updateDate});
 
     </insert>
     <insert id="kakaoInsert">
         INSERT INTO kakao_table (USERID, USERPW, USERNAME, EMAIL, SNSID) VALUES
             (#{userid}, #{userpw}, #{userName}, #{email}, #{snsId})
     </insert>
+    <select id="getUserAccount" resultType="com.smart.project.web.home.vo.MemberVO">
+        select * FROM userRegister WHERE userId = #{userId}
+    </select>
 </mapper>

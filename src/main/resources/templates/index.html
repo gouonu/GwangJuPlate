@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html	lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head>
         <script src="../resources/vendors/polyfill.min.js"></script>
         <script src="../resources/vendors/jquery.min.js"></script>
@@ -7,13 +7,7 @@
         <script src="../resources/vendors/axios.min.js"></script>
         <script src="../resources/vendors/moment.min.js"></script>
         <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
-<!--        <link rel="stylesheet" type="text/css" href="css/m_yby_font.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/m_yby_default.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/m_yby_popup.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/mobile.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/m_yby_seem.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/m_yby_mainlist.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/portal/default.css">-->
+
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
         <meta charset="utf-8" />
@@ -107,14 +101,14 @@
             }
 
             #kakao {
-                width: 73%;
+                width: 74%;
                 position: absolute;
                 margin-top: 10px;
                 padding: 0;
                 height: 55px;
                 border: none;
                 background: none;
-                right: 55px;
+                right: 45px;
 
             }
 
@@ -122,7 +116,13 @@
 
             .naver-img{
                 position: relative;
-                left: 32px;
+                padding: 0;
+                height: 55px;
+                border: none;
+                background: none;
+
+                width: 84%;
+                left: 35px;
                 top: 48px;
             }
 
@@ -144,17 +144,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-<!--&lt;!&ndash;                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="nav-item dropdown">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">All Products</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><hr class="dropdown-divider" /></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+
                     </ul>
 
 
@@ -178,7 +168,7 @@
                             </div>
                         </div>
                         <div class="modal-footer d-grid gap-2 col-4 mx-auto">
-                            <button  type="button" class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#log1n" aria-label="Close">
+                            <button id = ddd type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
                                 로그인
                             </button>
                         </div>
@@ -192,17 +182,17 @@
                     <div class="modal-content">
 
 
-                            <form>
+                            <form th:action="@{/login_proc}" method="post">
                                 <div class="login_info" id="loggw">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     <p class = "text">로그인</p>
                                     <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
-                                    <p>아이디</p>
-                                    <input type="text" placeholder="아이디">
-                                    <p>비밀번호</p>
-                                    <input type="password" placeholder="비밀번호">
+                                    <p><label th:for="username">아이디</label></p>
+                                    <input  type="text" name = "username" class="form-control" placeholder="아이디">
+                                    <p><label th:for="password">비밀번호</label></p>
+                                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
                                 </div>
-                                <button id="login">Log in</button>
+                                <button type="submit" id="login">Log in</button>
                                 <br>
                                 <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
                                 <br>
@@ -224,6 +214,12 @@
             <a class="btn" data-bs-toggle="modal" href="#favorite" role="button">
                 <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
             </a>
+            <script>
+                $('#ddd').on('click',()=>{
+                    $('#favorite').modal('hide');
+                })
+
+            </script>
             <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
             <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
             <script>
@@ -279,42 +275,6 @@
 
             </script>
 
-
-
-<!--            <div class="modal">-->
-<!--                <div class="screen">-->
-<!--                    <div class="layerpop">-->
-<!--                        <p class="layerpop__container">-->
-<!--                            레이어팝업입니다.<br />-->
-<!--                            레이어팝업입니다.<br />-->
-<!--                            레이어팝업입니다.<br />-->
-<!--                            레이어팝업입니다.-->
-<!--                        </p>-->
-<!--                        <button type="button" value="close" class="btn modal&#45;&#45;close">Close</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="container">-->
-
-<!--                <button type="button" value="open" class="btn modal&#45;&#45;open">-->
-<!--                    <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;"></img>-->
-<!--                </button>-->
-<!--            </div>-->
-
-<!--            <script>-->
-<!--                $(document).ready(function(){-->
-<!--                    $modal = $(".modal");-->
-
-<!--                    $(".modal&#45;&#45;open").click(function(){-->
-<!--                        $modal.show();-->
-<!--                        return false;-->
-<!--                    });-->
-<!--                    $(".modal&#45;&#45;close").click(function(){-->
-<!--                        $modal.hide();-->
-<!--                    });-->
-<!--                });-->
-<!--            </script>-->
         </nav>
         <!-- Header-->
         <header class="bg-light py-5">
