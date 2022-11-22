@@ -14,8 +14,8 @@
     </foreach>
     </insert>
     <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.MemberVO">
-        insert into userRegister (userId, userPw, userPwchk, userName, userDate, userSex, userPhnum, userPolicy, userAuth, appendDate, updateDate)
-        values(#{userId},#{userPw},#{userPwchk},#{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy}, #{userAuth}, #{appendDate}, #{updateDate});
+        insert into userRegister (userId, userPw, userName, userDate, userSex, userPhnum, userPolicy, userAuth, appendDate, updateDate)
+        values(#{userId},#{userPw}, #{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy}, #{userAuth}, #{appendDate}, #{updateDate});
 
     </insert>
     <insert id="kakaoInsert">
