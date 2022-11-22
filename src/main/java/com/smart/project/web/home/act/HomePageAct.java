@@ -15,7 +15,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -119,12 +123,21 @@ public class HomePageAct {
          * @return
          */
         @GetMapping("/user_access")
-        public String userAccess(Model model, Authentication authentication) {
+        public String userAccess(Model model, Authentication authentication,HttpSession session) {
             //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
             MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
             model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
-            return "user_access";
+            session.setAttribute("userId",memberVO.getUserId());
+            return "redirect:/";
         }
+    }
+    @RequestMapping(value="logout.do", method= RequestMethod.GET)
+    public String logoutMainGET(HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:/";
+
     }
     }
 

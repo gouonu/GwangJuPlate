@@ -135,6 +135,9 @@
         </style>
     </head>
     <body>
+    <script>
+
+    </script>
 
 
     <!-- Navigation-->
@@ -168,9 +171,15 @@
                             </div>
                         </div>
                         <div class="modal-footer d-grid gap-2 col-4 mx-auto">
-                            <button id = ddd type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+
+                            <button th:if="${session.userId eq null}" id = ddd type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
                                 로그인
                             </button>
+                            <button th:if="${session.userId}" type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='logout.do'" >
+                                로그아웃
+                            </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
