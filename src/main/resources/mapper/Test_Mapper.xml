@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.project.proc.Test" >
-    <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">
-        SELECT * FROM test;
+<!--    <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">-->
+<!--        SELECT * FROM test;-->
+<!--    </select>-->
+
+<!--    <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.JoinVO">-->
+<!--        insert into join(userId, userPw, userName)-->
+<!--        values (#{userId},password(#{userPw}),#{userName});-->
+<!--    </insert>-->
+
+    <select id="selectRes" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
+        select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%');
     </select>
+
+    <select id="mainList" resultType="com.smart.project.web.home.vo.MainVO">
+        select * from resMainList;
+    </select>
+
+    <select id="ListDetailMatch" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
+        select * from restaurant where num in (${resNumString});
+    </select>
+
+    <select id="detailRestaurant" resultType="com.smart.project.web.home.vo.ResVO" parameterType="int">
+        select * from restaurant where num=#{num};
+    </select>
+
+
+
     <insert id="insertjson" parameterType="java.util.List" >
     insert into res_tb(num,tel,postcode,locaddr,roadaddr,road_post,workplace,state,coorx,coory) values
     <foreach collection="list" item="item" separator=",">

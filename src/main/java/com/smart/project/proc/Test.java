@@ -1,6 +1,10 @@
 package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
+import com.smart.project.common.vo.MenuVO;
+import com.smart.project.web.home.vo.JoinVO;
+import com.smart.project.web.home.vo.MainVO;
+import com.smart.project.web.home.vo.ResVO;
 import com.smart.project.web.home.vo.MemberVO;
 import com.smart.project.web.home.vo.TestVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +14,7 @@ import java.util.List;
 
 @Master
 @Component
-@Mapper
+//@Mapper // 주의
 public interface Test {
 	MemberVO getUserAccount(String userId);
 	/**********************************************************************************************
@@ -19,6 +23,14 @@ public interface Test {
 	 * @작성자 : 김남현
 	 * @변경이력 :
 	 **********************************************************************************************/
+//	List<TestVO> sqlMenu2(String userId);
+	List<ResVO> selectRes(String result);
+	List<MainVO> mainList();
+//	void joinInsert(JoinVO joinVO);
+
+	List<ResVO> ListDetailMatch(String resNumString);
+
+	ResVO detailRestaurant(int num);
 
 
 	List<TestVO> sqlMenu2(String userId);

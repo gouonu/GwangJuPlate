@@ -1,0 +1,43 @@
+<!-- items -->
+{{each data.list}}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <a href="#">
+      </a>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title"><a href="#">{{$value.workplace}} <!--({{$value.state}})--></a>
+          <span class="ratings">3.3</span>
+          <span>
+                                    <button class="btn_favorites">
+                                        <i class="fa-regular fa-star" id="empty_star"></i>
+                                      <!--                                        <i class="fa-solid fa-star hidden" id="fill_star" style="color:#ff792a"></i>-->
+                                        <div class="gagosipda">가고싶다</div>
+                                    </button>
+                                </span>
+        </h3>
+        <p class="card-text">{{$value.roadAddr}}</p>
+        <div class="card_text_wrap">
+          <p class="card-text">
+            <!-- 유저프로필 임시 -->
+            <i class="fa-solid fa-circle-user"></i>
+            <b class="mango_nickname">nickname</b>
+            <small class="text-muted short_review">
+              {{$value.workplace}}의 리뷰 내용
+            </small>
+            <button class="more_review">더보기</button>
+            <small class="text-muted long_review hidden">
+              {{$value.workplace}}의 리뷰 내용
+            </small>
+          </p>
+        </div>
+        <a href="#" class="visit_restaurant">
+          <div class="restaurant_name">{{$value.workplace}}<span class="more_view_restaurant">더보기 ></span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

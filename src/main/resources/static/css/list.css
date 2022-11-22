@@ -1,0 +1,186 @@
+@import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+.spoka * { font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; }
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+    word-wrap: break-word;
+}
+.hidden{
+    display: none;
+}
+.navbar{
+    width: 100%;
+    border-bottom: 1px solid #dbdbdb;
+    /* navbar 명암 */
+    box-shadow: 0 4px 11px rgb(0 0 0 / 10%);
+    position: sticky;
+    top: 0;
+}
+.header{
+    width: 100%;
+    height: 230px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #dbdbdb;
+}
+.header_inner{
+    text-align: center;
+    padding: 48px 30px 20px 30px;
+}
+.header_inner h1{
+    margin-bottom: 1.5%;
+}
+
+.card{
+    position: static;
+}
+.mb-3{
+    margin-bottom: 2rem !important; 
+}
+/* test */
+.card_text_wrap{
+    height: 115px;
+}
+.more_review{
+    border: 0;
+    outline: 0;
+    background-color: white;
+    font-size: small;
+    color: #ff792a;
+}
+.list_container{
+    width: auto;
+    height: auto;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding-top: 2%;
+}
+.inner_container{
+    margin: auto;
+}
+/* a태그 밑줄 제거 */
+.inner_container a{
+    text-decoration: none;
+}
+/* a태그 클릭시 바뀌는 색상 고정 */
+.inner_container a:visited{
+    color: black; text-decoration: none;
+}
+/* a태그 텍스트 색상 */
+.inner_container a:link{
+    color: black; text-decoration: none;
+}
+.ratings{
+    color: #ff792a;
+}
+.btn_favorites{
+    border: 0;
+    outline: 0;
+    background-color: white;
+    float: right;
+}
+.gagosipda{
+    font-size: 10px;
+}
+.mango_nickname{
+    font-size: large;
+}
+/*유저프로필 임시*/
+.fa-circle-user{
+    font-size: xx-large;
+}
+.btn_want{
+    border: 0;
+    outline: 0;
+}
+.visit_restaurant{
+    text-align: right;
+}
+.more_view_restaurant{
+    margin-left: 1%;
+}
+
+/* button */
+.more_view_wrapper{
+    height: 20%;
+    text-align: center;
+}
+    
+.btn_more_list{
+    border: 0;
+    outline: 0;
+    background-color: white;
+    color: #ff792a;
+    margin-bottom: 2rem;
+}
+.fa-chevron-down{
+    font-size: medium;
+}
+/* share */
+.share_restaurant_list{
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.btn_copy_link{
+    width: 40%;
+    height: 100%;
+    outline: 0;
+    border: 2px solid #ff792a;
+    border-radius: 20px;
+    background-color: white;
+    padding-left: 20px;
+    text-align: center;
+    padding-right: 20px;
+}
+.btn_share_twitter{
+    width: 50px;
+    height: 50px;
+    outline: 0;
+    border: 0;
+    background-color: white;
+    float: right;
+    margin-left: 2%;
+}
+.btn_share_twitter img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.btn_share_facebook{
+    width: 48px;
+    height: 48px;
+    outline: 0;
+    border: 0;
+    background-color: white;
+    float: right;
+}
+.btn_share_facebook img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.list_map_text{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #ff792a;
+}
+.list_map{
+    width: 100%;
+    height: auto;
+    border: 1px solid #dbdbdb;
+}
+
+/* footer */
+.footer{
+    width: 100%;
+    height: 300px;
+    background-color: #3e3e3e;
+    margin-top: 2rem;
+}

@@ -1,0 +1,26 @@
+{{each data.r}}
+<li class="list_restaurant">
+  <a href="/detail?num={{$value.num}}">
+  <div class="list_item">
+    <div class="restaurant_image_wrapper">
+    </div>
+    <div class="restaurant_info">
+      <p class="resTitle"><h5>{{$value.workplace}}</h5></p>
+      <div>
+        <small>
+          {{$value.locAddr}} ({{$value.state}})
+        </small>
+      </div>
+      <div>
+        <small>
+          <i class="fa-solid fa-eye"></i>
+          <small class="restaurant_views">조회수</small>
+          <i class="fa-solid fa-pencil"></i>
+          <small class="restaurant_reviews">리뷰 갯수</small>
+        </small>
+      </div>
+    </div>
+  </div>
+  </a>
+</li>
+{{/each}}

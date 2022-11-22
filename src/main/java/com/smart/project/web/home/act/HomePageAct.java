@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.ResVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -22,6 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Map;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -139,7 +148,33 @@ public class HomePageAct {
         return "redirect:/";
 
     }
+
+
+
+
+
+    @GetMapping("/searchInput")
+    public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
+        List<ResVO> r = test.selectRes(input);
+        model.addAttribute("res", r);
+        model.addAttribute("input", input);
+        return "search";
+    }
+
+    @PostMapping ("/searchInput")
+    @ResponseBody
+    public Map getSearch(@RequestBody Map map) {
+        Map<String, Object> data = new HashMap<>();
+        String param = String.valueOf(map.get("query")); // 이부분 잘모름
+        List<ResVO> r = test.selectRes(param);
+        data.put("r",r);
+        return data;
     }
 
 
 
+
+
+
+
+}
