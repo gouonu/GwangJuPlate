@@ -57,10 +57,16 @@ public class HomeDataAct {
 
     @PostMapping("detailRes")
     @ResponseBody
-    public void detailRes(@RequestBody String place){
+    public ResVO detailRes(Model model, @RequestBody Map map){
 //        model.addAttribute("workplace", place);
-        ResVO r = test.detailRes(place);
-        log.error("{}",r);
+        String workplace = String.valueOf(map.get("place"));
+        log.error("workplace :: {}",workplace);
+        ResVO res = test.detailRestaurant(workplace);
+        model.addAttribute("workplace", res.getWorkplace());
+//        ResVO t = (ResVO)model.getAttribute("vo");
+        log.error("ResVO :: {}",res);
+
+        return res;
 
     }
 

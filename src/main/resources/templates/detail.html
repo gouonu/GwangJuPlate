@@ -7,6 +7,7 @@
 <head>
     <script src="https://kit.fontawesome.com/a70f6f7fa0.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -65,9 +66,12 @@
 <section>
 
     <div class = "restaurant_title_wrap;">
+
         <!-- 가게이름-->
         <span class = "title">
-                <h1 class = "restaurant_name">{{$workplace}}
+                <h1 class = "restaurant_name">
+                    <div th:text="${workplace}"></div>
+
                     <!--평점-->
                     <strong class = "rate-point">
                     <span class="review">4.4</span>
@@ -103,59 +107,61 @@
                 <table  class = "table table-borderless">
                     <tr class = tu>
                         <th>주소</th>
-                        <td>서울특별시 강남구 논현로 161길 11
+                        <td>
+                            <div id="roadAddr"></div>
                             <br>
-                            <span class = addr id = "box-text">지번</span>
-                            <span class = addr_text style="color: #6c757d;">서울시 강남구 신사동 569-31</span></td>
+                                <span class = addr id = "box-text">지번</span>
+                                <span class = addr_text style="color: #6c757d;" id="locAddr"></span>
+                        </td>
                     </tr>
                     <tr>
                         <th>전화번호</th>
-                        <td>02-516-3643</td>
+                        <td id="tel"></td>
                     </tr>
                     <tr>
                         <th>음식종류</th>
-                        <td>카페/디저트</td>
+                        <td id="state"></td>
                     </tr>
-                    <tr>
-                        <th>가격대</th>
-                        <td>만원미만</td>
-                    </tr>
-                    <tr>
-                        <th>주차</th>
-                        <td>주차공간 없음</td>
-                    </tr>
-                    <tr>
-                        <th>영업시간</th>
-                        <td>00:00 - 24: 00</td>
-                    </tr>
-                    <tr>
-                        <th>메뉴</th>
-                        <td class="menu">흑임자 인절미 &emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td class="menu">흑임자 인절비&emsp;&emsp;&emsp;&emsp;&emsp;<span>17000원</span></td>
+<!--                    <tr>-->
+<!--                        <th>가격대</th>-->
+<!--                        <td>만원미만</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th>주차</th>-->
+<!--                        <td>주차공간 없음</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th>영업시간</th>-->
+<!--                        <td>00:00 - 24: 00</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th>메뉴</th>-->
+<!--                        <td class="menu">흑임자 인절미 &emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th></th>-->
+<!--                        <td class="menu">흑임자 인절비&emsp;&emsp;&emsp;&emsp;&emsp;<span>17000원</span></td>-->
 
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td class="menu">쑥송편&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th></th>-->
+<!--                        <td class="menu">쑥송편&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>-->
 
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td class="menu">쑥개떡&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th></th>-->
+<!--                        <td class="menu">쑥개떡&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>7000원</span></td>-->
 
-                    </tr>
-                    <tr >
-                        <th></th>
-                        <td class="menu">두텁떡&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>6000원</span></td>
-                    </tr>
+<!--                    </tr>-->
+<!--                    <tr >-->
+<!--                        <th></th>-->
+<!--                        <td class="menu">두텁떡&ensp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span>6000원</span></td>-->
+<!--                    </tr>-->
                     <th></th>
 
                     <tr class="un">
                         <th class="not">식당 소개</th>
-                        <td>흑임자 인절미가 유명한 떡집, 전국에서 오직 한 곳 운영, 유사 상호 주의</td>
+                        <td>식당 소개 입니다</td>
                     </tr>
 
                 </table>

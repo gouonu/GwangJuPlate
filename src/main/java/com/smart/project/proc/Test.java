@@ -27,5 +27,5 @@ public interface Test {
 
 	List<ResVO> ListDetailMatch(String resNumString);
 
-	ResVO detailRes(String workplace);
+	ResVO detailRestaurant(String workplace);
 }

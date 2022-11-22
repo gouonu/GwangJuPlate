@@ -22,12 +22,29 @@ export class Detail {
             return result ? result[3]:false;
         }
         let place = decodeURIComponent(getQueryParam("place"));
-        console.log(place);
+        // console.log(place);
 
-        // axios.post("detailRes", {place}).then(()=>{
-        //     console.log(place);
-        //
-        // })
+
+        let workplace;
+        axios.post("detailRes", {"place":place}).then((res)=>{
+            // console.log(place);
+            // console.log(res);
+            console.log(res.data);
+
+            $('.restaurant_name').text(res.data.workplace);
+            $('#roadAddr').text(res.data.roadAddr);
+            $('#locAddr').text(res.data.locAddr);
+            $('#tell').text( res.data.tel);
+            $('#state').text(res.data.state);
+        })
+
+        // $('.restaurant_name > div').empty();
+        // $('.restaurant_name > div').append("<div th:text='dkdk'></div>");
+
+
+
+
+
 
 
 
