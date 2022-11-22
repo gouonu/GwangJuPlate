@@ -38,52 +38,6 @@ import java.util.Map;
 public class HomePageAct {
     final private Test test;
 
-    // 잠깐 임시로 여기다가 회원가입
-
-//    @GetMapping(value = "/register")
-//    public String registerGet(MemberVO memberVO){
-//        return "/register";
-//    }
-//    @PostMapping(value = "/register")
-//    public String registerUser(@Valid MemberVO memberVO, Errors errors, Model model){
-//        if(errors.hasErrors()){
-//            // 실패시 입력 데이터 유지
-//            model.addAttribute("memberVO", memberVO);
-//
-//            /* 회원가입 실패시 message 값들을 모델에 매핑해서 View로 전달 */
-//            Map<String, String> validateMap = new HashMap<>();
-//
-//            for (FieldError error : errors.getFieldErrors()) {
-//                String validKeyName = "valid_" + error.getField();
-//                validateMap.put(validKeyName, error.getDefaultMessage());
-//            }
-//
-//            // map.keySet() -> 모든 key값을 갖고온다.
-//            // 그 갖고온 키로 반복문을 통해 키와 에러 메세지로 매핑
-//            for (String key : validateMap.keySet()) {
-//                model.addAttribute(key, validateMap.get(key));
-//            }
-//            memberVO.setUserAuth("User");
-//
-//            return "dddd/join";
-//        }
-//
-//        test.joinInsert(memberVO);
-//
-//        return "redirect:/";
-//    }
-//
-//    public Map<String, String> validateHandler(Errors errors) {
-//        Map<String, String> validateResult = new HashMap<>();
-//
-//        for (FieldError error : errors.getFieldErrors()) {
-//            String validKeyName = "valid_" + error.getField();
-//            validateResult.put(validKeyName, error.getDefaultMessage());
-//        }
-//
-//
-//        return validateResult;
-//    }
     @Controller
     @RequiredArgsConstructor
     public class UserController {
@@ -91,12 +45,13 @@ public class HomePageAct {
         private final MemberService memberService;
     @GetMapping("/register")
     public String signUpForm() {
-        return "register";
+
+        return "dddd/join";
     }
 
     /**
      * 회원가입 진행
-     * @param user
+     * @param
      * @return
      */
     @PostMapping("/register")
@@ -112,7 +67,7 @@ public class HomePageAct {
         @GetMapping("/login")
         public String login(){
 
-            return "login";
+            return "index";
         }
 
 
