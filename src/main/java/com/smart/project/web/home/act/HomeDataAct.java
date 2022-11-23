@@ -98,8 +98,8 @@ public class HomeDataAct {
     }
 
     @PostMapping("reviewInput")
-    @ResponseBody
-    public ReplyVO reviewInput(String reviewText,String userId, Integer num){
+//    @ResponseBody
+    public String reviewInput(String reviewText,String userId, Integer num){
 //        log.error("text :: {}", reviewText);
         String result = String.format("리뷰 내용 : %s  /  유저 아이디 : %s  /  음식점 번호 : %s",reviewText,userId,num);
 
@@ -108,12 +108,12 @@ public class HomeDataAct {
         rep.setReply(reviewText);
         rep.setBno(num);
         rep.setReplyUser(userId);
-        rep.setRno(1); // 수정해야함
+//        rep.setRno(1); // auto increment
         log.error("rep :: {}", rep);
         test.insertReview(rep);
 
-
-        return rep;
+//        String url = "redirect:/detail?num="+num;
+        return "redirect:/detail?num="+num;
     }
 
 

@@ -40,7 +40,7 @@ export class Detail {
         axios.post("viewReply", {"bno":num}).then((rep)=>{
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
-            console.log(rep.data);
+            console.log("리뷰 :",rep.data);
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
