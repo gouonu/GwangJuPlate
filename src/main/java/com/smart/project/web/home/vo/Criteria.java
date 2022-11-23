@@ -3,7 +3,7 @@ package com.smart.project.web.home.vo;
 import lombok.Data;
 
 @Data
-public class TestVO {
+public class Criteria {
 	private String result;
 	private int startPage;
 	private int perPage;
@@ -15,7 +15,7 @@ public class TestVO {
 		return (this.startPage -1) * perPage;
 	}
 
-	public TestVO() {
+	public Criteria() {
 		// 기본 생성자 : 최초 게시판에 진입시 필요한 기본값
 		this.startPage = 0;
 		this.perPage = 10;
@@ -27,7 +27,7 @@ public class TestVO {
 	}
 
 	public void setStartPage(int startPage) {
-		if(startPage <= 0) {
+		if(startPage < 0) {
 			this.startPage = 1;
 
 		} else {
