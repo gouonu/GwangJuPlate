@@ -82,6 +82,37 @@ public class HomeDataAct {
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
         log.error("bno :: {}",bno);
         List<ReplyVO> rep = test.viewReply(bno);
+
+
+        return rep;
+    }
+
+    @PostMapping("detailCount")
+    @ResponseBody
+    public int detailCount(@RequestBody Map map){
+        int bno = Integer.valueOf(String.valueOf(map.get("bno")));
+        log.error("bno :: {}",bno);
+        int count = test.countReview(bno);
+        log.error("리뷰 수 :: {}", count);
+        return count;
+    }
+
+    @PostMapping("reviewInput")
+    @ResponseBody
+    public ReplyVO reviewInput(String reviewText,String userId, Integer num){
+//        log.error("text :: {}", reviewText);
+        String result = String.format("리뷰 내용 : %s  /  유저 아이디 : %s  /  음식점 번호 : %s",reviewText,userId,num);
+
+        ReplyVO rep = new ReplyVO();
+
+        rep.setReply(reviewText);
+        rep.setBno(num);
+        rep.setReplyUser(userId);
+        rep.setRno(1); // 수정해야함
+        log.error("rep :: {}", rep);
+        test.insertReview(rep);
+
+
         return rep;
     }
 

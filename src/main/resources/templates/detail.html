@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>광주 플레이트</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -40,24 +40,22 @@
         <!-- 가게이름-->
         <span class = "title">
                 <h1 class = "restaurant_name">
-                    <div th:text="${workplace}"></div>
-
+<!--                    <div th:text="${workplace}"></div>-->
+                        <span id="workplace"> </span>
+                        <span class="review">4.4</span>
                     <!--평점-->
-                    <strong class = "rate-point">
-                    <span class="review">4.4</span>
-                </strong>
-                     <button class="btn btn-penstar" onclick="location.href='review.html' ">
-                    <i class="fa-solid fa-pen icon icon--review "></i>
-
-                </button>
-
-                <button class="btn btn-penstar">
-                    <i class="fa-regular fa-star icon icon--star"></i>
 
 
-                </button>
+<!--                     <button class="btn btn-penstar" onclick="location.href='review.html' ">-->
+<!--                    <i class="fa-solid fa-pen icon icon&#45;&#45;review "></i>-->
+
+<!--                </button>-->
+
+<!--                <button class="btn btn-penstar">-->
+<!--                    <i class="fa-regular fa-star icon icon&#45;&#45;star"></i>-->
+<!--                </button>-->
                     <!--즐겨찾기 클릭 시 아이콘 변경-->
-                 <button class="btn btn-outline-dark" hidden>
+                 <button class="btn btn-outline-dark" style="margin-left: 20%;">
                      <i class="fa-solid fa-star"></i>
                     가고싶다
                 </button>
@@ -69,7 +67,7 @@
 
             <div id="iclass">
             <i class="fa-solid fa-eye">조회수&nbsp&nbsp</i>
-            <i class="fa-solid fa-pen">리뷰수&nbsp&nbsp</i>
+            <i class="fa-solid fa-pen reviewCount"></i>
             <i class="fa-regular fa-star">즐겨찾기수</i>
             </div>
             <br>
@@ -103,7 +101,7 @@
                 <!--리뷰 작성-->
                 <div class="card mb-2" style="width:500px; ">
                     <div class="card-header bg-light">
-                        <i class="fa fa-comment fa"></i> 리뷰
+                        <i class="fa fa-comment fa"></i> 리뷰를 작성해주세요
                     </div>
                     <div class="card-body" style="width:500px; ">
                         <ul class="list-group list-group-flush">
@@ -115,8 +113,14 @@
 <!--                                                                <label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>-->
 <!--                                                                <input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">-->
                                                             </div>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
-                                <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();" style="margin-right: 50%;">리뷰 작성</button>
+                                <form action="reviewInput" method="post">
+                                    <input id="userId" name="userId" type="hidden" value="testID"></input>
+                                    <input id="num" name="num" type="hidden"></input>
+                                    <textarea class="form-control" name="reviewText" id="reviewText" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+                                    <button type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰 작성</button>
+
+                                </form>
+
 
                             </li>
                         </ul>
@@ -126,23 +130,14 @@
                 <div class="card mb-2" style="width:500px; ">
                     <div class="card-header bg-light">
 <!--                        <i class="fa fa-comment fa"></i>-->
-                        리뷰 (33)
+                        리뷰 (
+                        <span class="reviewCount"></span>
+                        )
                     </div>
                     <!--이곳에 작성된 리뷰 추가-->
                     <div id="reviewAdd">
-
-
-
-
-
-
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
 

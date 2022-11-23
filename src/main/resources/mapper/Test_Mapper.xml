@@ -30,6 +30,22 @@
         select * from replyTB where bno=#{bno};
     </select>
 
+    <select id="countReview" resultType="int" parameterType="int">
+        select count(*) from replyTB where bno=#{bno};
+    </select>
+
+    <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
+        insert into replyTB(rno, bno, reply, replyUser)
+        values(#{rno}, #{bno}, #{reply}, #{replyUser});
+    </insert>
+
+    <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
+        update replyTB set reply=#{reply} where reply=#{reply} and rno=#{rno} and bno=#{bno};
+    </update>
+
+    <update id="deleteReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
+        update replyTB set delete=1 where reply=#{reply} and rno=#{rno} and bno=#{bno};
+    </update>
 
 
 </mapper>

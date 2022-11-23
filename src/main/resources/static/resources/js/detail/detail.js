@@ -28,11 +28,12 @@ export class Detail {
         axios.post("detailRes", {"num":num}).then((res)=>{
             // console.log(place);
             // console.log(res.data);
-            $('.restaurant_name').text(res.data.workplace);
+            $('#workplace').text(res.data.workplace);
             $('#roadAddr').text(res.data.roadAddr);
             $('#locAddr').text(res.data.locAddr);
             $('#tel').text(res.data.tel===null?"X":res.data.tel);
             $('#state').text(res.data.state);
+            $('#num').val(res.data.num);
         })
 
         let detailTemplate = require('@/detail/detailCard.html');
@@ -40,6 +41,12 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             console.log(rep.data);
+        })
+
+        axios.post("detailCount", {"bno":num}).then((count)=>{
+            count = count.data;
+            console.log("리뷰 수 :",count);
+            $('.reviewCount').text(count);
         })
 
     }

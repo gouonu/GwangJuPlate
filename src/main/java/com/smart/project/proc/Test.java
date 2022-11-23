@@ -27,4 +27,8 @@ public interface Test {
 	ResVO detailRestaurant(int num);
 
 	List<ReplyVO> viewReply(int bno);
+
+	void insertReview(ReplyVO r);
+
+	int countReview(int bno);
 }
