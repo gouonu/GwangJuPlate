@@ -6,6 +6,7 @@ import com.smart.project.web.home.vo.JoinVO;
 import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ResVO;
 import com.smart.project.web.home.vo.TestVO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,8 @@ public interface Test {
 	 * @변경이력 :
 	 **********************************************************************************************/
 //	List<TestVO> sqlMenu2(String userId);
-	List<ResVO> selectRes(String result);
+	List<ResVO> selectRes(String input);
+	List<ResVO> selectRes2(TestVO testVO);
 	int selectTotalCnt(String result);
 	List<MainVO> mainList();
 //	void joinInsert(JoinVO joinVO);

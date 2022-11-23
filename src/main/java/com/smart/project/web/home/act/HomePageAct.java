@@ -3,6 +3,7 @@ package com.smart.project.web.home.act;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ResVO;
+import com.smart.project.web.home.vo.TestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,19 @@ public class HomePageAct {
 
     @PostMapping ("/searchInput")
     @ResponseBody
-    public Map getSearch(@RequestBody Map map) {
+    public Map getSearch(@ModelAttribute TestVO testVO) {
         Map<String, Object> data = new HashMap<>();
-        String param = String.valueOf(map.get("query")); // 이부분 잘모름
-        List<ResVO> r = test.selectRes(param);
+        
+        log.error("시작/개수{}", testVO);
+        
+        int start = testVO.getPageStart();
+        testVO.setStartPage(start);
+        log.error("변경값{}", testVO);
+        
+        List<ResVO> r = test.selectRes2(testVO);
+        log.error("정보", r);
+
+
         data.put("r",r);
         return data;
     }
