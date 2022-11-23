@@ -2,10 +2,7 @@ package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
 import com.smart.project.common.vo.MenuVO;
-import com.smart.project.web.home.vo.JoinVO;
-import com.smart.project.web.home.vo.MainVO;
-import com.smart.project.web.home.vo.ResVO;
-import com.smart.project.web.home.vo.TestVO;
+import com.smart.project.web.home.vo.*;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
@@ -28,4 +25,6 @@ public interface Test {
 	List<ResVO> ListDetailMatch(String resNumString);
 
 	ResVO detailRestaurant(int num);
+
+	List<ReplyVO> viewReply(int bno);
 }

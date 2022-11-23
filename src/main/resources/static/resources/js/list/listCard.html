@@ -1,6 +1,7 @@
 <!-- items -->
 {{each data.list}}
 <div class="card mb-3">
+
   <div class="row g-0">
     <div class="col-md-4">
       <a href="#">
@@ -8,8 +9,8 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h3 class="card-title"><a href="#">{{$value.workplace}} <!--({{$value.state}})--></a>
-          <span class="ratings">3.3</span>
+        <h3 class="card-title"><a href="/detail?num={{$value.num}}">{{$value.workplace}} <!--({{$value.state}})--></a>
+<!--          <span class="ratings">3.3</span>-->
           <span>
                                     <button class="btn_favorites">
                                         <i class="fa-regular fa-star" id="empty_star"></i>
@@ -33,11 +34,12 @@
             </small>
           </p>
         </div>
-        <a href="#" class="visit_restaurant">
+        <a href="/detail?num={{$value.num}}" class="visit_restaurant">
           <div class="restaurant_name">{{$value.workplace}}<span class="more_view_restaurant">더보기 ></span></div>
         </a>
       </div>
     </div>
   </div>
+
 </div>
 {{/each}}

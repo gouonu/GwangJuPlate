@@ -1,6 +1,8 @@
 "use strict";
 
 
+import detailTemplate from "@/detail/detailCard.html";
+
 $(()=>{
     new Detail();
 })
@@ -10,7 +12,6 @@ export class Detail {
     constructor() {
         console.log("Detail");
         this.detailEvent();
-
     }
 
     detailEvent(){
@@ -26,27 +27,23 @@ export class Detail {
 
         axios.post("detailRes", {"num":num}).then((res)=>{
             // console.log(place);
-            // console.log(res);
-            console.log(res.data);
-
+            // console.log(res.data);
             $('.restaurant_name').text(res.data.workplace);
             $('#roadAddr').text(res.data.roadAddr);
             $('#locAddr').text(res.data.locAddr);
-            $('#tell').text( res.data.tel);
+            $('#tel').text(res.data.tel===null?"X":res.data.tel);
             $('#state').text(res.data.state);
         })
 
-        // $('.restaurant_name > div').empty();
-        // $('.restaurant_name > div').append("<div th:text='dkdk'></div>");
-
-
-
-
-
-
-
+        let detailTemplate = require('@/detail/detailCard.html');
+        axios.post("viewReply", {"bno":num}).then((rep)=>{
+            $("#reviewAdd").empty();
+            $("#reviewAdd").append(detailTemplate(rep));
+            console.log(rep.data);
+        })
 
     }
+
 
 
 }

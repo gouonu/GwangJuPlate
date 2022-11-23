@@ -4,6 +4,7 @@ import com.mysql.cj.MysqlxSession;
 import com.mysql.cj.Session;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.MainVO;
+import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +74,15 @@ public class HomeDataAct {
 
         return res;
 
+    }
+
+    @PostMapping("viewReply")
+    @ResponseBody
+    public List<ReplyVO> viewReply(@RequestBody Map map){
+        int bno = Integer.valueOf(String.valueOf(map.get("bno")));
+        log.error("bno :: {}",bno);
+        List<ReplyVO> rep = test.viewReply(bno);
+        return rep;
     }
 
 

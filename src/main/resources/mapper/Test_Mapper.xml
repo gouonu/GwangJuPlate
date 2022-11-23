@@ -26,6 +26,10 @@
         select * from restaurant where num=#{num};
     </select>
 
+    <select id="viewReply" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
+        select * from replyTB where bno=#{bno};
+    </select>
+
 
 
 </mapper>

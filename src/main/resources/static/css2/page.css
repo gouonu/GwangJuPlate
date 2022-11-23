@@ -156,6 +156,7 @@ hr{
 
 .restaurant_name{
     font-size:x-large;
+    padding-bottom : 10px;
 }
 
 .restaurant_action_button_wrap{
