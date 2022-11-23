@@ -101,7 +101,7 @@ public class HomeDataAct {
 //    @ResponseBody
     public String reviewInput(String reviewText,String userId, Integer num){
 //        log.error("text :: {}", reviewText);
-        String result = String.format("리뷰 내용 : %s  /  유저 아이디 : %s  /  음식점 번호 : %s",reviewText,userId,num);
+//        String result = String.format("리뷰 내용 : %s  /  유저 아이디 : %s  /  음식점 번호 : %s",reviewText,userId,num);
 
         ReplyVO rep = new ReplyVO();
 
@@ -114,6 +114,22 @@ public class HomeDataAct {
 
 //        String url = "redirect:/detail?num="+num;
         return "redirect:/detail?num="+num;
+    }
+
+    @PostMapping("deleteReview")
+//    @ResponseBody
+    public String deleteReview(Integer rno, Integer bno){
+//        log.error("rno :: {}", rno);
+//        log.error("bno :: {}", bno);
+        Map<String, Object> map = new HashMap();
+        // Integer가 아니라 Object로 했더니 됨
+        // Object가 최상위 클래스임..!!
+        map.put("rno",rno);
+        map.put("bno",bno);
+        log.error("map :: {}", map);
+
+        test.deleteReview(map);
+        return "redirect:/detail?num="+bno;
     }
 
 

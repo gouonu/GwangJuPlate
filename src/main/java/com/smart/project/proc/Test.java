@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Master
 @Component
@@ -31,4 +32,6 @@ public interface Test {
 	void insertReview(ReplyVO r);
 
 	int countReview(int bno);
+
+	void deleteReview(Map map);
 }

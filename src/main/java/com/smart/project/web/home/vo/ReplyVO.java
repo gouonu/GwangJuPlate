@@ -14,5 +14,5 @@ public class ReplyVO {
     private String replyUser; // 댓글 작성자
     private Date replyDate; // 작성 날짜
     private Date updateDate; // 업데이트 날짜(수정, 삭제)
-    private boolean delete; // 삭제됐는지
+    private boolean replyDel; // 삭제됐는지
 }

@@ -27,11 +27,11 @@
     </select>
 
     <select id="viewReply" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
-        select * from replyTB where bno=#{bno};
+        select * from replyTB where bno=#{bno} and replyDel=0;
     </select>
 
     <select id="countReview" resultType="int" parameterType="int">
-        select count(*) from replyTB where bno=#{bno};
+        select count(*) from replyTB where bno=#{bno} and replyDel=0;
     </select>
 
     <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
@@ -43,8 +43,8 @@
         update replyTB set reply=#{reply} where reply=#{reply} and rno=#{rno} and bno=#{bno};
     </update>
 
-    <update id="deleteReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        update replyTB set delete=1 where reply=#{reply} and rno=#{rno} and bno=#{bno};
+    <update id="deleteReview" parameterType="Map">
+        update replyTB set replyDel=1 where rno=#{rno} and bno=#{bno};
     </update>
 
 
