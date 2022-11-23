@@ -47,14 +47,9 @@
 
           </ul>
           <!--test-->
-          <ul class="paging" style="display: flex">
-            <li style="margin-right: 30px"><a>1</a></li>
-            <li style="margin-right: 30px"><a>2</a></li>
-            <li style="margin-right: 30px"><a>3</a></li>
-            <li style="margin-right: 30px"><a>4</a></li>
-            <li style="margin-right: 30px"><a>5</a></li>
+          <ul class="paging">
+            <p id="stCnt" th:text="${selectTotalCnt}" hidden></p>
           </ul>
-
         </div>
       </div>
       <div class="column_side">
@@ -73,29 +68,6 @@
     </div>
   </footer>
 </div>
-
-<!--script-->
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="../src/jquery.paginate.js"></script>
-
-<script>
-  //call paginate
-  $('#example').paginate();
-</script>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 </body>
 <section layout:fragment="contentScriptFragment">
   <script type="module" th:src="${@versionComponent.getVersion('/resources/build/search.bundle.js')}"></script>
