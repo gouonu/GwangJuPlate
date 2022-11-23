@@ -41,6 +41,7 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             console.log("리뷰 :",rep.data);
+            this.reviewEvent();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -48,6 +49,26 @@ export class Detail {
             console.log("리뷰 수 :",count);
             $('.reviewCount').text(count);
         })
+    }
+
+
+
+    reviewEvent(){
+
+        $('.updateButton').on("click", (e)=>{
+            // console.log("수정");
+            $(".updateReview").removeClass("hidden");
+            $(".reviewHeader").addClass("hidden");
+            $(".reviewButton").addClass("hidden");
+        })
+
+        $(".rollbackButton").on("click", (e)=>{
+            // console.log("수정 취소");
+            $(".updateReview").addClass("hidden");
+            $(".reviewHeader").removeClass("hidden");
+            $(".reviewButton").removeClass("hidden");
+        })
+
 
     }
 
