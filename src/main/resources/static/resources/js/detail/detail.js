@@ -66,17 +66,18 @@ export class Detail {
 
         $('.updateButton').on("click", (e)=>{
             // console.log("수정");
-            // console.log($(e.currentTarget).parents(".card-body").eq(0).children(".updateReview"));
-            $(e.currentTarget).parents(".card-body").eq(0).children(".updateReview").removeClass("hidden");
-            $(e.currentTarget).parents(".card-body").eq(0).children(".reviewHeader").addClass("hidden");
-            $(e.currentTarget).parents(".card-body").eq(0).children(".reviewButton").addClass("hidden");
+            let $e = $(e.currentTarget).parents(".card-body").eq(0);
+            $e.children(".updateReview").removeClass("hidden");
+            $e.children(".reviewHeader").addClass("hidden");
+            $e.children(".reviewButton").addClass("hidden");
         })
 
         $(".rollbackButton").on("click", (e)=>{
             // console.log("수정 취소");
-            $(e.currentTarget).parents(".card-body").eq(0).children(".updateReview").addClass("hidden");
-            $(e.currentTarget).parents(".card-body").eq(0).children(".reviewHeader").removeClass("hidden");
-            $(e.currentTarget).parents(".card-body").eq(0).children(".reviewButton").removeClass("hidden");
+            let $e = $(e.currentTarget).parents(".card-body").eq(0);
+            $e.children(".updateReview").addClass("hidden");
+            $e.children(".reviewHeader").removeClass("hidden");
+            $e.eq(0).children(".reviewButton").removeClass("hidden");
         })
 
 

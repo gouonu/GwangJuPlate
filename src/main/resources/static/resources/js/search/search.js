@@ -13,7 +13,6 @@ export class Search {
     constructor() {
         console.log("Search");
         this.searchEvent();
-        this.searchDetailEvent();
     }
 
     searchEvent() {
@@ -28,17 +27,6 @@ export class Search {
             $('.list_restaurants_wrapper').append(searchTemplate(data));
 
         });
-    }
-
-    // 맛집 클릭해서 상세 페이지로 넘어가는 이벤트
-    searchDetailEvent(){
-
-        // $('.list_item').on("click", (e)=>{
-        //     let resInfo = $(e.currentTarget);
-        //     console.log(resInfo);
-        //     console.log("클릭");
-        // })
-
     }
 
 

@@ -1,8 +1,6 @@
 "use strict";
 
 
-import listDetailTemplate from "@/list/listCard.html";
-
 $(()=>{
     new List();
 })
@@ -25,17 +23,10 @@ export class List {
             return result ? result[3]:false;
         }
 
-        // let resNum = getQueryParam("resNum").split(",");
         let index = getQueryParam("index");
-        // let title = decodeURIComponent(getQueryParam("title"));
-        // console.log("Title :",title);
-        console.log("index :", index);
-
-        // console.log("resNum :",resNum);
+        // console.log("index :", index);
         let listDetailTemplate = require('@/list/listCard.html');
 
-        // let title="";
-        // let resNum="";
 
         axios.post("selectList", {"index":index}).then((m)=>{
             let title = m.data.title;
@@ -66,22 +57,6 @@ export class List {
         axios.post("listViewsUp", {"index":index}).then(()=>{
             // console.log("조회수 up");
         })
-
-        // axios.post("/listDetail", resNum).then((result)=>{
-        //     // console.log("result :: ", result);
-        //     $('.listCardAppend').empty();
-        //     $('.listCardAppend').append(listDetailTemplate(result));
-        // });
-
-
-
-
-
-
-
-
-
-
     }
 
 
