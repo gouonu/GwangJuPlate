@@ -9,8 +9,10 @@ $(()=>{
 export class Main {
 
     constructor() {
-        console.log("Main");
+        console.log("aaa");
         this.mainListEvent();
+
+
     }
 
     mainListEvent() {
@@ -21,4 +23,6 @@ export class Main {
             $('.popular_top_list_wrap > div > div').append(listTemplate(data));
         });
     }
+
+
 }

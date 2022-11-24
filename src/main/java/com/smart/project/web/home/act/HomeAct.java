@@ -13,6 +13,7 @@ public class HomeAct {
 
 	@RequestMapping("/")
 	public String index(){
+
 		return "index";
 	}
 

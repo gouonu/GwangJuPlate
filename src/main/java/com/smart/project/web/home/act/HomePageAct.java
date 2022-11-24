@@ -87,20 +87,22 @@ public class HomePageAct {
          * @return
          */
         @GetMapping("/user_access")
-        public String userAccess(Model model, Authentication authentication,HttpSession session) {
+        public String userAccess(Model model, Authentication authentication,HttpSession session,HttpServletRequest request) {
             //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
             MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
-            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
+//            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
             session.setAttribute("userId",memberVO.getUserId());
-            return "redirect:/";
+
+            return "redirect:" + request.getHeader("Referer");
         }
     }
     @RequestMapping(value="logout.do", method= RequestMethod.GET)
-    public String logoutMainGET(HttpServletRequest request) throws Exception{
+    public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return "redirect:/";
+
+        return "redirect:" + request.getHeader("Referer");
 
     }
 

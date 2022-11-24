@@ -21,10 +21,251 @@
     <link href="/css2/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css2/page.css">
 
+    <style>
 
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+
+        #log11n{
+
+            margin:auto;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* border: 1px solid #000; */
+            width : 400px;
+            height: 650px;
+            padding: 25px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+
+
+        }
+
+        .text{
+            text-align: center;
+            font-size: x-large;
+            font-weight: bold
+        }
+
+        input {
+
+            width : 100%;
+            box-sizing: border-box;
+            padding: 15px;
+            padding-left: 30px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.233);
+            margin-top:-10px;
+
+        }
+        input:hover{
+            border: 1px solid dodgerblue;
+            box-shadow: 0 0 5px dodgerblue;
+        }
+        input:focus::placeholder{
+            color:transparent;
+        }
+        #login {
+            width:84%;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: orange;
+            border : none;
+            color : #fff;
+            margin-top: 25px;
+            margin-left: 35px;
+
+
+        }
+        #register {
+            width:84%;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #a1a1a1;
+            border : none;
+            color : #fff;
+            margin-top: 25px;
+            margin-left: 35px;
+
+
+        }
+
+        #kakao {
+            width: 74%;
+            position: absolute;
+            margin-top: 10px;
+            padding: 0;
+            height: 55px;
+            border: none;
+            background: none;
+            right: 45px;
+
+        }
+
+
+
+        .naver-img{
+            position: relative;
+            padding: 0;
+            height: 55px;
+            border: none;
+            background: none;
+
+            width: 84%;
+            left: 35px;
+            top: 48px;
+        }
+
+        button:hover{
+
+            cursor: pointer;
+            background-color: #2c778e;
+
+        }
+        .recent{
+            border:none;
+        }
+        .want{
+            border: none;
+        }
+
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">광주 플레이트</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                </ul>
+
+
+
+            </div>
+        </div>
+        <div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
+                        <button type="button" id = "recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집</button>
+                        <!--                            <button type="button" id = "want" class="btn btn-light btn-outline-secondary btn-lg want">가고싶다.</button>-->
+                        <button th:if="${session.userId eq null}" id = "ddd1" type="button" class="btn btn-light btn-outline-secondary btn-lg want" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+                            가고 싶다
+                        </button>
+                        <button th:if="${session.userId}" id = "want" type="button" class="btn btn-light btn-outline-secondary btn-lg want">
+                            가고 싶다
+                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--                        가고싶다.-->
+                    <div class = "modal-body" id = "Recon">
+                        <div class="card">
+                            가고싶다 누르면 이게 안떠야 됨 ㅇㅇ
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "modal-body visually-hidden" id = "wantEat">
+                        <div class="card">
+                            가고싶다 이거 맞음 ㅇㅇ
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="modal-footer d-grid gap-2 col-4 mx-auto">
+
+                        <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+                            로그인
+                        </button>
+                        <button th:if="${session.userId}" type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='logout.do'" >
+                            로그아웃
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!--            로그인 모달-->
+
+        <div class="modal fade" id="log1n" aria-hidden="true" aria-labelledby="log1n" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+
+                    <form id="log11n" th:action="@{/login_proc}" method="post">
+                        <div class="login_info" id="loggw">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <p class = "text">로그인</p>
+                            <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
+                            <p><label th:for="username">아이디</label></p>
+                            <input  type="text" name = "username" class="form-control" placeholder="아이디">
+                            <p><label th:for="password">비밀번호</label></p>
+                            <input type="password" name="password" class="form-control" placeholder="비밀번호">
+                        </div>
+                        <button type="submit" id="login">Log in</button>
+                        <br>
+                        <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
+                        <br>
+                        <!--    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>-->
+                        <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>
+                        <br>
+
+                        <!--    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>-->
+                        <a id="naverIdLogin_loginButton" href="javascript:void(0)">
+                            <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">
+                        </a>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <a class="btn" data-bs-toggle="modal" href="#favorite" role="button">
+            <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
+        </a>
+        <script>
+            $('#ddd').on('click',()=>{
+                $('#favorite').modal('hide');
+            })
+            $('#ddd1').on('click',()=>{
+                $('#favorite').modal('hide');
+            })
+            $('#want').on('click',()=>{
+                $('#Recon').addClass('visually-hidden');
+                $('#wantEat').removeClass('visually-hidden');
+            })
+            $('#recent').on('click',()=>{
+                $('#wantEat').addClass('visually-hidden');
+                $('#Recon').removeClass('visually-hidden');
+            })
+
+
+        </script>
+
+
+    </nav>
 
 <header class="grid-image">
 <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
@@ -115,7 +356,8 @@
 <!--                                                                <label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>-->
 <!--                                                                <input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">-->
                                                             </div>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+                                <textarea th:if = "${session.userId}" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+                                <textarea th:if = "${session.userId eq null}" class="form-control" id="alertText" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!" onclick="alert('로그인을 하셔야만 리뷰를 쓸 수 있습니다!')"></textarea>
                                 <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();" style="margin-right: 50%;">리뷰 작성</button>
 
                             </li>
