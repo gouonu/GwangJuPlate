@@ -39,8 +39,8 @@
         values(#{rno}, #{bno}, #{reply}, #{replyUser});
     </insert>
 
-    <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        update replyTB set reply=#{reply} where reply=#{reply} and rno=#{rno} and bno=#{bno};
+    <update id="updateReview" parameterType="Map">
+        update replyTB set reply=#{updateText} where rno=#{rno} and bno=#{bno};
     </update>
 
     <update id="deleteReview" parameterType="Map">

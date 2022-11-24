@@ -132,6 +132,18 @@ public class HomeDataAct {
         return "redirect:/detail?num="+bno;
     }
 
+    @PostMapping("updateReview")
+    public String updateReview(String updateText, int rno, int bno){
+        Map<String, Object> map = new HashMap<>();
+        map.put("updateText",updateText);
+        map.put("rno",rno);
+        map.put("bno",bno);
+        log.error("map :: {}", map);
+        test.updateReview(map);
+
+        return "redirect:/detail?num="+bno;
+    }
+
 
 
 

@@ -34,4 +34,6 @@ public interface Test {
 	int countReview(int bno);
 
 	void deleteReview(Map map);
+
+	void updateReview(Map map);
 }

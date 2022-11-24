@@ -11,8 +11,10 @@
             </div>
         </div>
         <div class="updateReview hidden">
-            <form action="" method="">
+            <form action="updateReview" method="post">
                 <textarea class="form-control" name="updateText" id="updateText" rows="3"></textarea>
+                <input type="hidden" name="rno" value="{{$value.rno}}"/>
+                <input type="hidden" name="bno" value="{{$value.bno}}"/>
                 <button type="submit" class="btn btn-dark mt-3">수정 완료</button>
                 <button type="button" class="btn btn-outline-dark mt-3 rollbackButton">수정 취소</button>
             </form>
@@ -21,8 +23,8 @@
             <form action="deleteReview" method="post">
                 <button  type="button" class="btn btn-light mt-3 updateButton" style="margin-left: 75%">수정</button>
                 <button type="submit" class="btn btn-light mt-3">삭제</button>
-                <input type="hidden" name="rno" id="rno" value="{{$value.rno}}"/>
-                <input type="hidden" name="bno" id="bno" value="{{$value.bno}}"/>
+                <input type="hidden" name="rno" value="{{$value.rno}}"/>
+                <input type="hidden" name="bno" value="{{$value.bno}}"/>
             </form>
         </div>
     </div>
