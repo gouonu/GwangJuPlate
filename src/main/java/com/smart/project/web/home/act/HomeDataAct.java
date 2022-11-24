@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
@@ -58,7 +60,7 @@ public class HomeDataAct {
 
     @PostMapping("detailRes")
     @ResponseBody
-    public ResVO detailRes(@RequestBody Map map){
+    public ResVO detailRes(@RequestBody Map map, HttpServletRequest request,HttpSession session){
 ////        model.addAttribute("workplace", place);
 //        String workplace = String.valueOf(map.get("place"));
 //        log.error("workplace :: {}",workplace);
@@ -71,6 +73,12 @@ public class HomeDataAct {
         log.error("workplace :: {}",num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}",res);
+//        String worAddr = res.getWorkplace();
+//        session.setAttribute(worAddr,res.getWorkplace());
+
+
+
+
 
         return res;
 
