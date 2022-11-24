@@ -30,7 +30,13 @@ public class HomePageAct {
 
         int selectTotalCnt = test.selectTotalCnt(input);
         log.error("가져온 정보의 총 개수 {}",selectTotalCnt);
+
+        int endPageNum = (int)Math.ceil((double)selectTotalCnt/10);
+        log.error("페이지 끝번호 {}", endPageNum);
+
         model.addAttribute("selectTotalCnt", selectTotalCnt);
+        model.addAttribute("endPageNum", endPageNum);
+
 
         return "search2";
     }
