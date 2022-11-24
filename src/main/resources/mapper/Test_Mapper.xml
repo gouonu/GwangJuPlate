@@ -47,5 +47,12 @@
         update replyTB set replyDel=1 where rno=#{rno} and bno=#{bno};
     </update>
 
+    <select id="selectList" parameterType="int" resultType="com.smart.project.web.home.vo.MainVO">
+        select * from resMainList where listIndex=#{index};
+    </select>
+
+    <update id="listViewsUp" parameterType="int">
+        update resMainList set listViews=listViews+1 where listIndex=#{index};
+    </update>
 
 </mapper>

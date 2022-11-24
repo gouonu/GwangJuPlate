@@ -1,6 +1,6 @@
 {{each data.list}}
 <div class="col mb-5">
-    <a id="resNum" href="/list?title={{$value.title}}&resNum={{$value.resNum}}" style="color:black; text-decoration: none;">
+    <a id="resNum" href="/list?index={{$value.listIndex}}" style="color:black; text-decoration: none;">
     <div class="card h-100">
         <img class="card-img-top" src="/main_image/{{$value.image}}" alt="..." />
         <div class="card-body p-4">
@@ -10,7 +10,7 @@
                 <p name="cardContext" id="cardContext">{{$value.context}}</p>
             </div>
         </div>
-            <div class="index hidden">{{$value.index}}</div>
+            <div class="index hidden">{{$value.listIndex}}</div>
 <!--            <div class="resNum hidden">{{$value.resNum}}</div>-->
     </div>
     </a>

@@ -9,7 +9,7 @@ public class MainVO {
     private String title;
     private String context;
     private String resNum;
-    private int index;
+    private int listIndex;
     private String image;
     private int listViews; // 조회수
     private Date listDate; // 게시 날짜

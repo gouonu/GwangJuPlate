@@ -46,9 +46,9 @@ public class HomeDataAct {
             resNumString += r + ",";
         }
         resNumString=resNumString.substring(0, resNumString.length() - 1);
-        log.error("resNumString :: {}", resNumString);
+//        log.error("resNumString :: {}", resNumString);
         List<ResVO> result = test.ListDetailMatch(resNumString);
-        log.error("result :: {}", result);
+//        log.error("result :: {}", result);
         data.put("list", result);
 //        log.error("result :: {}", result);
 //        log.error("{}", data);
@@ -82,8 +82,6 @@ public class HomeDataAct {
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
         log.error("bno :: {}",bno);
         List<ReplyVO> rep = test.viewReply(bno);
-
-
         return rep;
     }
 
@@ -142,6 +140,23 @@ public class HomeDataAct {
         test.updateReview(map);
 
         return "redirect:/detail?num="+bno;
+    }
+
+    @PostMapping("selectList")
+    @ResponseBody
+    public MainVO selectList(@RequestBody Map map){
+        int index = Integer.valueOf(String.valueOf(map.get("index")));
+//        log.error("index : {}",index);
+        MainVO m = test.selectList(index);
+        return m;
+    }
+
+    @PostMapping("listViewsUp")
+    @ResponseBody
+    public void listViewsUp(@RequestBody Map map){
+        int index = Integer.valueOf(String.valueOf(map.get("index")));
+        log.error("index : {}",index);
+        test.listViewsUp(index);
     }
 
 
