@@ -16,4 +16,5 @@ public class ResVO {
     private String state;
     private double X;
     private double Y;
+    private int resViews; // 상세 페이지 조회수
 }

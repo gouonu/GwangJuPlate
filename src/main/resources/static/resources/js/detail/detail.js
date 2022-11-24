@@ -34,6 +34,12 @@ export class Detail {
             $('#tel').text(res.data.tel===null?"X":res.data.tel);
             $('#state').text(res.data.state);
             $('#num').val(res.data.num);
+
+            axios.post("detailViewsUp", {"num":num}).then(()=>{
+                console.log("조회수");
+                $('.resViews').text(res.data.resViews);
+            })
+
         })
 
         let detailTemplate = require('@/detail/detailCard.html');
@@ -49,6 +55,9 @@ export class Detail {
             console.log("리뷰 수 :",count);
             $('.reviewCount').text(count);
         })
+
+
+
     }
 
 

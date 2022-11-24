@@ -155,8 +155,16 @@ public class HomeDataAct {
     @ResponseBody
     public void listViewsUp(@RequestBody Map map){
         int index = Integer.valueOf(String.valueOf(map.get("index")));
-        log.error("index : {}",index);
+//        log.error("index : {}",index);
         test.listViewsUp(index);
+    }
+
+    @PostMapping("detailViewsUp")
+    @ResponseBody
+    public void detailViewsUp(@RequestBody Map map){
+        int num = Integer.valueOf(String.valueOf(map.get("num")));
+//        log.error("num : {}",num);
+        test.detailViewsUp(num);
     }
 
 

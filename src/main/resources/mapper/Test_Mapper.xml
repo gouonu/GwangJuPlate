@@ -55,4 +55,9 @@
         update resMainList set listViews=listViews+1 where listIndex=#{index};
     </update>
 
+    <update id="detailViewsUp" parameterType="int">
+        update restaurant set resViews=resViews+1 where num=#{num};
+    </update>
+
+
 </mapper>

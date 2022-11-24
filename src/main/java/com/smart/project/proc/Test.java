@@ -40,4 +40,6 @@ public interface Test {
 	MainVO selectList(int index);
 
 	void listViewsUp(int index);
+
+	void detailViewsUp(int num);
 }
