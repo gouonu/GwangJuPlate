@@ -15,32 +15,8 @@
 </head>
 <body id="bootstrap-overrides">
 <div layout:fragment="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/">광주 플레이트</a>
-            <div style="display: inline-block; text-align: center;">
-                <form action="/searchInput" method="get">
-                    <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
-                    <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식"
-                           style="width: 300px; height: 33px;">
-                    <!--        <button type="submit" id="searchButton" style="width:180px; height: 50px; background-color: white;">검  색</button>-->
-                </form>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                </ul>
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit" disabled="disabled">
-                        <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation-->
+    <th:block th:replace="fragments/navSearch.html"></th:block>
     <!-- list -->
     <main>
         <article class="all_container">
@@ -63,12 +39,6 @@
             </div>
         </article>
     </main>
-    <!-- footer -->
-    <footer class="footer">
-        <div>
-            <h1></h1>
-        </div>
-    </footer>
 </div>
 </body>
 <section layout:fragment="contentScriptFragment">

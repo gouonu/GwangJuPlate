@@ -36,7 +36,7 @@ export class Detail {
             $('#num').val(res.data.num);
 
             axios.post("detailViewsUp", {"num":num}).then(()=>{
-                console.log("조회수");
+                // console.log("조회수");
                 $('.resViews').text(res.data.resViews);
             })
 
@@ -46,14 +46,15 @@ export class Detail {
         axios.post("viewReply", {"bno":num}).then((rep)=>{
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
-            console.log("리뷰 :",rep.data);
+            // console.log("리뷰 :",rep.data);
             this.reviewEvent();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
             count = count.data;
-            console.log("리뷰 수 :",count);
-            $('.reviewCount').text(count);
+            // console.log("리뷰 수 :",count);
+            $('.reviewCount').text("리뷰 ("+count+")");
+            $('.reviewCountNum').text(count);
         })
 
 
@@ -77,7 +78,7 @@ export class Detail {
             let $e = $(e.currentTarget).parents(".card-body").eq(0);
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
-            $e.eq(0).children(".reviewButton").removeClass("hidden");
+            $e.children(".reviewButton").removeClass("hidden");
         })
 
 

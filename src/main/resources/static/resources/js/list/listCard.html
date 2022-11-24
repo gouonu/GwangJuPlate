@@ -1,7 +1,5 @@
-<!-- items -->
 {{each data.list}}
 <div class="card mb-3">
-
   <div class="row g-0">
     <div class="col-md-4">
       <a href="#">
@@ -23,8 +21,10 @@
         <div class="card_text_wrap">
           <p class="card-text">
             <!-- 유저프로필 임시 -->
-            <i class="fa-solid fa-circle-user"></i>
-            <b class="mango_nickname">nickname</b>
+            <div>
+              <i class="fa-solid fa-circle-user"></i>
+              <b class="mango_nickname">nickname</b>
+            </div>
             <small class="text-muted short_review">
               {{$value.workplace}}의 리뷰 내용
             </small>
