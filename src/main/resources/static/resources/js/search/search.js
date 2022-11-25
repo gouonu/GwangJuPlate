@@ -11,6 +11,7 @@ export class Search {
 
         this.searchEvent();
         this.pagination();
+        this.paginationBtn();
     }
 
     searchEvent() {
@@ -54,7 +55,6 @@ export class Search {
             // });
 
 
-
     }
 
     pagination(){
@@ -91,8 +91,19 @@ export class Search {
             });
         });
 
+
     }
 
+    paginationBtn(){
+        $('.paginationUl > li').on('click', (e)=> {
+            if ($('.paginationUl > li').hasClass('active')) {
+                $('.paginationUl > li').removeClass('active');
+                $(e.currentTarget).addClass('active');
+            } else {
+                $(e.currentTarget).addClass('active');
+            }
+        });
+    }
 
 
 }
