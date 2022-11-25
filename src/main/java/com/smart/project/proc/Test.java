@@ -1,15 +1,14 @@
 package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
-import com.smart.project.common.vo.MenuVO;
-import com.smart.project.web.home.vo.JoinVO;
+import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.MainVO;
+import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
-import com.smart.project.web.home.vo.TestVO;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Master
 @Component

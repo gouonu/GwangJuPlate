@@ -18,22 +18,22 @@ export class Search {
     }
 
     searchEvent() {
-        // console.log("검색 이벤트");
-        let query = $('#query').text();
-        console.log("검색어 : ", query);
+        console.log("검색 이벤트");
+        let result = $('#query').text();
+        console.log("검색어 : ", result);
         let searchTemplate = require('@/search/search2-1.html');
 
         let startPage = 1;
         let perPage = 20;
         let object = {
-            "query" : query,
+            "result" : result,
             "startPage": startPage,
             "perPage" : perPage
         }
 
         axios({
             method:"post",
-            url:"/searchInput",
+            url:"/searchInputPaging",
             params : object
 
         }).then((data)=>{
@@ -106,7 +106,7 @@ export class Search {
             let currentPage = $(e.currentTarget).text();
 
             console.log(currentPage);
-            console.log("검색 이벤트");
+            console.log("페이징 이벤트");
             let result = $('#query').text();
             //
             let startPage = currentPage;
@@ -120,7 +120,7 @@ export class Search {
             }
             axios({
                 method:"post",
-                url:"/searchInput",
+                url:"/searchInputPaging",
                 params : object
 
             }).then((data)=>{

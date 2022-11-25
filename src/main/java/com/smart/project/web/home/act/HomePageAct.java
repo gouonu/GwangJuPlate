@@ -1,6 +1,8 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.Criteria;
+import com.smart.project.web.home.vo.Paging;
 import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +22,28 @@ public class HomePageAct {
 
     final private Test test;
 
+    @GetMapping(value = {"/searchInput", "searchInputPaging"})
+    public String getSearch(Model model, @RequestParam(value="searchInput") String input, Criteria cri) {
 
-    @GetMapping("/searchInput")
-    public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
         List<ResVO> r = test.selectRes(input);
         model.addAttribute("res", r);
         model.addAttribute("input", input);
+
+        int selectTotalCnt = test.selectTotalCnt(input);
+        log.error("가져온 정보의 총 개수 {}",selectTotalCnt);
+
+        Paging paging = new Paging();
+        paging.setCri(cri);
+        paging.setTotalCount(selectTotalCnt);
+        log.error("시작페이지 {}", paging.getStartPageNum());
+        log.error("끝 페이지 {}", paging.getEndPageNum());
+
+        model.addAttribute("paging", paging);
+
+        model.addAttribute("selectTotalCnt", selectTotalCnt);
+
         return "search";
     }
-
 
     @PostMapping("reviewInput")
     public String reviewInput(String reviewText,String userId, Integer num){

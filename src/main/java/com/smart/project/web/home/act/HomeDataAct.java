@@ -1,6 +1,7 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
@@ -9,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,7 +21,23 @@ public class HomeDataAct {
 
     final private Test test;
 
+    @PostMapping (value = {"/searchInput", "/searchInputPaging"})
+    public Map getSearch2(@ModelAttribute Criteria cri) {
+        Map<String, Object> data = new HashMap<>();
 
+        log.error("시작/개수{}", cri);
+
+        int start = cri.getPageStart();
+        cri.setStartPage(start);
+        log.error("변경값{}", cri);
+
+        List<ResVO> r = test.selectRes2(cri);
+        log.error("정보", r);
+
+
+        data.put("r",r);
+        return data;
+    }
 
     @PostMapping("/mainList")
     public Map<String, Object> getMainList(){
@@ -28,7 +47,6 @@ public class HomeDataAct {
         log.error("{}", data);
         return data;
     }
-
 
     @PostMapping("/listDetail")
     public Map<String, Object> listDetail(@RequestBody String[] resNum) {
