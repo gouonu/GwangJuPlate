@@ -34,7 +34,15 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
+<style>
+table{
+    width: 100%;
+    height: 70%;
+}
+th,td{
+    font-size: 1.2em;
+}
+</style>
     </head>
     <body>
     <div layout:fragment="content">
@@ -72,6 +80,28 @@
 
                                     <div class="card-body">
 
+                                        <table th:if="${session.userId}">
+                                            <tr>
+                                                <th>사용자 아이디  </th>
+                                                <td><a th:text="${session.userId}"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용자 이름 </th>
+                                                <td><a th:text="${session.userName}"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용자 핸드폰 번호 </th>
+                                                <td><a th:text="${session.userPhnum}"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용자 등급  </th>
+                                                <td><a th:text="${session.userAuth}"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용자 가입일  </th>
+                                                <td><a th:text="${session.d456}" href="detail" th:href="'detail?num=' + ${session.wno}"></a></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -92,8 +122,11 @@
                                 <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
                                     로그인
                                 </button>
-                                <button th:if="${session.userId}" type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='logout.do'" >
+                                <button th:if="${session.userId}" type="button" class="btn btn-outline-danger" onclick="location.href='logout.do'" >
                                     로그아웃
+                                </button>
+                                <button th:if="${session.userId}" type="button" class="btn btn-outline-primary" data-bs-target="#update" data-bs-toggle="modal" >
+                                    회원 정보 수정
                                 </button>
                             </div>
 
@@ -122,15 +155,38 @@
                                 <br>
                                 <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
                                 <br>
-                                <!--    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>-->
-                                <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>
+<!--                                &lt;!&ndash;    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>&ndash;&gt;-->
+<!--                                <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>-->
+<!--                                <br>-->
+
+<!--                                &lt;!&ndash;    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>&ndash;&gt;-->
+<!--                                <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
+<!--                                    <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">-->
+<!--                                </a>-->
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+<!--                회원 정보 수정 모달-->
+                <div class="modal fade" id="update" aria-hidden="true" aria-labelledby="updateLabell" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+
+                            <form id="updateUser" th:action="@{/login_proc}" method="post">
+                                <div class="login_info" id="updateinfo">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <p class = "text">회원정보 수정</p>
+
+                                    <p><label th:for="username">아이디</label></p>
+                                    <input  type="text" name = "username" class="form-control" placeholder="아이디">
+                                    <p><label th:for="password">비밀번호</label></p>
+                                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
+                                </div>
+                                <button type="submit" id="updateGo">수정</button>
                                 <br>
-
-                                <!--    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>-->
-                                <a id="naverIdLogin_loginButton" href="javascript:void(0)">
-                                    <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">
-                                </a>
-
                             </form>
                         </div>
 

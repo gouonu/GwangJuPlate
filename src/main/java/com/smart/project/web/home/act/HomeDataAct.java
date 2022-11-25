@@ -73,6 +73,8 @@ public class HomeDataAct {
         log.error("workplace :: {}",num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}",res);
+        session.setAttribute("d456",res.getWorkplace());
+        session.setAttribute("wno",res.getNum());
 //        String worAddr = res.getWorkplace();
 //        session.setAttribute(worAddr,res.getWorkplace());
 

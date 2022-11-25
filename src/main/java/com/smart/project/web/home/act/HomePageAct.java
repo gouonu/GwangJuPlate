@@ -6,6 +6,7 @@ import com.smart.project.web.home.vo.MemberVO;
 import com.smart.project.web.home.vo.TestVO;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import com.smart.project.proc.Test;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.ui.Model;
@@ -32,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomePageAct {
@@ -87,15 +89,21 @@ public class HomePageAct {
          * @return
          */
         @GetMapping("/user_access")
-        public String userAccess(Model model, Authentication authentication,HttpSession session,HttpServletRequest request) {
+        public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
             //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
             MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
             session.setAttribute("userId",memberVO.getUserId());
-
+            session.setAttribute("userName",memberVO.getUserName());
+            session.setAttribute("userSex",memberVO.getUserSex());
+            session.setAttribute("userPhnum",memberVO.getUserPhnum());
+            session.setAttribute("userAuth",memberVO.getUserAuth());
+            session.setAttribute("appendDate",memberVO.getAppendDate());
+            
             return "redirect:" + request.getHeader("Referer");
         }
     }
+
     @RequestMapping(value="logout.do", method= RequestMethod.GET)
     public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
         HttpSession session = request.getSession();
