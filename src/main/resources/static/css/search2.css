@@ -37,13 +37,13 @@ a:link{
 }
 .column_wrapper{
     width: calc(100% - 400px);
+    background-color: #fff;
 }
 .column_contents{
     margin: 0 auto;
     min-height: 1550px;
     min-width: 800px;
     width: 66.667%;
-    background-color: #fff;
     /* border: 1px solid black; */
     position: relative;
 }
@@ -82,14 +82,14 @@ a:link{
 .restaurant_views{
     margin-right: 10px;
 }
-.cou
-
-    /* kakao map */
+/* kakao map */
 .list_map{
     width: 100%;
     height: auto;
     border: 1px solid #dbdbdb;
 }
+/* pagination */
+
 /* footer */
 .footer{
     width: 100%;

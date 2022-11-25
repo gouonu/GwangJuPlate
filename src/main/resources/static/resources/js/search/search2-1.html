@@ -1,26 +1,26 @@
 {{each data.r}}
 <li class="list_restaurant">
-  <a class="{{$value.num}}" href="/detail?num={{$value.num}}">
-  <div class="list_item">
-    <div class="restaurant_image_wrapper">
-    </div>
-    <div class="restaurant_info">
-      <p class="resTitle"><h5>{{$value.workplace}}</h5></p>
-      <div>
-        <small>
-          {{$value.locAddr}} ({{$value.state}})
-        </small>
-      </div>
-      <div>
-        <small>
-          <i class="fa-solid fa-eye"></i>
-          <small class="restaurant_views">{{$value.resViews}}</small>
-          <i class="fa-solid fa-pencil"></i>
-          <small class="restaurant_reviews"></small>
-        </small>
-      </div>
-    </div>
-  </div>
-  </a>
+    <a class="{{$value.num}}" href="/detail?num={{$value.num}}">
+        <div class="list_item">
+            <div class="restaurant_image_wrapper">
+            </div>
+            <div class="restaurant_info">
+                <p class="resTitle"><h5>{{$value.workplace}}</h5></p>
+                <div>
+                    <small>
+                        {{$value.locAddr}} ({{$value.state}})
+                    </small>
+                </div>
+                <div>
+                    <small>
+                        <i class="fa-solid fa-eye"></i>
+                        <small class="restaurant_views">{{$value.resViews}}</small>
+                        <i class="fa-solid fa-pencil"></i>
+                        <small class="restaurant_reviews"></small>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
 {{/each}}
