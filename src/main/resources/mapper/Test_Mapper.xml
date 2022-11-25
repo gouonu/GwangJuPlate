@@ -12,13 +12,15 @@
 
     <select id="selectRes" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
         select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%')
-        limit 10;
     </select>
 
-<!--    test-->
-    <select id="selectRes2" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
+    <select id="selectRes2" resultType="com.smart.project.web.home.vo.ResVO" parameterType="com.smart.project.web.home.vo.Criteria">
         select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%')
-        limit 11, 10;
+        limit #{startPage}, #{perPage};
+    </select>
+
+    <select id="selectTotalCnt" resultType="int">
+        select count(*) from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%');
     </select>
 
     <select id="mainList" resultType="com.smart.project.web.home.vo.MainVO">

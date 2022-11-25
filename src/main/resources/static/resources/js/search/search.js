@@ -37,22 +37,52 @@ export class Search {
             $('.list_restaurants_wrapper').empty();
             $('.list_restaurants_wrapper').append(searchTemplate(data));
 
-            var map = new naver.maps.Map('map', {
-                center: new naver.maps.LatLng(37.3595704, 127.105399),
-                zoom: 10
-            });
-        });
+            // map
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
 
-            // _.forEach(data.data.r, (obj)=> {
-            //     let latitude = obj.x;
-            //     let longitude = obj.y;
-            //     console.log(latitude);
-            //     console.log(longitude);
-            //     var marker = new naver.maps.Marker({
-            //         position: new naver.maps.LatLng(latitude, longitude),
-            //         map: map
-            //     });
-            // });
+            // 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+
+            _.forEach(data.data.r, (obj)=> {
+                let roadAddr = obj.roadAddr;
+                let workplace = obj.workplace;
+                // 주소로 좌표를 검색합니다
+                geocoder.addressSearch(roadAddr, function(result, status) {
+
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === kakao.maps.services.Status.OK) {
+
+                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+workplace+'</div>'
+                        });
+                        infowindow.open(map, marker);
+
+                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        map.setCenter(coords);
+                    }
+                });
+            });
+
+
+        }); // then
+
+
 
 
     }
@@ -84,10 +114,51 @@ export class Search {
                 $('.list_restaurants_wrapper').empty();
                 $('.list_restaurants_wrapper').append(searchTemplate(data));
 
-                // var map = new naver.maps.Map('map', {
-                //     center: new naver.maps.LatLng(37.3595704, 127.105399),
-                //     zoom: 10
-                // });
+                // map
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도 제거
+                $('#div').removeClass();
+
+                // 지도를 생성합니다
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 주소-좌표 변환 객체를 생성합니다
+                var geocoder = new kakao.maps.services.Geocoder();
+
+
+                _.forEach(data.data.r, (obj)=> {
+                    let roadAddr = obj.roadAddr;
+                    let workplace = obj.workplace;
+                    // 주소로 좌표를 검색합니다
+                    geocoder.addressSearch(roadAddr, function(result, status) {
+
+                        // 정상적으로 검색이 완료됐으면
+                        if (status === kakao.maps.services.Status.OK) {
+
+                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                            // 결과값으로 받은 위치를 마커로 표시합니다
+                            var marker = new kakao.maps.Marker({
+                                map: map,
+                                position: coords
+                            });
+
+                            var infowindow = new kakao.maps.InfoWindow({
+                                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+workplace+'</div>'
+                            });
+                            infowindow.open(map, marker);
+
+                            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                            map.setCenter(coords);
+                        }
+                    });
+                });
+
             });
         });
 
@@ -95,6 +166,8 @@ export class Search {
     }
 
     paginationBtn(){
+        $('.paginationUl > li:first').addClass('active');
+
         $('.paginationUl > li').on('click', (e)=> {
             if ($('.paginationUl > li').hasClass('active')) {
                 $('.paginationUl > li').removeClass('active');
