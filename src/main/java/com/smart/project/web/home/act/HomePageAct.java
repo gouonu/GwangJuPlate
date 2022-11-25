@@ -1,6 +1,7 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.Paging;
 import com.smart.project.web.home.vo.ResVO;
 import com.smart.project.web.home.vo.Criteria;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class HomePageAct {
 
 
     @GetMapping("/searchInput")
-    public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
+    public String getSearch(Model model, @RequestParam(value="searchInput") String input, Criteria cri) {
 
         List<ResVO> r = test.selectRes(input);
         model.addAttribute("res", r);
@@ -31,12 +32,15 @@ public class HomePageAct {
         int selectTotalCnt = test.selectTotalCnt(input);
         log.error("가져온 정보의 총 개수 {}",selectTotalCnt);
 
-        int endPageNum = (int)Math.ceil((double)selectTotalCnt/10);
-        log.error("페이지 끝번호 {}", endPageNum);
+        Paging paging = new Paging();
+        paging.setCri(cri);
+        paging.setTotalCount(selectTotalCnt);
+        log.error("시작페이지 {}", paging.getStartPageNum());
+        log.error("끝 페이지 {}", paging.getEndPageNum());
+
+        model.addAttribute("paging", paging);
 
         model.addAttribute("selectTotalCnt", selectTotalCnt);
-        model.addAttribute("endPageNum", endPageNum);
-
 
         return "search2";
     }
@@ -45,7 +49,7 @@ public class HomePageAct {
     @ResponseBody
     public Map getSearch(@ModelAttribute Criteria cri) {
         Map<String, Object> data = new HashMap<>();
-        
+
         log.error("시작/개수{}", cri);
         
         int start = cri.getPageStart();

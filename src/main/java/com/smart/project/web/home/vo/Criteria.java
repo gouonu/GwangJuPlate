@@ -17,7 +17,7 @@ public class Criteria {
 
 	public Criteria() {
 		// 기본 생성자 : 최초 게시판에 진입시 필요한 기본값
-		this.startPage = 0;
+		this.startPage = 1;
 		this.perPage = 10;
 	}
 
@@ -35,13 +35,7 @@ public class Criteria {
 		}
 	}
 
-
-	// 페이지당 보여줄 게시글의 개수 perPage : getter, setter
-	public int getperPage() {
-		return perPage;
-	}
-
-	public void setperPage(int perPage) {
+	public void setPerPage(int perPage) {
 		int cnt = this.perPage;
 
 		if(perPage != cnt) {

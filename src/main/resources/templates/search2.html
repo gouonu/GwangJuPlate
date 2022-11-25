@@ -48,7 +48,15 @@
           </ul>
           <!--test-->
           <p class="selectTotalCnt" th:text="${selectTotalCnt}" hidden></p>
+          <p class="selectTotalCnt" th:text="${paging.startPageNum}" hidden></p>
+          <p class="selectTotalCnt" th:text="${paging.endPageNum}" hidden></p>
           <ul class="paginationUl" style="display: flex">
+            <li style="margin-right: 25px" th:if="${paging.prev}"><a href="#">이전</a></li>
+            <th:block th:each="num : ${#numbers.sequence(paging.startPageNum, paging.endPageNum)}">
+              <li style="margin-right: 25px"><a href="#" th:text="${num}"></a></li>
+            </th:block>
+            <li th:if="${paging.next}"><a href="#">다음</a></li>
+
           </ul>
         </div>
       </div>
