@@ -33,10 +33,7 @@ export class Search {
                     // console.log($("."+value.num));
                     $("."+value.num).children().children(".restaurant_info").children("div").eq(1).children().children(".restaurant_reviews").text(count);
                 })
-
             });
-
-
         });
 
 
