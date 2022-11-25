@@ -60,7 +60,7 @@
     </update>
 
     <select id="selectResReview" parameterType="int" resultType="com.smart.project.web.home.vo.ReplyVO">
-        select * from replyTB where bno=#{num} and replyDel=0;
+        select * from replyTB where bno=#{num} and replyDel=0 limit 1;
     </select>
 
 
