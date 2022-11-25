@@ -103,6 +103,9 @@ export class Search {
 
     pagination(){
         $('.paginationUl > li').on('click', (e)=>{
+            // 지도 제거
+            $('#map').remove();
+
             let currentPage = $(e.currentTarget).text();
 
             console.log(currentPage);
@@ -127,6 +130,8 @@ export class Search {
                 console.log(data);
                 $('.list_restaurants_wrapper').empty();
                 $('.list_restaurants_wrapper').append(searchTemplate(data));
+                // 지도 다시 넣기
+                $('.list_map').append('<div id="map" style="width:400px;height:500px;"></div>');
 
                 // map
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -135,8 +140,6 @@ export class Search {
                         level: 8 // 지도의 확대 레벨
                     };
 
-                // 지도 제거
-                $('#div').removeClass();
 
                 // 지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
