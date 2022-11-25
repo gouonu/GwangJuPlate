@@ -107,6 +107,14 @@ public class HomeDataAct {
         test.detailViewsUp(num);
     }
 
+    @PostMapping("selectResReview")
+    public ReplyVO selectResReview(@RequestBody Map map){
+        int num = Integer.valueOf(String.valueOf(map.get("num")));
+//        log.error("num : {}",num);
+        ReplyVO r = test.selectResReview(num);
+        return r;
+    }
+
 
 
 

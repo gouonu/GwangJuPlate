@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="col-md-8">
-      <div class="card-body">
+      <div class="card-body {{$value.num}}">
         <h3 class="card-title"><a href="/detail?num={{$value.num}}">{{$value.workplace}} <!--({{$value.state}})--></a>
 <!--          <span class="ratings">3.3</span>-->
           <span>
@@ -23,12 +23,10 @@
             <!-- 유저프로필 임시 -->
             <div>
               <i class="fa-solid fa-circle-user"></i>
-              <b class="mango_nickname">nickname</b>
+              <b class="mango_nickname"></b>
             </div>
             <small class="text-muted short_review">
-              {{$value.workplace}}의 리뷰 내용
             </small>
-            <button class="more_review">더보기</button>
             <small class="text-muted long_review hidden">
               {{$value.workplace}}의 리뷰 내용
             </small>

@@ -50,20 +50,27 @@ export class List {
                 // console.log("result :: ", result);
                 $('.listCardAppend').empty();
                 $('.listCardAppend').append(listDetailTemplate(result));
+
+                for(let i=0; i<resNum.length; i++){
+                    axios.post("selectResReview", {"num":Number(resNum[i])}).then((r)=>{
+                        let n = Number(resNum[i]);
+                        // console.log(r.data.replyUser);
+                        // console.log(r.data.reply);
+                        let $n = $("."+n).children("div");
+                        $n.children("div").children(".mango_nickname").text(r.data.replyUser==null?" ":r.data.replyUser);
+                        $n.children(".short_review").text(r.data.reply==null?"아직 리뷰가 없습니다.":r.data.reply);
+                    })
+                }
             });
 
-            // resNum.forEach(r=>{
-            //     console.log(Number(r));
-            //     // axios.post("selectResReview", {"num":Number(r)}).then((vo)=>{
-            //     //     console.log(vo);
-            //     // })
-            // })
+
 
         })
 
         axios.post("listViewsUp", {"index":index}).then(()=>{
             // console.log("조회수 up");
         })
+
     }
 
 
