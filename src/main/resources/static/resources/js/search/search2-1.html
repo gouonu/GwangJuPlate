@@ -1,6 +1,6 @@
 {{each data.r}}
 <li class="list_restaurant">
-  <a href="/detail?num={{$value.num}}">
+  <a class="{{$value.num}}" href="/detail?num={{$value.num}}">
   <div class="list_item">
     <div class="restaurant_image_wrapper">
     </div>
@@ -16,7 +16,7 @@
           <i class="fa-solid fa-eye"></i>
           <small class="restaurant_views">{{$value.resViews}}</small>
           <i class="fa-solid fa-pencil"></i>
-          <small class="restaurant_reviews">리뷰 갯수</small>
+          <small class="restaurant_reviews"></small>
         </small>
       </div>
     </div>

@@ -59,5 +59,9 @@
         update restaurant set resViews=resViews+1 where num=#{num};
     </update>
 
+    <select id="selectResReview" parameterType="int" resultType="com.smart.project.web.home.vo.ReplyVO">
+        select * from replyTB where bno=#{num} and replyDel=0;
+    </select>
+
 
 </mapper>

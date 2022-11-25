@@ -6,6 +6,7 @@ import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -45,7 +46,7 @@ public class HomeDataAct {
     }
 
     @PostMapping("detailRes")
-    public ResVO detailRes(@RequestBody Map map){
+    public ResVO detailRes(Model model, @RequestBody Map map){
 
         int num = Integer.valueOf(String.valueOf(map.get("num")));
         log.error("workplace :: {}",num);
@@ -105,6 +106,7 @@ public class HomeDataAct {
 //        log.error("num : {}",num);
         test.detailViewsUp(num);
     }
+
 
 
 

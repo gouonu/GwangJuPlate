@@ -52,12 +52,22 @@ export class List {
                 $('.listCardAppend').append(listDetailTemplate(result));
             });
 
+            // resNum.forEach(r=>{
+            //     console.log(Number(r));
+            //     // axios.post("selectResReview", {"num":Number(r)}).then((vo)=>{
+            //     //     console.log(vo);
+            //     // })
+            // })
+
         })
 
         axios.post("listViewsUp", {"index":index}).then(()=>{
             // console.log("조회수 up");
         })
     }
+
+
+
 
 
 }

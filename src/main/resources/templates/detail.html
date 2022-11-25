@@ -36,7 +36,7 @@
         <div class="restaurant_title_wrap;">
             <!-- 가게이름-->
             <span class="title">
-            <a href="/" style="text-decoration: none;">메인으로</a>
+<!--            <a href="/" style="text-decoration: none;">메인으로</a>-->
                 <h1 class="restaurant_name">
                         <span id="workplace"> </span>
                     <!--즐겨찾기 클릭 시 아이콘 변경-->
@@ -54,6 +54,9 @@
                 </div>
                 <br>
                 <div id="box">
+
+                    <div id="map" style="width:350px; height:350px;"></div>
+
                     <table class="table table-borderless">
                         <tr class=tu>
                             <th>주소</th>
@@ -74,8 +77,8 @@
                         </tr>
                         <th></th>
                         <tr class="un">
-                            <th class="not">식당 소개</th>
-                            <td>식당 소개 입니다</td>
+                            <th class="not">소개</th>
+                            <td></td>
                         </tr>
                     </table>
                     <!--리뷰 작성-->
@@ -112,10 +115,9 @@
             </div>
         </div>
     </section>
-    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
-    <!-- Core theme JS-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
 </div>
 </body>
 </html>

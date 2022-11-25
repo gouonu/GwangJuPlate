@@ -42,4 +42,6 @@ public interface Test {
 	void listViewsUp(int index);
 
 	void detailViewsUp(int num);
+
+	ReplyVO selectResReview(int num);
 }

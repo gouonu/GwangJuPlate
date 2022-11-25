@@ -61,7 +61,7 @@ public class HomePageAct {
         map.put("updateText",updateText);
         map.put("rno",rno);
         map.put("bno",bno);
-        log.error("map :: {}", map);
+//        log.error("map :: {}", map);
         test.updateReview(map);
 
         return "redirect:/detail?num="+bno;
