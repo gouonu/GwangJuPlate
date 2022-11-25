@@ -18,7 +18,7 @@ export class Search {
         let result = $('#query').text();
         //
         let startPage = 1;
-        let perPage = 10;
+        let perPage = 20;
         console.log(result)
         let searchTemplate = require('@/search/search2-1.html');
         let object = {
@@ -52,6 +52,7 @@ export class Search {
             //         map: map
             //     });
             // });
+
 
 
     }
@@ -90,11 +91,7 @@ export class Search {
             });
         });
 
-
-
-
     }
-
 
 
 

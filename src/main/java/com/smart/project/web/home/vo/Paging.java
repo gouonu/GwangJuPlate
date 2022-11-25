@@ -35,11 +35,12 @@ public class Paging {
         if(tempEndPage < endPageNum) {
             endPageNum = tempEndPage;
         }
+
         //5. 이전페이지 버튼 생성 여부
-        prev = startPageNum == 1 ? false : true;
+//        prev = startPageNum == 1 ? false : true;
 
         //6. 다음페이지 버튼 생성 여부
-        next = endPageNum < tempEndPage ? true : false;
+//        next = endPageNum < tempEndPage ? true : false;
 
     }
 
