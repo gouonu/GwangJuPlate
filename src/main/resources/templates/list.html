@@ -37,6 +37,9 @@
             <div class="listCardAppend">
                 <!-- 여기에 listCard.html append -->
             </div>
+            <div class="alert alert-primary hidden" role="alert">
+                링크가 복사되었습니다 !!
+            </div>
             <div class="share_restaurant_list">
                 <!-- 따라만들기 힘듦 -->
                 <button class="btn_copy_link">링크 복사하기</button>
@@ -46,6 +49,7 @@
         </div>
     </main>
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/list.bundle.js')}"></script>
+
 </div>
 </body>
 </html>

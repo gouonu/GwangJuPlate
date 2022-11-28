@@ -5,13 +5,16 @@ $(()=>{
     new List();
 })
 
+
 export class List {
 
     constructor() {
         console.log("List");
         this.listEvent();
+        this.buttonEvent();
 
     }
+
 
     listEvent(){
 
@@ -93,6 +96,33 @@ export class List {
         })
 
     }
+
+    buttonEvent(){
+
+        $(".btn_copy_link").on("click", (e)=>{
+            console.log("링크 복사 하기 클릭");
+            let url ="";
+            let textarea =  document.createElement("textarea");
+
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            $(".alert.alert-primary").removeClass("hidden");
+        })
+
+        $(".alert.alert-primary").on("click", (e)=>{
+            $(".alert.alert-primary").addClass("hidden");
+        })
+    }
+
+
+
+
+
+
 
 
 

@@ -90,7 +90,10 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div id="imageRoad"></div>
+
+
                                     <form action="reviewInput" method="post">
+
                                         <input id="userId" name="userId" type="hidden" value="testID"></input>
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
@@ -122,6 +125,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
+
 </div>
 </body>
 </html>

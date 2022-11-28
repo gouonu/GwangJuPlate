@@ -45,7 +45,7 @@ export class Detail {
             });
 
             axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
-                console.log(i.data);
+                // console.log(i.data);
                 if(i.data===""){
                     // console.log("음식점 이름 중복 or 없음");
                 }else{
@@ -90,6 +90,10 @@ export class Detail {
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
+        })
+
+        $(".scoreRadio").on("checked", (e)=>{
+            console.log($(e.currentTarget).val());
         })
     }
 

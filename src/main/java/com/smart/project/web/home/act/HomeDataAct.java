@@ -118,15 +118,15 @@ public class HomeDataAct {
     @PostMapping("DetailImg")
     public Map DetailImg(@RequestBody Map map){
         String workplace = String.valueOf(map.get("workplace"));
-        log.error("workplace : {}",workplace);
+//        log.error("workplace : {}",workplace);
         int count= test.joinCount(workplace); // 2이상이면 중복
-        log.error("count : {}",count);
+//        log.error("count : {}",count);
         if(count>=2){
-            log.error("중복!");
+//            log.error("중복!");
             return null;
         }else{
             Map i = test.DetailImg(workplace);
-             log.error("Map : {}",i);
+//             log.error("Map : {}",i);
             return i;
         }
 
