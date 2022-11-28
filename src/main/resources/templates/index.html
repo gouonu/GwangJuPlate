@@ -4,258 +4,293 @@
          xmlns:th="http://www.thymeleaf.org"
          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
          layout:decorate="~{layouts/layoutContents.html}">
-    <head>
-        <script src="../resources/vendors/polyfill.min.js"></script>
-        <script src="../resources/vendors/jquery.min.js"></script>
-        <script src="../resources/vendors/lodash.min.js"></script>
-        <script src="../resources/vendors/axios.min.js"></script>
-        <script src="../resources/vendors/moment.min.js"></script>
-        <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
+<head>
+    <script src="../resources/vendors/polyfill.min.js"></script>
+    <script src="../resources/vendors/jquery.min.js"></script>
+    <script src="../resources/vendors/lodash.min.js"></script>
+    <script src="../resources/vendors/axios.min.js"></script>
+    <script src="../resources/vendors/moment.min.js"></script>
+    <script src="../resources/vendors/jquery-mobile.event.min.js"></script>
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
-<!--        <script src="/lib/template-web.js"></script>-->
-<!--        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-<!--        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <!--        <script src="/lib/template-web.js"></script>-->
+    <!--        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <!--        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>광주 플레이트</title>
-<!--        <link rel="icon" type="image/x-icon" href="assets/profile_icon.ico" />-->
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-       <link href="css2/styles.css" rel="stylesheet" />
-        <link href="css2/nav.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>광주 플레이트</title>
+    <!--        <link rel="icon" type="image/x-icon" href="assets/profile_icon.ico" />-->
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css2/styles.css" rel="stylesheet" />
+    <link href="css2/nav.css" rel="stylesheet" />
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<style>
-table{
-    width: 100%;
-    height: 70%;
-}
-th,td{
-    font-size: 1.2em;
-}
-</style>
-    </head>
-    <body>
-    <div layout:fragment="content">
-            <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container px-4 px-lg-5">
-                    <a class="navbar-brand" href="/">광주 플레이트</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        </ul>
+    <style>
+        table{
+            width: 100%;
+            height: 70%;
+            outline: grey;
+        }
+        th,td{
+            font-size: 1.2em;
+        }
+        #Recon{
+            width:100%;
+        }
+        #left{
+            width: 50%;
+            float: left;
+            box-sizing: border-box;
+
+        }
+        #right{
+            width: 50%;
+            float:right;
+            box-sizing: border-box;
+
+
+        }
+        .vox{
+            color: grey;
+            text-decoration: none;
+
+            font-size: 20px;
+        }
+        .vox:hover{
+            color: grey;
+        }
+        .kex{
+            color: #3f3a61;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">광주 플레이트</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                </ul>
+
+            </div>
+        </div>
+        <div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
+                        <button type="button" id = "recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집</button>
+                        <!--                            <button type="button" id = "want" class="btn btn-light btn-outline-secondary btn-lg want">가고싶다.</button>-->
+                        <button th:if="${session.userId eq null}" id = "ddd1" type="button" class="btn btn-light btn-outline-secondary btn-lg want" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+                            가고 싶다
+                        </button>
+                        <button th:if="${session.userId}" id = "want" type="button" class="btn btn-light btn-outline-secondary btn-lg want">
+                            가고 싶다
+                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--                        가고싶다.-->
+                    <div class = "modal-body" id = "Recon">
+
+                        <table>
+                            <div id = "left">
+                                <a class="vox" th:each="list,listStats : ${session.able}" th:text="${listStats.current}"><br></a>
+                            </div>
+                            <div id = "right">
+                                <a class="kex" th:each = "num,numStats :${session.able2}" href="detail.html" th:href="'detail?num=' + ${numStats.current}">이동하기</a>
+
+                            </div>
+                        </table>
+                        <!--                                <table>-->
+                        <!--                                    <tr th:each="list, listStat: ${session.able}">-->
+                        <!--                                        <th>최근 방문 가게</th>-->
+
+                        <!--                                        &lt;!&ndash;                                                <th>최근 방문 가게</th>&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                                <td><a th:text="${session.able[1]}"&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                                       th:href="'detail?num=' + ${session.able2[1]}"></a></td>&ndash;&gt;-->
+                        <!--                                    </tr>-->
+                        <!--                                    <td>asdasd</td>-->
+
+
+
+                        <!--                                </table>-->
 
                     </div>
-                </div>
-                <div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1" data-backdrop="static">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    <div class = "modal-body visually-hidden" id = "wantEat">
+                        <div class="card">
+                            가고싶다.
+                            <div class="card-body">
 
-                                <button type="button" id = "recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집</button>
-                                <!--                            <button type="button" id = "want" class="btn btn-light btn-outline-secondary btn-lg want">가고싶다.</button>-->
-                                <button th:if="${session.userId eq null}" id = "ddd1" type="button" class="btn btn-light btn-outline-secondary btn-lg want" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
-                                    가고 싶다
-                                </button>
-                                <button th:if="${session.userId}" id = "want" type="button" class="btn btn-light btn-outline-secondary btn-lg want">
-                                    가고 싶다
-                                </button>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-                            <!--                        가고싶다.-->
-                            <div class = "modal-body" id = "Recon">
-
-                                <div class="card">
-
-                                    <div class="card-body">
-
-                                        <table>
-                                            <tr th:each="list, listStat: ${session.able}">
-                                                <th>최근 방문 가게</th>
-                                                <td><a th:text="${listStat.current}"
-                                                       th:href="'detail?num=' + ${session.able2[0]}"></a></td>
-
-<!--                                                <th>최근 방문 가게</th>-->
-<!--                                                <td><a th:text="${session.able[1]}"-->
-<!--                                                       th:href="'detail?num=' + ${session.able2[1]}"></a></td>-->
-                                            </tr>
-
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "modal-body visually-hidden" id = "wantEat">
-                                <div class="card">
-                             가고싶다.
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="modal-footer d-grid gap-2 col-4 mx-auto">
-
-                                <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
-                                    로그인
-                                </button>
-                                <button th:if="${session.userId}" type="button" class="btn btn-outline-danger" onclick="location.href='logout.do'" >
-                                    로그아웃
-                                </button>
-                                <button th:if="${session.userId}" type="button" class="btn btn-outline-primary" data-bs-target="#update" data-bs-toggle="modal" >
-                                    회원 정보 수정
-                                </button>
-                            </div>
-
                         </div>
                     </div>
-                </div>
-
-                <!--            로그인 모달-->
-
-                <div class="modal fade" id="log1n" aria-hidden="true" aria-labelledby="log1n" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
 
 
-                            <form id="log11n" th:action="@{/login_proc}" method="post">
-                                <div class="login_info" id="loggw">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <p class = "text">로그인</p>
-                                    <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
-                                    <p><label th:for="username">아이디</label></p>
-                                    <input  type="text" name = "username" class="form-control" placeholder="아이디">
-                                    <p><label th:for="password">비밀번호</label></p>
-                                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
-                                </div>
-                                <button type="submit" id="login">Log in</button>
-                                <br>
-                                <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
-                                <br>
-<!--                                &lt;!&ndash;    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>&ndash;&gt;-->
-<!--                                <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>-->
-<!--                                <br>-->
 
-<!--                                &lt;!&ndash;    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>&ndash;&gt;-->
-<!--                                <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
-<!--                                    <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">-->
-<!--                                </a>-->
 
-                            </form>
-                        </div>
+                    <div class="modal-footer d-grid gap-2 col-4 mx-auto">
 
+                        <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+                            로그인
+                        </button>
+                        <button th:if="${session.userId}" type="button" class="btn btn-outline-danger" onclick="location.href='logout.do'" >
+                            로그아웃
+                        </button>
+                        <button th:if="${session.userId}" type="button" class="btn btn-outline-primary" data-bs-target="#update" data-bs-toggle="modal" >
+                            회원 정보 수정
+                        </button>
                     </div>
+
                 </div>
-<!--                회원 정보 수정 모달-->
-                <div class="modal fade" id="update" aria-hidden="true" aria-labelledby="updateLabell" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+            </div>
+        </div>
+
+        <!--            로그인 모달-->
+
+        <div class="modal fade" id="log1n" aria-hidden="true" aria-labelledby="log1n" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
 
-                            <form id="updateUser" th:action="@{/login_proc}" method="post">
-                                <div class="login_info" id="updateinfo">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <p class = "text">회원정보 수정</p>
-
-                                    <p><label th:for="username">아이디</label></p>
-                                    <input  type="text" name = "username" class="form-control" placeholder="아이디">
-                                    <p><label th:for="password">비밀번호</label></p>
-                                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
-                                </div>
-                                <button type="submit" id="updateGo">수정</button>
-                                <br>
-                            </form>
+                    <form id="log11n" th:action="@{/login_proc}" method="post">
+                        <div class="login_info" id="loggw">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <p class = "text">로그인</p>
+                            <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
+                            <p><label th:for="username">아이디</label></p>
+                            <input  type="text" name = "username" class="form-control" placeholder="아이디">
+                            <p><label th:for="password">비밀번호</label></p>
+                            <input type="password" name="password" class="form-control" placeholder="비밀번호">
                         </div>
+                        <button type="submit" id="login">Log in</button>
+                        <br>
+                        <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
+                        <br>
+                        <!--                                &lt;!&ndash;    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>&ndash;&gt;-->
+                        <!--                                <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>-->
+                        <!--                                <br>-->
 
-                    </div>
-                </div>
+                        <!--                                &lt;!&ndash;    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>&ndash;&gt;-->
+                        <!--                                <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
+                        <!--                                    <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">-->
+                        <!--                                </a>-->
 
-                <a class="btn" data-bs-toggle="modal" href="#favorite" role="button">
-                    <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
-                </a>
-                <script>
-                    $('#ddd').on('click',()=>{
-                        $('#favorite').modal('hide');
-                    })
-                    $('#ddd1').on('click',()=>{
-                        $('#favorite').modal('hide');
-                    })
-                    $('#want').on('click',()=>{
-                        $('#Recon').addClass('visually-hidden');
-                        $('#wantEat').removeClass('visually-hidden');
-                    })
-                    $('#recent').on('click',()=>{
-                        $('#wantEat').addClass('visually-hidden');
-                        $('#Recon').removeClass('visually-hidden');
-                    })
-
-
-                </script>
-
-
-            </nav>
-
-            <!-- Header-->
-        <header class="bg-light py-5">
-            <div class="container px-4 px-lg-5 my-5 text-center">
-                <div class="text-center text-white">
-<!--                    <p class="lead fw-normal text-white-50 mb-0 ">솔직한 리뷰, 믿을 수 있는 평점!</p>-->
-                    <p class="fw-bolder" style="color: black; font-size: large;">솔직한 리뷰, 믿을 수 있는 평점!</p>
-                    <h1 class="display-5 fw-bolder" style="color: black;">광주 플레이트</h1>
-                </div>
-                <br>
-                <div style="display: inline-block; text-align: center; width: 742px; height: 56px;">
-                    <form action="/searchInput" method="get">
-                    <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
-                        <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식" style="width: 415px; height: 50px;">
-                    <button type="submit" id="searchButton" style="width:180px; height: 50px; background-color: white;">검  색</button>
                     </form>
                 </div>
-            </div>
-        </header>
-        <!-- Section-->
-        <section class="popular_top_list_wrap py-5">
-            <div>
-                <h2 style="font-size:medium; text-align: center; font-weight: bold">믿고 보는 맛집 리스트</h2>
-            </div>
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
-            </div>
 
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0  text-white">
-                    망고플레이트 광주편 프로젝트<br><br>
-                    참여자 : 김건우, 김나현, 김여정, 손우주, 이성은<br>
-                    프로젝트 기간 : 2022.11.15 ~ <br><br>
-                    Copyright &copy; Your Website 2022
-                </p>
             </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-<!--        <script type="text/javascript" src="js/main.js"></script>-->
-    </div>
-    <section layout:fragment="contentScriptFragment">
-        <!--        <script type="module" src="/resources/js/main/main.js"></script>-->
-        <script type="module" th:src="${@versionComponent.getVersion('/resources/build/main.bundle.js')}"></script>
+        </div>
+        <!--                회원 정보 수정 모달-->
+        <div class="modal fade" id="update" aria-hidden="true" aria-labelledby="updateLabell" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+
+                    <form id="updateUser" th:action="@{/login_proc}" method="post">
+                        <div class="login_info" id="updateinfo">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <p class = "text">회원정보 수정</p>
+
+                            <p><label th:for="username">아이디</label></p>
+                            <input  type="text" name = "username" class="form-control" placeholder="아이디">
+                            <p><label th:for="password">비밀번호</label></p>
+                            <input type="password" name="password" class="form-control" placeholder="비밀번호">
+                        </div>
+                        <button type="submit" id="updateGo">수정</button>
+                        <br>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <a class="btn" data-bs-toggle="modal" href="#favorite" role="button">
+            <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
+        </a>
+        <script>
+            $('#ddd').on('click',()=>{
+                $('#favorite').modal('hide');
+            })
+            $('#ddd1').on('click',()=>{
+                $('#favorite').modal('hide');
+            })
+            $('#want').on('click',()=>{
+                $('#Recon').addClass('visually-hidden');
+                $('#wantEat').removeClass('visually-hidden');
+            })
+            $('#recent').on('click',()=>{
+                $('#wantEat').addClass('visually-hidden');
+                $('#Recon').removeClass('visually-hidden');
+            })
+
+
+        </script>
+
+
+    </nav>
+
+    <!-- Header-->
+    <header class="bg-light py-5">
+        <div class="container px-4 px-lg-5 my-5 text-center">
+            <div class="text-center text-white">
+                <!--                    <p class="lead fw-normal text-white-50 mb-0 ">솔직한 리뷰, 믿을 수 있는 평점!</p>-->
+                <p class="fw-bolder" style="color: black; font-size: large;">솔직한 리뷰, 믿을 수 있는 평점!</p>
+                <h1 class="display-5 fw-bolder" style="color: black;">광주 플레이트</h1>
+            </div>
+            <br>
+            <div style="display: inline-block; text-align: center; width: 742px; height: 56px;">
+                <form action="/searchInput" method="get">
+                    <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
+                    <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식" style="width: 415px; height: 50px;">
+                    <button type="submit" id="searchButton" style="width:180px; height: 50px; background-color: white;">검  색</button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="popular_top_list_wrap py-5">
+        <div>
+            <h2 style="font-size:medium; text-align: center; font-weight: bold">믿고 보는 맛집 리스트</h2>
+        </div>
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
+        </div>
+
     </section>
-    </body>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0  text-white">
+                망고플레이트 광주편 프로젝트<br><br>
+                참여자 : 김건우, 김나현, 김여정, 손우주, 이성은<br>
+                프로젝트 기간 : 2022.11.15 ~ <br><br>
+                Copyright &copy; Your Website 2022
+            </p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <!--        <script type="text/javascript" src="js/main.js"></script>-->
+</div>
+<section layout:fragment="contentScriptFragment">
+    <!--        <script type="module" src="/resources/js/main/main.js"></script>-->
+    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/main.bundle.js')}"></script>
+</section>
+</body>
 </html>

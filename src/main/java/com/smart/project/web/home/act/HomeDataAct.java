@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -24,10 +25,10 @@ public class HomeDataAct {
 
 
     final private Test test;
-    ArrayList workList = new ArrayList();
+    ArrayList<String>wpl = new ArrayList<String>();
 
 
-    ArrayList workList2 = new ArrayList();
+    ArrayList<String> wpn = new ArrayList<String>();
 
 
     @ResponseBody
@@ -76,17 +77,17 @@ public class HomeDataAct {
         log.error("workplace :: {}", num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}", res);
+        List<String> resultList = wpl.stream().distinct().collect(Collectors.toList());
+        List<String> resultList2 = wpn.stream().distinct().collect(Collectors.toList());
 
-        session.setAttribute("workplace", res.getWorkplace());
-        session.setAttribute("num", res.getNum());
 
-        workList.add(res.getWorkplace());
-        workList2.add(res.getNum());
-        session.setAttribute("able",workList);
-        session.setAttribute("able2",workList2);
+        resultList.add(res.getWorkplace());
+        resultList2.add(String.valueOf(res.getNum()));
+        session.setAttribute("able",resultList);
+        session.setAttribute("able2",resultList2);
 
-        log.error(String.valueOf(workList));
-        log.error(String.valueOf(workList2));
+        log.error(String.valueOf(resultList));
+        log.error(String.valueOf(resultList2));
 
 
         return res;
