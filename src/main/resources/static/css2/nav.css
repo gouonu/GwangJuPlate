@@ -112,7 +112,12 @@ input:focus::placeholder{
 
 }
 
-
+.navbar{
+    width: 100%;
+    border-bottom: 1px solid #dbdbdb;
+    /* navbar 명암 */
+    box-shadow: 0 4px 11px rgb(0 0 0 / 10%);
+}
 
 .naver-img{
     position: relative;

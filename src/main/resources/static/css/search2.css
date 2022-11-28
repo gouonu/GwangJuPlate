@@ -9,15 +9,15 @@ body{
     word-wrap: break-word;
 }
 /* a태그 밑줄 제거 */
-a{
+list_restaurants_wrapper a{
     text-decoration: none;
 }
 /* a태그 클릭시 바뀌는 색상 고정 */
-a:visited{
+list_restaurants_wrapper a:visited{
     color: black; text-decoration: none;
 }
 /* a태그 텍스트 색상 */
-a:link{
+list_restaurants_wrapper a:link{
     color: black; text-decoration: none;
 }
 .all_container{

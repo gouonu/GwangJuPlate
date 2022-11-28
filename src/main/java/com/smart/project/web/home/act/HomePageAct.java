@@ -1,16 +1,18 @@
 package com.smart.project.web.home.act;
 
+import com.smart.project.Service.MemberService;
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.Criteria;
-import com.smart.project.web.home.vo.Paging;
-import com.smart.project.web.home.vo.ReplyVO;
-import com.smart.project.web.home.vo.ResVO;
+import com.smart.project.web.home.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +24,10 @@ public class HomePageAct {
 
     final private Test test;
 
-    @Autowired
     private final MemberService memberService;
 
     @GetMapping("/register")
     public String signUpForm() {
-
         return "dddd/join";
     }
 
@@ -51,8 +51,6 @@ public class HomePageAct {
 
         return "index";
     }
-
-
 
     /**
      * 로그인 실패 폼
@@ -82,7 +80,6 @@ public class HomePageAct {
 
         return "redirect:" + request.getHeader("Referer");
     }
-}
 
     @RequestMapping(value="logout.do", method= RequestMethod.GET)
     public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
@@ -143,17 +140,16 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String updateText, int rno, int bno){
+    public String updateReview(String updateText, int rno, int bno) {
         Map<String, Object> map = new HashMap<>();
-        map.put("updateText",updateText);
-        map.put("rno",rno);
-        map.put("bno",bno);
+        map.put("updateText", updateText);
+        map.put("rno", rno);
+        map.put("bno", bno);
 //        log.error("map :: {}", map);
         test.updateReview(map);
 
-        return "redirect:/detail?num="+bno;
-
-
+        return "redirect:/detail?num=" + bno;
+    }
 
 
 

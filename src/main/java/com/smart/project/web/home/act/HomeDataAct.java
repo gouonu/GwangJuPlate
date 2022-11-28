@@ -1,7 +1,5 @@
 package com.smart.project.web.home.act;
 
-import com.mysql.cj.MysqlxSession;
-import com.mysql.cj.Session;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.MainVO;
@@ -9,15 +7,16 @@ import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.*;
 
 @Slf4j
 @RestController
