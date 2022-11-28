@@ -22,6 +22,78 @@ public class HomePageAct {
 
     final private Test test;
 
+    @Autowired
+    private final MemberService memberService;
+
+    @GetMapping("/register")
+    public String signUpForm() {
+
+        return "dddd/join";
+    }
+
+    /**
+     * 회원가입 진행
+     * @param
+     * @return
+     */
+    @PostMapping("/register")
+    public String signUp(MemberVO memberVO) {
+        memberService.joinUser(memberVO);
+        return "redirect:/"; //로그인 구현 예정
+    }
+
+    /**
+     * 로그인 폼
+     * @return
+     */
+    @GetMapping("/login")
+    public String login(){
+
+        return "index";
+    }
+
+
+
+    /**
+     * 로그인 실패 폼
+     * @return
+     */
+    @GetMapping("/access_denied")
+    public String accessDenied() {
+        return "asset_denied";
+    }
+    /**
+     * 유저 페이지
+     * @param model
+     * @param authentication
+     * @return
+     */
+    @GetMapping("/user_access")
+    public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
+        //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
+        MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
+//            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
+        session.setAttribute("userId",memberVO.getUserId());
+        session.setAttribute("userName",memberVO.getUserName());
+        session.setAttribute("userSex",memberVO.getUserSex());
+        session.setAttribute("userPhnum",memberVO.getUserPhnum());
+        session.setAttribute("userAuth",memberVO.getUserAuth());
+        session.setAttribute("appendDate",memberVO.getAppendDate());
+
+        return "redirect:" + request.getHeader("Referer");
+    }
+}
+
+    @RequestMapping(value="logout.do", method= RequestMethod.GET)
+    public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+
+        return "redirect:" + request.getHeader("Referer");
+
+    }
+
     @GetMapping(value = {"/searchInput", "searchInputPaging"})
     public String getSearch(Model model, @RequestParam(value="searchInput") String input, Criteria cri) {
 
@@ -80,8 +152,6 @@ public class HomePageAct {
         test.updateReview(map);
 
         return "redirect:/detail?num="+bno;
-    }
-
 
 
 

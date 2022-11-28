@@ -49,4 +49,8 @@ public interface Test {
 	void detailViewsUp(int num);
 
 	ReplyVO selectResReview(int num);
+
+	MemberVO getUserAccount(String userId);
+
+	void joinInsert(MemberVO memberVO);
 }

@@ -1,5 +1,7 @@
 package com.smart.project.web.home.act;
 
+import com.mysql.cj.MysqlxSession;
+import com.mysql.cj.Session;
 import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.MainVO;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -64,12 +69,14 @@ public class HomeDataAct {
     }
 
     @PostMapping("detailRes")
-    public ResVO detailRes(Model model, @RequestBody Map map){
+    public ResVO detailRes(@RequestBody Map map, HttpServletRequest request,HttpSession session){
 
         int num = Integer.valueOf(String.valueOf(map.get("num")));
         log.error("workplace :: {}",num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}",res);
+        session.setAttribute("d456",res.getWorkplace());
+        session.setAttribute("wno",res.getNum());
 
         return res;
 
