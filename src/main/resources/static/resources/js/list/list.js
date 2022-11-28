@@ -47,7 +47,7 @@ export class List {
 
 
             axios.post("/listDetail", resNum).then((result)=>{
-                // console.log("result :: ", result);
+                // console.log("result :: ", result.data.list);
                 $('.listCardAppend').empty();
                 $('.listCardAppend').append(listDetailTemplate(result));
 
@@ -61,7 +61,28 @@ export class List {
                         $n.children(".short_review").text(r.data.reply==null?"아직 리뷰가 없습니다.":r.data.reply);
                     })
                 }
+
+                for(let i=0; i<result.data.list.length; i++){
+                    // console.log("result :: ", result.data.list[i].workplace);
+                    axios.post("DetailImg", {"workplace":result.data.list[i].workplace}).then((e)=>{
+                        // console.log(e.data);
+                        let $i =  $("." + result.data.list[i].num).parent().parent().children().eq(0).children().children();
+                        // console.log($i);
+                        if(e.data===""){
+                            // console.log(result.data.list[i].workplace+" 이미지 없음");
+                            $i.attr("src", "/image/empty.png");
+                        }else {
+                            console.log(result.data.list[i].workplace+" 이미지 있음");
+                            $i.attr("src", e.data.img1src);
+                        }
+                    })
+                }
+
+
+
             });
+
+            // axios.post("DetailImg", {"workplace":})
 
 
 
