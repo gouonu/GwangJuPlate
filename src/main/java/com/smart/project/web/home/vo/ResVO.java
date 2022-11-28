@@ -16,4 +16,5 @@ public class ResVO {
     private String state;
     private double X;
     private double Y;
+
 }

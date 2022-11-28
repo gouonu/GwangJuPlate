@@ -80,27 +80,18 @@ th,td{
 
                                     <div class="card-body">
 
-                                        <table th:if="${session.userId}">
-                                            <tr>
-                                                <th>사용자 아이디  </th>
-                                                <td><a th:text="${session.userId}"></a></td>
+                                        <table>
+                                            <tr th:each="list, listStat: ${session.able}">
+                                                <th>최근 방문 가게</th>
+                                                <td><a th:text="${listStat.current}"
+                                                       th:href="'detail?num=' + ${session.able2[0]}"></a></td>
+
+<!--                                                <th>최근 방문 가게</th>-->
+<!--                                                <td><a th:text="${session.able[1]}"-->
+<!--                                                       th:href="'detail?num=' + ${session.able2[1]}"></a></td>-->
                                             </tr>
-                                            <tr>
-                                                <th>사용자 이름 </th>
-                                                <td><a th:text="${session.userName}"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th>사용자 핸드폰 번호 </th>
-                                                <td><a th:text="${session.userPhnum}"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th>사용자 등급  </th>
-                                                <td><a th:text="${session.userAuth}"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th>사용자 가입일  </th>
-                                                <td><a th:text="${session.d456}" href="detail" th:href="'detail?num=' + ${session.wno}"></a></td>
-                                            </tr>
+
+
                                         </table>
                                     </div>
                                 </div>

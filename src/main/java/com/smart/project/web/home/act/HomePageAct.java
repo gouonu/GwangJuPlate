@@ -40,10 +40,7 @@ import java.util.Map;
 public class HomePageAct {
     final private Test test;
 
-    @Controller
-    @RequiredArgsConstructor
-    public class UserController {
-        @Autowired
+
         private final MemberService memberService;
     @GetMapping("/register")
     public String signUpForm() {
@@ -102,7 +99,7 @@ public class HomePageAct {
             
             return "redirect:" + request.getHeader("Referer");
         }
-    }
+
 
     @RequestMapping(value="logout.do", method= RequestMethod.GET)
     public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
