@@ -44,4 +44,7 @@ public interface Test {
 	void detailViewsUp(int num);
 
 	ReplyVO selectResReview(int num);
+
+	Map DetailImg(String workplace);
+	int joinCount(String workplace);
 }

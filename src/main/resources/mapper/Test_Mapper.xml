@@ -63,5 +63,16 @@
         select * from replyTB where bno=#{num} and replyDel=0 limit 1;
     </select>
 
+    <select id="DetailImg" parameterType="String" resultType="java.util.Map">
+        select c.storeName, c.content, c.img1src, c.img2src, c.img3src, c.img4src, c.img5src, c.img6src
+        from common2 c join restaurant r on r.workplace=c.storeName
+        where r.workplace=#{workplace};
+    </select>
+
+    <select id="joinCount" parameterType="String" resultType="int">
+        select count(*) from common2 c join restaurant r on r.workplace=c.storeName
+        where r.workplace=#{workplace};
+    </select>
+
 
 </mapper>

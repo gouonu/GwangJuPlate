@@ -42,7 +42,20 @@ export class Detail {
             axios.post("detailViewsUp", {"num":num}).then(()=>{
                 // console.log("조회수");
                 $('.resViews').text(res.data.resViews);
-            })
+            });
+
+            axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
+                console.log(i.data);
+                if(i.data===""){
+                    // console.log("음식점 이름 중복 or 없음");
+                }else{
+                    $("#resContent").text(i.data.content);
+                    $("#img1").attr("src", i.data.img1src);
+                    $("#img2").attr("src", i.data.img2src);
+                    $("#img3").attr("src", i.data.img3src);
+                    $("#img4").attr("src", i.data.img4src);
+                }
+            });
 
         })
 
@@ -79,6 +92,9 @@ export class Detail {
             $e.children(".reviewButton").removeClass("hidden");
         })
     }
+
+
+
 
     kakaoMap(locName){
 
@@ -120,10 +136,8 @@ export class Detail {
                 map.setCenter(coords);
             }
         });
-
-
-
     }
+
 
 
 

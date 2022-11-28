@@ -26,10 +26,10 @@
     <!-- Navigation-->
     <th:block th:replace="fragments/nav.html"></th:block>
     <header class="grid-image">
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />            <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
+        <img id="img1" alt="">
+        <img id="img2" alt="">
+        <img id="img3" alt="">
+        <img id="img4" alt="">
     </header>
     <!-- Section-->
     <section>
@@ -78,7 +78,7 @@
                         <th></th>
                         <tr class="un">
                             <th class="not">소개</th>
-                            <td></td>
+                            <td id="resContent"></td>
                         </tr>
                     </table>
                     <!--리뷰 작성-->
@@ -89,6 +89,7 @@
                         <div class="card-body" style="width:500px; ">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
+                                    <div id="imageRoad"></div>
                                     <form action="reviewInput" method="post">
                                         <input id="userId" name="userId" type="hidden" value="testID"></input>
                                         <input id="num" name="num" type="hidden"></input>
@@ -110,6 +111,9 @@
                         <!--이곳에 작성된 리뷰 추가-->
                         <div id="reviewAdd">
                         </div>
+<!--                        <div id="moreButton" role="button" class="card-body"  style="border-top:1px black dotted; color: #0a6fb5; text-align: center;">-->
+<!--                            ▼ 더보기 ▼-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
