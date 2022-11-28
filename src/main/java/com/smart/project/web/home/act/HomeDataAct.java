@@ -29,8 +29,8 @@ public class HomeDataAct {
 
 
     ArrayList<String> wpn = new ArrayList<String>();
-    List<String> resultList = wpl.stream().distinct().collect(Collectors.toList());
-    List<String> resultList2 = wpn.stream().distinct().collect(Collectors.toList());
+
+
 
     @ResponseBody
     @PostMapping("/mainList")
@@ -81,13 +81,16 @@ public class HomeDataAct {
 
 
 
-        resultList.add(res.getWorkplace());
-        resultList2.add(String.valueOf(res.getNum()));
-        session.setAttribute("able",resultList);
-        session.setAttribute("able2",resultList2);
 
-        log.error(String.valueOf(resultList));
-        log.error(String.valueOf(resultList2));
+        wpl.add(res.getWorkplace());
+        wpn.add(String.valueOf(res.getNum()));
+        List<String> wpchk = wpl.stream().distinct().collect(Collectors.toList());
+        List<String> wnchk = wpn.stream().distinct().collect(Collectors.toList());
+        session.setAttribute("able",wpchk);
+        session.setAttribute("able2",wnchk);
+
+        log.error(String.valueOf(wpchk));
+        log.error(String.valueOf(wnchk));
 
 
         return res;
