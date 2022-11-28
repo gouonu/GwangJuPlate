@@ -29,7 +29,8 @@ public class HomeDataAct {
 
 
     ArrayList<String> wpn = new ArrayList<String>();
-
+    List<String> resultList = wpl.stream().distinct().collect(Collectors.toList());
+    List<String> resultList2 = wpn.stream().distinct().collect(Collectors.toList());
 
     @ResponseBody
     @PostMapping("/mainList")
@@ -77,8 +78,7 @@ public class HomeDataAct {
         log.error("workplace :: {}", num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}", res);
-        List<String> resultList = wpl.stream().distinct().collect(Collectors.toList());
-        List<String> resultList2 = wpn.stream().distinct().collect(Collectors.toList());
+
 
 
         resultList.add(res.getWorkplace());
