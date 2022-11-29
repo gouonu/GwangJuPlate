@@ -26,14 +26,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class HomePageAct {
 
 
         private final MemberService memberService;
+
     @GetMapping("/register")
     public String signUpForm() {
 
@@ -86,7 +88,7 @@ public class HomePageAct {
          * @return
          */
         @GetMapping("/user_access")
-        public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
+        public String  userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal, ResVO res) {
             //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
             MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디

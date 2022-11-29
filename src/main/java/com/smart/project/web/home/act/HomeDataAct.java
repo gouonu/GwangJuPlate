@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,7 +30,6 @@ public class HomeDataAct {
 
 
     ArrayList<String> wpn = new ArrayList<String>();
-
 
 
     @ResponseBody
@@ -92,7 +92,6 @@ public class HomeDataAct {
         log.error(String.valueOf(wpchk));
         log.error(String.valueOf(wnchk));
 
-
         return res;
 
     }
@@ -106,6 +105,14 @@ public class HomeDataAct {
         return rep;
     }
 
+    @PostMapping("/delete")
+    public String Delete(HttpServletRequest request,HttpSession session){
+    wpl.clear();
+    wpn.clear();
+    session.removeAttribute("able");
+    session.removeAttribute("able2");
+        return "redirect:" + request.getHeader("Referer");
+    }
 
 
 
