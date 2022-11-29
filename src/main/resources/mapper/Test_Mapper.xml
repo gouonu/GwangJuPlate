@@ -44,13 +44,8 @@
     </select>
 
     <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        insert into replyTB(rno, bno, reply, replyUser)
-        values(#{rno}, #{bno}, #{reply}, #{replyUser});
-    </insert>
-
-    <insert id="uploadImage" parameterType="com.smart.project.web.home.vo.FileVO">
-        insert into imagesTbl(ino, originName, savedName, filePath)
-        values(#{ino}, #{originName}, #{savedName}, #{filePath});
+        insert into replyTB(rno, bno, reply, replyUser, originName, savedName, filePath)
+        values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath});
     </insert>
 
     <update id="updateReview" parameterType="Map">

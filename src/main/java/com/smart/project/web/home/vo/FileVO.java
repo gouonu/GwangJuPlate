@@ -5,9 +5,8 @@ import lombok.Data;
 @Data
 public class FileVO {
 
-    private int ino; // 파일 고유 넘버
-    private String originName; // 파일 원본 이름
-    private String savedName; // 파일 저장될 이름
-    private String filePath; // 파일 경로
+    private int rno; // 댓글 고유번호
+    private int ino; // 이미지 고유번호
+
 
 }

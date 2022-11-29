@@ -125,34 +125,32 @@ public class HomePageAct {
         rep.setBno(num);
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
-        test.insertReview(rep);
 
-        FileVO fileVO = new FileVO();
-        // 파일 저장 위치
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
-        fileVO.setFilePath(filePath);
-
-        // 원래 파일 이름 추출
-        String originName = file.getOriginalFilename();
-        fileVO.setOriginName(originName);
-
-        // 파일 이름으로 쓸 uuid 생성
-        String uuid = UUID.randomUUID().toString();
-
-        // 확장자 추출(ex : .png)
-        String extension = originName.substring(originName.lastIndexOf("."));
-
-        // uuid와 확장자 결합
-        String savedName = uuid + extension;
-        fileVO.setSavedName(savedName);
-
-        log.error("fileVO : {}", fileVO);
-        String fullPath = fileVO.getFilePath() + fileVO.getSavedName();
 
         // 파일 저장, DB에 정보 저장
         if(!file.isEmpty()){
+            // 파일 저장 위치
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            rep.setFilePath(filePath);
+
+            // 원래 파일 이름 추출
+            String originName = file.getOriginalFilename();
+            rep.setOriginName(originName);
+
+            // 파일 이름으로 쓸 uuid 생성
+            String uuid = UUID.randomUUID().toString();
+            // 확장자 추출(ex : .png)
+            String extension = originName.substring(originName.lastIndexOf("."));
+            // uuid와 확장자 결합
+            String savedName = (uuid + extension).substring(24);
+            rep.setSavedName(savedName);
+
+            String fullPath = rep.getFilePath() + rep.getSavedName();
+
             file.transferTo(new File(fullPath));
-            test.uploadImage(fileVO);
+            test.insertReview(rep);
+        }else{
+            test.insertReview(rep);
         }
 
         return "redirect:/detail?num="+num;

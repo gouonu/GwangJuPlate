@@ -13,6 +13,7 @@ export class Detail {
     constructor() {
         console.log("Detail");
         this.detailEvent();
+        this.setThumbnail();
     }
 
     detailEvent(){
@@ -90,13 +91,13 @@ export class Detail {
                 level: 3 // 지도의 확대 레벨
             };
 
-// 지도를 생성합니다
+        // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 주소-좌표 변환 객체를 생성합니다
+        // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다
+            // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -124,6 +125,19 @@ export class Detail {
 
 
     }
+
+    setThumbnail(){
+        $('#imageFile').on('click', (e)=>{
+            var file = $(e.target.files[0]);
+            var reader = new FileReader();
+            reader.onload = function (e){
+                $('.img_thumbnail_box > img').attr('src', $(e.target.result));
+            }
+            reader.readAsDataURL(file);
+        })
+
+    }
+
 
 
 
