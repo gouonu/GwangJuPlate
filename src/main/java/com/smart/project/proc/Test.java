@@ -47,4 +47,8 @@ public interface Test {
 
 	Map DetailImg(String workplace);
 	int joinCount(String workplace);
+
+	List resViewsTop();
+
+	void updateViewsTop(String resNumString);
 }

@@ -13,6 +13,8 @@ export class Detail {
     }
 
     detailEvent(){
+        console.log()
+
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(

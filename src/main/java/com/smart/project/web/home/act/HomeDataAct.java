@@ -129,8 +129,20 @@ public class HomeDataAct {
 //             log.error("Map : {}",i);
             return i;
         }
-
     }
+
+    @PostMapping("resViewsTop")
+    public List resViewsTop(){
+        return test.resViewsTop();
+    }
+
+    @PostMapping("ViewTop2")
+    public void ViewTop2(@RequestBody Map map){
+        String resNumString = String.valueOf(map.get("resNumString"));
+        test.updateViewsTop(resNumString);
+    }
+
+
 
 
 

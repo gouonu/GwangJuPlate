@@ -19,7 +19,7 @@
     </select>
 
     <select id="ListDetailMatch" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
-        select * from restaurant where num in (${resNumString});
+        select * from restaurant where num in (${resNumString}) order by resViews desc;
     </select>
 
     <select id="detailRestaurant" resultType="com.smart.project.web.home.vo.ResVO" parameterType="int">
@@ -73,6 +73,14 @@
         select count(*) from common2 c join restaurant r on r.workplace=c.storeName
         where r.workplace=#{workplace};
     </select>
+
+    <select id="resViewsTop" resultType="int">
+        select num from restaurant order by resViews desc limit 5;
+    </select>
+
+    <update id="updateViewsTop" parameterType="String">
+        update resMainList set resNum=#{resNumString} where listIndex=7;
+    </update>
 
 
 </mapper>

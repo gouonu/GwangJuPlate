@@ -71,6 +71,7 @@ export class List {
                         // console.log(e.data);
                         let $i =  $("." + result.data.list[i].num).parent().parent().children().eq(0).children().children();
                         // console.log($i);
+                        $("." + result.data.list[i].num).children().children('a').children('span').text((i+1)+".");
                         if(e.data===""){
                             // console.log(result.data.list[i].workplace+" 이미지 없음");
                             $i.attr("src", "/image/empty.png");
@@ -79,7 +80,10 @@ export class List {
                             $i.attr("src", e.data.img1src);
                         }
                     })
+
+
                 }
+
 
 
 
