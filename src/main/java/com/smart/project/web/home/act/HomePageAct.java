@@ -1,14 +1,18 @@
 package com.smart.project.web.home.act;
 
+import com.smart.project.Service.MemberService;
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.ReplyVO;
-import com.smart.project.web.home.vo.ResVO;
+import com.smart.project.web.home.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,15 +24,95 @@ public class HomePageAct {
 
     final private Test test;
 
+    private final MemberService memberService;
 
-    @GetMapping("/searchInput")
-    public String getSearch(Model model, @RequestParam(value="searchInput") String input) {
+    @GetMapping("/register")
+    public String signUpForm() {
+        return "dddd/join";
+    }
+
+    /**
+     * 회원가입 진행
+     * @param
+     * @return
+     */
+    @PostMapping("/register")
+    public String signUp(MemberVO memberVO) {
+        memberService.joinUser(memberVO);
+        return "redirect:/"; //로그인 구현 예정
+    }
+
+    /**
+     * 로그인 폼
+     * @return
+     */
+    @GetMapping("/login")
+    public String login(){
+
+        return "index";
+    }
+
+    /**
+     * 로그인 실패 폼
+     * @return
+     */
+    @GetMapping("/access_denied")
+    public String accessDenied() {
+        return "asset_denied";
+    }
+    /**
+     * 유저 페이지
+     * @param model
+     * @param authentication
+     * @return
+     */
+    @GetMapping("/user_access")
+    public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
+        //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
+        MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
+//            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
+        session.setAttribute("userId",memberVO.getUserId());
+        session.setAttribute("userName",memberVO.getUserName());
+        session.setAttribute("userSex",memberVO.getUserSex());
+        session.setAttribute("userPhnum",memberVO.getUserPhnum());
+        session.setAttribute("userAuth",memberVO.getUserAuth());
+        session.setAttribute("appendDate",memberVO.getAppendDate());
+
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+    @RequestMapping(value="logout.do", method= RequestMethod.GET)
+    public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+
+        return "redirect:" + request.getHeader("Referer");
+
+    }
+
+    @GetMapping(value = {"/searchInput", "searchInputPaging"})
+    public String getSearch(Model model, @RequestParam(value="searchInput") String input, Criteria cri) {
+
         List<ResVO> r = test.selectRes(input);
         model.addAttribute("res", r);
         model.addAttribute("input", input);
+
+        int selectTotalCnt = test.selectTotalCnt(input);
+        log.error("가져온 정보의 총 개수 {}",selectTotalCnt);
+
+        Paging paging = new Paging();
+        paging.setCri(cri);
+        paging.setTotalCount(selectTotalCnt);
+        log.error("시작페이지 {}", paging.getStartPageNum());
+        log.error("끝 페이지 {}", paging.getEndPageNum());
+
+        model.addAttribute("paging", paging);
+
+        model.addAttribute("selectTotalCnt", selectTotalCnt);
+
         return "search";
     }
-
 
     @PostMapping("reviewInput")
     public String reviewInput(String reviewText,String userId, Integer num){
@@ -56,19 +140,16 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String updateText, int rno, int bno){
+    public String updateReview(String updateText, int rno, int bno) {
         Map<String, Object> map = new HashMap<>();
-        map.put("updateText",updateText);
-        map.put("rno",rno);
-        map.put("bno",bno);
+        map.put("updateText", updateText);
+        map.put("rno", rno);
+        map.put("bno", bno);
 //        log.error("map :: {}", map);
         test.updateReview(map);
 
-        return "redirect:/detail?num="+bno;
+        return "redirect:/detail?num=" + bno;
     }
-
-
-
 
 
 

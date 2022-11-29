@@ -18,10 +18,14 @@ public interface Test {
 	 * @작성자 : 김남현
 	 * @변경이력 :
 	 **********************************************************************************************/
-//	List<TestVO> sqlMenu2(String userId);
-	List<ResVO> selectRes(String result);
+
+	List<ResVO> selectRes(String input);
+
+	List<ResVO> selectRes2(Criteria cri);
+
+	int selectTotalCnt(String result);
+
 	List<MainVO> mainList();
-//	void joinInsert(JoinVO joinVO);
 
 	List<ResVO> ListDetailMatch(String resNumString);
 
@@ -51,4 +55,8 @@ public interface Test {
 	List resViewsTop();
 
 	void updateViewsTop(String resNumString);
+
+	MemberVO getUserAccount(String userId);
+
+	void joinInsert(MemberVO memberVO);
 }

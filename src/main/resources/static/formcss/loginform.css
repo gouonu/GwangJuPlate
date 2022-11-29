@@ -79,16 +79,12 @@ input:focus::placeholder{
 
 }
 
-#naver {
-    width: 75%;
-    position: absolute;
-    margin-top: 50px;
-    padding: 0;
-    height: 48px;
-    border: none;
-    background: none;
-    right: 55px;
 
+
+.naver-img{
+    position: relative;
+    left: 32px;
+    top: 48px;
 }
 
 button:hover{

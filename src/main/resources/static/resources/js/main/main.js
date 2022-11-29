@@ -9,7 +9,6 @@ $(()=>{
 export class Main {
 
     constructor() {
-        console.log("Main");
         this.mainListEvent();
     }
 
@@ -39,4 +38,6 @@ export class Main {
 
 
     }
+
+
 }

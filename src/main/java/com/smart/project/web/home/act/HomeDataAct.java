@@ -1,15 +1,22 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
+import com.smart.project.web.home.vo.Criteria;
 import com.smart.project.web.home.vo.MainVO;
 import com.smart.project.web.home.vo.ReplyVO;
 import com.smart.project.web.home.vo.ResVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,7 +25,23 @@ public class HomeDataAct {
 
     final private Test test;
 
+    @PostMapping (value = {"/searchInput", "/searchInputPaging"})
+    public Map getSearch2(@ModelAttribute Criteria cri) {
+        Map<String, Object> data = new HashMap<>();
 
+        log.error("시작/개수{}", cri);
+
+        int start = cri.getPageStart();
+        cri.setStartPage(start);
+        log.error("변경값{}", cri);
+
+        List<ResVO> r = test.selectRes2(cri);
+        log.error("정보", r);
+
+
+        data.put("r",r);
+        return data;
+    }
 
     @PostMapping("/mainList")
     public Map<String, Object> getMainList(){
@@ -28,7 +51,6 @@ public class HomeDataAct {
         log.error("{}", data);
         return data;
     }
-
 
     @PostMapping("/listDetail")
     public Map<String, Object> listDetail(@RequestBody String[] resNum) {
@@ -46,12 +68,14 @@ public class HomeDataAct {
     }
 
     @PostMapping("detailRes")
-    public ResVO detailRes(Model model, @RequestBody Map map){
+    public ResVO detailRes(@RequestBody Map map, HttpServletRequest request,HttpSession session){
 
         int num = Integer.valueOf(String.valueOf(map.get("num")));
         log.error("workplace :: {}",num);
         ResVO res = test.detailRestaurant(num);
         log.error("ResVO :: {}",res);
+        session.setAttribute("d456",res.getWorkplace());
+        session.setAttribute("wno",res.getNum());
 
         return res;
 
