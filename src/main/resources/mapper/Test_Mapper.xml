@@ -101,4 +101,6 @@
     <select id="getUserAccount" resultType="com.smart.project.web.home.vo.MemberVO">
         select * FROM userRegister WHERE userId = #{userId}
     </select>
+
+
 </mapper>

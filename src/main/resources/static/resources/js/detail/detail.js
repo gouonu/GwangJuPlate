@@ -13,6 +13,7 @@ export class Detail {
     }
 
     detailEvent(){
+
         console.log()
 
 
@@ -96,6 +97,27 @@ export class Detail {
         $(".scoreRadio").on("checked", (e)=>{
             console.log($(e.currentTarget).val());
         })
+
+
+        /**
+         *  < 수정/삭제 버튼 보이기 >
+         * - 현재 세션 아이디와 댓글 아이디를 비교해서 일치했을때 수정/삭제 버튼 보이기
+         */
+        let idList = $(".replyUserID").text().split(" ");
+        idList.pop();
+        // console.log(idList);
+        let sessionID = $('#userId').val();
+        // console.log("현재 아이디 : ", sessionID);
+        idList.forEach(function (id){
+            // console.log(id);
+            if(id===sessionID){
+                let $c = $('.'+id).children().children().eq(2).children();
+                $c.children('.updateButton').removeClass("hidden");
+                $c.children('.removeButton').removeClass("hidden");
+            }
+        })
+
+
     }
 
 

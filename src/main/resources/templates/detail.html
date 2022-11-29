@@ -88,11 +88,8 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div id="imageRoad"></div>
-
-
                                     <form action="reviewInput" method="post">
-
-                                        <input id="userId" name="userId" type="hidden" value="testID"></input>
+                                        <input id="userId" name="userId" type="hidden" th:value="${session.userId}"></input>
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
                                                   placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
@@ -107,7 +104,6 @@
                     <!--작성된 리뷰-->
                     <div class="card mb-2" style="width:500px; ">
                         <div class="card-header bg-light reviewCount">
-
                         </div>
                         <!--이곳에 작성된 리뷰 추가-->
                         <div id="reviewAdd">
