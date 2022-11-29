@@ -107,15 +107,27 @@ export class Detail {
         idList.pop();
         // console.log(idList);
         let sessionID = $('#userId').val();
-        // console.log("현재 아이디 : ", sessionID);
-        idList.forEach(function (id){
-            // console.log(id);
-            if(id===sessionID){
-                let $c = $('.'+id).children().children().eq(2).children();
-                $c.children('.updateButton').removeClass("hidden");
-                $c.children('.removeButton').removeClass("hidden");
-            }
-        })
+        console.log("현재 아이디 : ", sessionID===""? "로그인 안됨":sessionID);
+
+        if(sessionID===""){
+            // console.log("미로그인 상태");
+            $('#reviewSubmit').addClass("hidden");
+            $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
+            $('#reviewText').attr("readonly", true);
+        }else{
+            // console.log("로그인 상태");
+            idList.forEach(function (id){
+                // console.log(id);
+                if(id===sessionID){
+                    let $c = $('.'+id).children().children().eq(2).children();
+                    $c.children('.updateButton').removeClass("hidden");
+                    $c.children('.removeButton').removeClass("hidden");
+                }
+            })
+
+        }
+
+
 
 
     }
