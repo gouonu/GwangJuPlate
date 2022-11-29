@@ -82,9 +82,6 @@ export class Detail {
     }
 
     kakaoMap(locName){
-
-
-
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -97,7 +94,7 @@ export class Detail {
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-            // 주소로 좌표를 검색합니다
+        // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -127,11 +124,16 @@ export class Detail {
     }
 
     setThumbnail(){
-        $('#imageFile').on('click', (e)=>{
-            var file = $(e.target.files[0]);
+        let imageFile = $('#imageFile');
+        let imgThumbnailBox = $('.img_thumbnail_box');
+        
+        // 나중에 이미지 취소했을 때 사라지게 만들기
+        imageFile.on('change', (e)=>{
+            var file = e.target.files[0];
             var reader = new FileReader();
             reader.onload = function (e){
-                $('.img_thumbnail_box > img').attr('src', $(e.target.result));
+                $('.img_thumbnail_box > img').attr('src', e.target.result);
+                imgThumbnailBox.removeClass('hidden');
             }
             reader.readAsDataURL(file);
         })

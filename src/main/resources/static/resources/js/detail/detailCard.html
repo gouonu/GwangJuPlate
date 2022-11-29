@@ -9,6 +9,9 @@
             <div class="card-group">
                 <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
             </div>
+            <div class="reply_img">
+                <img src="images/{{$value.savedName}}" onerror="this.style.display='none';" alt='' style="width: 120px; height: 120px; object-fit: contain;">
+            </div>
         </div>
         <div class="updateReview hidden">
             <form action="updateReview" method="post">

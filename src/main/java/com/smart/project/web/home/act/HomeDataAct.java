@@ -86,6 +86,7 @@ public class HomeDataAct {
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
         log.error("bno :: {}",bno);
         List<ReplyVO> rep = test.viewReply(bno);
+
         return rep;
     }
 
