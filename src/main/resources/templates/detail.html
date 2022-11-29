@@ -87,7 +87,7 @@
                         <div class="card-header bg-light">
                             <i class="fa fa-comment fa"></i> 리뷰를 작성해주세요
                         </div>
-                        <div class="card-body" style="width:500px; ">
+                        <div class="card-body" style="width:500px;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <form action="reviewInput" method="post" enctype="multipart/form-data">
@@ -100,14 +100,15 @@
 <!--                                        <label class="upload_img_label" for="upload_img">-->
 <!--                                            <button type="button" class="btn btn-light mt-3">파일 선택</button>-->
 <!--                                        </label>-->
-                                        <input id="imageFile" type="file" name="imageFile" accept="image/*, txt" style="width: 70%; margin-top: 5%">
+                                        <input id="imageFile" type="file" name="imageFile" accept="image/*, txt" style="width: 60%; margin-top: 5%">
                                         <button type="submit" class="btn btn-dark mt-3" style="float: right; margin-top: 2.5rem !important;">리뷰
                                             작성
                                         </button>
                                     </form>
                                 </li>
                                 <div class="img_thumbnail_box hidden">
-                                    <img src="images/14c4bcc58041.jpg">
+                                    <img src="">
+                                    <button type="button" class="btn btn-close mt-3 review_img_delete"></button>
                                 </div>
                             </ul>
                         </div>

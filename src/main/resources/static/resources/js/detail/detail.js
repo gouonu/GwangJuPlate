@@ -127,7 +127,6 @@ export class Detail {
         let imageFile = $('#imageFile');
         let imgThumbnailBox = $('.img_thumbnail_box');
         
-        // 나중에 이미지 취소했을 때 사라지게 만들기
         imageFile.on('change', (e)=>{
             var file = e.target.files[0];
             var reader = new FileReader();
@@ -136,7 +135,12 @@ export class Detail {
                 imgThumbnailBox.removeClass('hidden');
             }
             reader.readAsDataURL(file);
-        })
+        });
+
+        $('.review_img_delete').on('click', ()=>{
+            imgThumbnailBox.addClass('hidden');
+            imageFile.val("");
+        });
 
     }
 
