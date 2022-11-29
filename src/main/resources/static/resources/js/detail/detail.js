@@ -1,9 +1,6 @@
 "use strict";
 
 
-import detailTemplate from "@/detail/detailCard.html";
-import Model from "@/module/common/model";
-
 $(()=>{
     new Detail();
 })
@@ -48,12 +45,14 @@ export class Detail {
                 // console.log(i.data);
                 if(i.data===""){
                     // console.log("음식점 이름 중복 or 없음");
+                    // for(let j=1;j<=4;j++){
+                    //     $("#img"+j).attr("class", "hidden");
+                    // }
                 }else{
                     $("#resContent").text(i.data.content);
-                    $("#img1").attr("src", i.data.img1src);
-                    $("#img2").attr("src", i.data.img2src);
-                    $("#img3").attr("src", i.data.img3src);
-                    $("#img4").attr("src", i.data.img4src);
+                    let imageTempl = require('@/detail/detailImage.html');
+                    $(".grid-image").empty();
+                    $(".grid-image").append(imageTempl(i));
                 }
             });
 
