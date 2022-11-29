@@ -9,13 +9,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -115,13 +119,41 @@ public class HomePageAct {
     }
 
     @PostMapping("reviewInput")
-    public String reviewInput(String reviewText,String userId, Integer num){
+    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
         ReplyVO rep = new ReplyVO();
         rep.setReply(reviewText);
         rep.setBno(num);
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
         test.insertReview(rep);
+
+        FileVO fileVO = new FileVO();
+        // 파일 저장 위치
+        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+        fileVO.setFilePath(filePath);
+
+        // 원래 파일 이름 추출
+        String originName = file.getOriginalFilename();
+        fileVO.setOriginName(originName);
+
+        // 파일 이름으로 쓸 uuid 생성
+        String uuid = UUID.randomUUID().toString();
+
+        // 확장자 추출(ex : .png)
+        String extension = originName.substring(originName.lastIndexOf("."));
+
+        // uuid와 확장자 결합
+        String savedName = uuid + extension;
+        fileVO.setSavedName(savedName);
+
+        log.error("fileVO : {}", fileVO);
+        String fullPath = fileVO.getFilePath() + fileVO.getSavedName();
+
+        // 파일 저장, DB에 정보 저장
+        if(!file.isEmpty()){
+            file.transferTo(new File(fullPath));
+            test.uploadImage(fileVO);
+        }
 
         return "redirect:/detail?num="+num;
     }

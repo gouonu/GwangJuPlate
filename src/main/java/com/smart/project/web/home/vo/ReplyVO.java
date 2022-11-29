@@ -1,10 +1,12 @@
 package com.smart.project.web.home.vo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class ReplyVO {
 
     private int rno; // 댓글 고유 번호
@@ -15,4 +17,6 @@ public class ReplyVO {
     private Date replyDate; // 작성 날짜
     private Date updateDate; // 업데이트 날짜(수정, 삭제)
     private boolean replyDel; // 삭제됐는지
+
+
 }

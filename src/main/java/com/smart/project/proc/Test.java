@@ -33,6 +33,9 @@ public interface Test {
 
 	void insertReview(ReplyVO r);
 
+	//test
+	void uploadImage(FileVO vo);
+
 	int countReview(int bno);
 
 	void deleteReview(Map map);
