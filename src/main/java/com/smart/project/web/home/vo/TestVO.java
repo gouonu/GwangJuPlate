@@ -4,14 +4,8 @@ import lombok.Data;
 
 @Data
 public class TestVO {
-	private int num;
-	private Integer tel;
-	private Integer postcode;
-	private String locaddr;
-	private String roadaddr;
-	private int road_post;
-	private String workplace;
-	private String state;
-	private String coorx;
-	private String coory;
+	private String userId;
+	private String userName;
+	private String userEmail;
+	private String userReg;
 }

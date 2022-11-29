@@ -9,10 +9,7 @@ $(()=>{
 export class Main {
 
     constructor() {
-        console.log("aaa");
         this.mainListEvent();
-
-
     }
 
     mainListEvent() {

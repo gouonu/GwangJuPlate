@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.project.proc.Test" >
-<!--    <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">-->
-<!--        SELECT * FROM test;-->
-<!--    </select>-->
+    <!--    <select id="sqlMenu2" resultType="com.smart.project.web.home.vo.TestVO" parameterType="java.lang.String">-->
+    <!--        SELECT * FROM test;-->
+    <!--    </select>-->
 
-<!--    <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.JoinVO">-->
-<!--        insert into join(userId, userPw, userName)-->
-<!--        values (#{userId},password(#{userPw}),#{userName});-->
-<!--    </insert>-->
+    <!--    <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.JoinVO">-->
+    <!--        insert into join(userId, userPw, userName)-->
+    <!--        values (#{userId},password(#{userPw}),#{userName});-->
+    <!--    </insert>-->
 
     <select id="selectRes" resultType="com.smart.project.web.home.vo.ResVO" parameterType="java.lang.String">
-        select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%');
+        select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%')
+    </select>
+
+    <select id="selectRes2" resultType="com.smart.project.web.home.vo.ResVO" parameterType="com.smart.project.web.home.vo.Criteria">
+        select * from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%')
+        limit #{startPage}, #{perPage};
+    </select>
+
+    <select id="selectTotalCnt" resultType="int">
+        select count(*) from restaurant where workplace like concat('%',#{result},'%') or state like concat('%', #{result},'%') or locAddr like concat('%', #{result},'%');
     </select>
 
     <select id="mainList" resultType="com.smart.project.web.home.vo.MainVO">
@@ -27,29 +36,53 @@
     </select>
 
     <select id="viewReply" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
-        select * from replyTB where bno=#{bno};
+        select * from replyTB where bno=#{bno} and replyDel=0 order by rno desc;
     </select>
 
+    <select id="countReview" resultType="int" parameterType="int">
+        select count(*) from replyTB where bno=#{bno} and replyDel=0;
+    </select>
 
-
-    <insert id="insertjson" parameterType="java.util.List" >
-    insert into res_tb(num,tel,postcode,locaddr,roadaddr,road_post,workplace,state,coorx,coory) values
-    <foreach collection="list" item="item" separator=",">
-        (#{item.num},#{item.tel},#{item.postcode},#{locaddr},#{item.roadaddr},#{item.road_post},
-         #{item.workplce},#{item.state},#{item.coorx},#{item.coory})
-
-
-    </foreach>
+    <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
+        insert into replyTB(rno, bno, reply, replyUser)
+        values(#{rno}, #{bno}, #{reply}, #{replyUser});
     </insert>
+
+    <insert id="uploadImage" parameterType="com.smart.project.web.home.vo.FileVO">
+        insert into imagesTbl(ino, originName, savedName, filePath)
+        values(#{ino}, #{originName}, #{savedName}, #{filePath});
+    </insert>
+
+    <update id="updateReview" parameterType="Map">
+        update replyTB set reply=#{updateText},updateDate=now() where rno=#{rno} and bno=#{bno};
+    </update>
+
+    <update id="deleteReview" parameterType="Map">
+        update replyTB set replyDel=1 where rno=#{rno} and bno=#{bno};
+    </update>
+
+    <select id="selectList" parameterType="int" resultType="com.smart.project.web.home.vo.MainVO">
+        select * from resMainList where listIndex=#{index};
+    </select>
+
+    <update id="listViewsUp" parameterType="int">
+        update resMainList set listViews=listViews+1 where listIndex=#{index};
+    </update>
+
+    <update id="detailViewsUp" parameterType="int">
+        update restaurant set resViews=resViews+1 where num=#{num};
+    </update>
+
+    <select id="selectResReview" parameterType="int" resultType="com.smart.project.web.home.vo.ReplyVO">
+        select * from replyTB where bno=#{num} and replyDel=0;
+    </select>
+
     <insert id="joinInsert" parameterType="com.smart.project.web.home.vo.MemberVO">
         insert into userRegister (userId, userPw, userName, userDate, userSex, userPhnum, userPolicy, userAuth, appendDate, updateDate)
         values(#{userId},#{userPw}, #{userName},#{userDate},#{userSex},#{userPhnum},#{userPolicy}, #{userAuth}, #{appendDate}, #{updateDate});
 
     </insert>
-    <insert id="kakaoInsert">
-        INSERT INTO kakao_table (USERID, USERPW, USERNAME, EMAIL, SNSID) VALUES
-            (#{userid}, #{userpw}, #{userName}, #{email}, #{snsId})
-    </insert>
+
     <select id="getUserAccount" resultType="com.smart.project.web.home.vo.MemberVO">
         select * FROM userRegister WHERE userId = #{userId}
     </select>

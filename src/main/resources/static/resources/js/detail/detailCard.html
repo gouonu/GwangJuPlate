@@ -1,15 +1,32 @@
 {{each data}}
 <div class="card-body" style="width:500px;">
-  <div class="card-body" style="border:solid 1px rgba(0, 0, 0, 0.125);">
-    <p class="text-black-50" style="float: right">{{$value.replyDate}}</p>
-    <p>
-      <i class="fa-regular fa-user"></i>    {{$value.replyUser}}
-    </p>
-    <div class="card-group" >
-      {{$value.reply}}
+    <div class="card-body" style="border:solid 1px rgba(0, 0, 0, 0.125);">
+        <div class="reviewHeader">
+            <p class="text-black-50" style="float: right">{{$value.updateDate}}</p>
+            <p>
+                <i class="fa-regular fa-user"></i> {{$value.replyUser}}
+            </p>
+            <div class="card-group">
+                <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
+            </div>
+        </div>
+        <div class="updateReview hidden">
+            <form action="updateReview" method="post">
+                <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
+                <input type="hidden" name="rno" value="{{$value.rno}}"/>
+                <input type="hidden" name="bno" value="{{$value.bno}}"/>
+                <button type="submit" class="btn btn-dark mt-3">수정 완료</button>
+                <button type="button" class="btn btn-outline-dark mt-3 rollbackButton">수정 취소</button>
+            </form>
+        </div>
+        <div class="reviewButton">
+            <form action="deleteReview" method="post">
+                <button  type="button" class="btn btn-light mt-3 updateButton" style="margin-left: 75%">수정</button>
+                <button type="submit" class="btn btn-light mt-3">삭제</button>
+                <input type="hidden" name="rno" value="{{$value.rno}}"/>
+                <input type="hidden" name="bno" value="{{$value.bno}}"/>
+            </form>
+        </div>
     </div>
-    <button type="button" class="btn btn-light mt-3" onClick="javascript:addReply();" style="margin-left: 75%">수정</button>
-    <button type="button" class="btn btn-light mt-3" onClick="javascript:addReply();">삭제</button>
-  </div>
 </div>
 {{/each}}

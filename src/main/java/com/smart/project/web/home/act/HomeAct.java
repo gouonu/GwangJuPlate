@@ -17,11 +17,6 @@ public class HomeAct {
 		return "index";
 	}
 
-	@RequestMapping("/search")
-	public String search(){
-		return "search_seongeun";
-	}
-
 	@RequestMapping("/list")
 	public String list(){ return "list"; }
 
