@@ -35,6 +35,18 @@ list_restaurants_wrapper a:link{
     margin-right: 10px;
 }
 
+.paginationUl{
+    display: flex;
+    justify-content: center;
+}
+.paginationUl li{
+    margin-right: 25px;
+}
+.paginationUl .active{
+    background-color: #00b6e8;
+}
+
+
 .searchFilter.choice{
     font-weight: bolder;
 }

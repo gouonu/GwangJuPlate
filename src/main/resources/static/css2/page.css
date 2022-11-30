@@ -167,11 +167,11 @@ hr{
     font-size: x-large;
 }
 
-.restaurant_name{
-    font-size:x-large;
-    font-weight: bold;
-    padding-bottom : 10px;
-}
+/*.restaurant_name{*/
+/*    font-size:x-large;*/
+/*    font-weight: bold;*/
+/*    padding-bottom : 10px;*/
+/*}*/
 
 .restaurant_action_button_wrap{
     position: relative;
