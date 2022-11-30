@@ -119,16 +119,31 @@ export class Detail {
             idList.forEach(function (id){
                 // console.log(id);
                 if(id===sessionID){
-                    let $c = $('.'+id).children().children().eq(2).children();
-                    $c.children('.updateButton').removeClass("hidden");
-                    $c.children('.removeButton').removeClass("hidden");
+                    // let $c = $('.'+id).children().children().eq(2).children();
+                    // console.log($c);
+                    $('.'+id).find('.updateButton').removeClass("hidden");
+                    $('.'+id).find('.removeButton').removeClass("hidden");
                 }
             })
 
         }
 
-
-
+        /*
+        * 리뷰 텍스트 null 일때 alert 띄우기
+         */
+        $('#reviewText').on("keyup",(e)=>{
+            let byteCount = document.getElementById("reviewText").value.length;
+            let $submit = $("#reviewSubmit");
+            let $bCount = $('#byteCount');
+            $bCount.text(byteCount);
+            if(byteCount === 0 || byteCount > 300) {
+                $submit.attr("disabled",true);
+                $bCount.parent().addClass("error");
+            }else{
+                $submit.attr("disabled",false);
+                $bCount.parent().removeClass("error");
+            }
+        })
 
     }
 

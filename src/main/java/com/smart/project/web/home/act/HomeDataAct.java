@@ -29,14 +29,14 @@ public class HomeDataAct {
     public Map getSearch2(@ModelAttribute Criteria cri) {
         Map<String, Object> data = new HashMap<>();
 
-        log.error("시작/개수{}", cri);
+        log.error("시작/개수 => {}", cri);
 
         int start = cri.getPageStart();
         cri.setStartPage(start);
-        log.error("변경값{}", cri);
+        log.error("변경값 => {}", cri);
 
         List<ResVO> r = test.selectRes2(cri);
-        log.error("정보", r);
+//        log.error("정보 => {}", r);
 
 
         data.put("r",r);

@@ -93,9 +93,13 @@
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
                                                   placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
-                                        <button id="reviewSubmit" type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰
+                                        <button id="reviewSubmit" type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;" disabled="true";>리뷰
                                             작성
                                         </button>
+                                        <p style="float:right;">
+                                        <span id="byteCount" >0</span>
+                                        <span> / 300자</span>
+                                        </p>
                                     </form>
                                 </li>
                             </ul>
@@ -119,7 +123,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
-
 </div>
 </body>
 </html>
