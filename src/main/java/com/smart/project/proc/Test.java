@@ -37,7 +37,7 @@ public interface Test {
 
 	void deleteReview(Map map);
 
-	void updateReview(Map map);
+	void updateReview(ReplyVO replyVO);
 
 	MainVO selectList(int index);
 

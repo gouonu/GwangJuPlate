@@ -183,14 +183,42 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String updateText, int rno, int bno) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("updateText", updateText);
-        map.put("rno", rno);
-        map.put("bno", bno);
-//        log.error("map :: {}", map);
-        test.updateReview(map);
+    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+        ReplyVO replyVO = new ReplyVO();
+        replyVO.setRno(rno);
+        replyVO.setBno(bno);
+        replyVO.setReply(reply);
+//        log.error("newReplyVO :: {}", replyVO);
 
+        if(!file.isEmpty()){
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            replyVO.setFilePath(filePath);
+
+            String originName = file.getOriginalFilename();
+            replyVO.setOriginName(originName);
+
+            String uuid = UUID.randomUUID().toString();
+            String extension = originName.substring(originName.lastIndexOf("."));
+            String savedName = (uuid + extension).substring(24);
+            replyVO.setSavedName(savedName);
+
+            String saveImage = filePath + replyVO.getSavedName();
+            file.transferTo(new File(saveImage));
+
+            test.updateReview(replyVO);
+
+            File thumbnailImg = new File(filePath, "s_" + savedName);
+
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
+
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
+        }else{
+            test.updateReview(replyVO);
+        }
 
         return "redirect:/detail?num=" + bno;
     }

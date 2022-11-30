@@ -14,13 +14,15 @@
             </div>
         </div>
         <div class="updateReview hidden">
-            <form action="updateReview" method="post">
-                <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
+            <form action="updateReview" method="post" enctype="multipart/form-data">
+                <textarea class="form-control" name="reply" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
-                <input type="file" value="{{$value.originName}}" name="imageFile" accept="image/*, txt" style="margin-top: 1rem"/>
-                <div class="img_thumbnail_box">
-                    <img src="images/s_{{$value.savedName}}">
+                <input type="file" id="updateImg" name="updateImg" accept="image/*, txt" style="margin-top: 1rem"/>
+                <div class="update_img_box">
+                    <img src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt='' style="margin-top: 1rem">
+                    <button type="button" class="btn btn-close mt-3 update_img_delete"></button>
+                    <p>현재 업로드 된 파일</p>
                 </div>
                 <button type="submit" class="btn btn-dark mt-3">수정 완료</button>
                 <button type="button" class="btn btn-outline-dark mt-3 rollbackButton">수정 취소</button>

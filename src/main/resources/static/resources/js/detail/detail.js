@@ -70,7 +70,8 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
-            this.setThumbnail();
+
+            this.updateThumbnail();
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -146,6 +147,32 @@ export class Detail {
 
     }
 
+    updateThumbnail(){
+        let updateImg = $('#updateImg');
+        let udtImgBoxP = $('.update_img_box > p');
+        let udtImgBox = $('.update_img_box');
+        let udtImgBoxI = $('.update_img_box > img');
+
+        updateImg.on('change', (e)=>{
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (e){
+                if(!udtImgBoxP.hasClass('hidden')){
+                    udtImgBoxP.addClass('hidden');
+                }
+                udtImgBoxI.attr('src', e.target.result);
+                udtImgBox.removeClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
+
+        $('.update_img_delete').on('click', ()=>{
+            udtImgBox.addClass('hidden');
+            udtImgBoxI.attr('src', null);
+            updateImg.val("");
+            udtImgBoxP.addClass('hidden');
+        });
+    }
 
 
 

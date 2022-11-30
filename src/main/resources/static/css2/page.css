@@ -187,11 +187,11 @@ td{
 }
 
 .img_thumbnail_box{
-    margin-left: 3%;
-    width: 120px;
-    height: 120px;
+    margin-top: 1rem;
 }
 .img_thumbnail_box img{
     border: 1px solid darkgrey;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
 }
