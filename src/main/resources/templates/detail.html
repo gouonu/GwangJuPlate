@@ -25,7 +25,7 @@
 <body>
 <div layout:fragment="content">
     <!-- Navigation-->
-    <th:block th:replace="fragments/nav.html"></th:block>
+    <th:block th:replace="fragments/navSearch.html"></th:block>
     <header class="grid-image">
 
     </header>
@@ -51,7 +51,7 @@
                     <i class="fa-regular fa-star">즐겨찾기수</i>
                 </div>
                 <br>
-                <div id="box">
+                <div id="box" >
 
                     <div id="map" style="width:350px; height:350px;"></div>
 
@@ -79,6 +79,11 @@
                             <td id="resContent"></td>
                         </tr>
                     </table>
+
+<!--                    <div class="alert alert-success" role="alert" style="width: 700px;">-->
+<!--                        리뷰가 성공적으로 등록되었습니다 !-->
+<!--                    </div>-->
+
                     <!--리뷰 작성-->
                     <div class="card mb-2" style="width:500px; ">
                         <div class="card-header bg-light">
@@ -96,7 +101,7 @@
                                         <button id="reviewSubmit" type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;" disabled="true";>리뷰
                                             작성
                                         </button>
-                                        <p style="float:right;">
+                                        <p style="float:right; font-size: smaller">
                                         <span id="byteCount" >0</span>
                                         <span> / 300자</span>
                                         </p>
