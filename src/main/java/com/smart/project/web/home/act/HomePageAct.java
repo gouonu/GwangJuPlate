@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
@@ -126,8 +129,6 @@ public class HomePageAct {
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
 
-
-        // 파일 저장, DB에 정보 저장
         if(!file.isEmpty()){
             // 파일 저장 위치
             String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
@@ -144,11 +145,23 @@ public class HomePageAct {
             // uuid와 확장자 결합
             String savedName = (uuid + extension).substring(24);
             rep.setSavedName(savedName);
+            String saveImage = rep.getFilePath() + rep.getSavedName();
 
-            String fullPath = rep.getFilePath() + rep.getSavedName();
-
-            file.transferTo(new File(fullPath));
+            // 파일 저장
+            file.transferTo(new File(saveImage));
+            // DB에 정보 저장
             test.insertReview(rep);
+
+            // 썸네일
+            File thumbnailImg = new File(filePath, "s_" + savedName);
+
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
+
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
         }else{
             test.insertReview(rep);
         }
@@ -177,6 +190,7 @@ public class HomePageAct {
         map.put("bno", bno);
 //        log.error("map :: {}", map);
         test.updateReview(map);
+
 
         return "redirect:/detail?num=" + bno;
     }

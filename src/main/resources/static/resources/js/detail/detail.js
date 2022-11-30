@@ -70,6 +70,7 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
+            this.setThumbnail();
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -80,6 +81,7 @@ export class Detail {
             $e.children(".reviewButton").removeClass("hidden");
         })
     }
+
 
     kakaoMap(locName){
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div

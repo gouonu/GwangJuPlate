@@ -49,7 +49,7 @@
     </insert>
 
     <update id="updateReview" parameterType="Map">
-        update replyTB set reply=#{updateText},updateDate=now() where rno=#{rno} and bno=#{bno};
+        update replyTB set reply=#{updateText},updateDate=now(), originName=#{originName}, savedName=#{savedName} where rno=#{rno} and bno=#{bno};
     </update>
 
     <update id="deleteReview" parameterType="Map">
