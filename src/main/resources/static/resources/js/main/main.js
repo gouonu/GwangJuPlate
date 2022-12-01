@@ -13,7 +13,7 @@ export class Main {
     }
 
     mainListEvent() {
-        console.log("메인리스트이벤트");
+        // console.log("메인리스트이벤트");
         let listTemplate = require('@/main/mainListCard.html');
         axios.post('/mainList',{}).then((data)=>{
             // console.log(data.data.list);

@@ -106,5 +106,9 @@
         select * FROM userRegister WHERE userId = #{userId}
     </select>
 
+    <select id="idDuplicate" resultType="int" parameterType="String">
+        select count(*) from userRegister where userId=#{userId};
+    </select>
+
 
 </mapper>
