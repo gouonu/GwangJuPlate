@@ -124,6 +124,10 @@ export class Search {
 
     }//serchEvent
 
+    imgAdd(){
+
+    }
+
 
 
     pagination(){
@@ -157,6 +161,33 @@ export class Search {
                 $('.list_restaurants_wrapper').append(searchTemplate(data));
                 // 지도 다시 넣기
                 $('.list_map').append('<div id="map" style="width:400px;height:500px;"></div>');
+
+
+
+                data.data.r.forEach(value=> {
+                    // console.log(value);
+                    // console.log(value.workplace);
+                    axios.post("detailCount", {"bno": value.num}).then((count) => {
+                        count = count.data;
+                        // console.log($("."+value.num));
+                        $("." + value.num).children().children(".restaurant_info").children("div").eq(1).children().children(".restaurant_reviews").text(count);
+                    });
+
+                    axios.post("DetailImg", {"workplace": value.workplace}).then((e) => {
+                        // console.log(e.data);
+                        let $i = $("." + value.num).children().children().children();
+                        if (e.data === "") {
+                            // console.log(value.workplace+" 이미지 없음");
+                            $i.attr("src", "/image/empty.png");
+                        } else {
+                            console.log(value.workplace + " 이미지 있음");
+                            // console.log(e.data.img1src);
+                            $i.attr("src", e.data.img1src);
+                        }
+                    });
+                });
+
+
 
                 // map
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
