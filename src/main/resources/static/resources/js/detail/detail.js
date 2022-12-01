@@ -43,7 +43,22 @@ export class Detail {
             axios.post("detailViewsUp", {"num":num}).then(()=>{
                 // console.log("조회수");
                 $('.resViews').text(res.data.resViews);
-            })
+            });
+
+            axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
+                // console.log(i.data);
+                if(i.data===""){
+                    // console.log("음식점 이름 중복 or 없음");
+                    // for(let j=1;j<=4;j++){
+                    //     $("#img"+j).attr("class", "hidden");
+                    // }
+                }else{
+                    $("#resContent").text(i.data.content);
+                    let imageTempl = require('@/detail/detailImage.html');
+                    $(".grid-image").empty();
+                    $(".grid-image").append(imageTempl(i));
+                }
+            });
 
         })
 
@@ -53,6 +68,7 @@ export class Detail {
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
+            this.updateThumbnail();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -71,7 +87,6 @@ export class Detail {
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
-            this.updateThumbnail();
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -199,14 +214,13 @@ export class Detail {
     }
 
     updateThumbnail(){
-        let updateImg = $('#updateImg');
+        let updateImg = $('input[name=updateImg]');
         let udtImgBox = $('.update_img_box');
-        // let udtImgBoxI = $('.update_img_box > img');
 
         updateImg.on('change', (e)=>{
             console.log("이미지 바뀜!")
-            let file = e.target.files[0];
-            let reader = new FileReader();
+            var file = e.target.files[0];
+            var reader = new FileReader();
             reader.onload = function (e){
                 $('.update_thumbnail').attr('src', e.target.result);
                 udtImgBox.removeClass('hidden');
