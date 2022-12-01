@@ -21,8 +21,10 @@
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
                 <input type="file" id="updateImg" name="updateImg" accept="image/*, txt" style="margin-top: 1rem"/>
                 <div class="update_img_box">
-                    <img src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt='' style="margin-top:1rem; width: 120px; height: 120px; object-fit: cover">
+                    <img src="images/s_{{$value.savedName}}" class="update_thumbnail" onerror="this.style.display='none';" alt='' style="margin-top:1rem; width: 120px; height: 120px; object-fit: cover">
+                    <%if($value.savedName){%>
                     <button type="button" class="btn btn-close mt-3 update_img_delete"></button>
+                    <%}%>
                 </div>
                 <button type="submit" class="btn btn-dark mt-3">수정 완료</button>
                 <button type="button" class="btn btn-outline-dark mt-3 rollbackButton">수정 취소</button>

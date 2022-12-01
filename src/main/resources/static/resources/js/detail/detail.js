@@ -70,7 +70,7 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
-            $('.update_img_box').removeClass('hidden');
+            $e.children('.update_img_box').removeClass('hidden');
             this.updateThumbnail();
         })
 
@@ -136,22 +136,19 @@ export class Detail {
     }
 
     kakaoMap(locName){
-
-
-
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
-// 지도를 생성합니다
+        // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 주소-좌표 변환 객체를 생성합니다
+        // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다
+        // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -204,25 +201,23 @@ export class Detail {
     updateThumbnail(){
         let updateImg = $('#updateImg');
         let udtImgBox = $('.update_img_box');
-        let udtImgBoxI = $('.update_img_box > img');
+        // let udtImgBoxI = $('.update_img_box > img');
 
         updateImg.on('change', (e)=>{
+            console.log("이미지 바뀜!")
             let file = e.target.files[0];
             let reader = new FileReader();
             reader.onload = function (e){
-                udtImgBoxI.attr('src', e.target.result);
+                $('.update_thumbnail').attr('src', e.target.result);
                 udtImgBox.removeClass('hidden');
             }
             reader.readAsDataURL(file);
         });
-
-        $('.update_img_delete').on('click', ()=>{
-            udtImgBox.addClass('hidden');
-            udtImgBoxI.attr('src', null);
-            updateImg.val("");
+        $('.update_img_delete').on('click', (e)=>{
+            $(e.currentTarget).parent().addClass('hidden');
+            $(e.currentTarget).prev().attr('src', null);
         });
     }
-
 
 
 
