@@ -166,6 +166,18 @@ public class HomeDataAct {
         test.updateViewsTop(resNumString);
     }
 
+    @PostMapping("idDuplicate")
+    public boolean idDuplicate(@RequestBody Map map){
+        String id = String.valueOf(map.get("id"));
+        int num = test.idDuplicate(id);
+        log.error("num {}, id {}",num, id);
+        if(num>=1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
 

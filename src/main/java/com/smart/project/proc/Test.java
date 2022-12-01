@@ -50,6 +50,7 @@ public interface Test {
 	ReplyVO selectResReview(int num);
 
 	Map DetailImg(String workplace);
+
 	int joinCount(String workplace);
 
 	List resViewsTop();
@@ -59,4 +60,6 @@ public interface Test {
 	MemberVO getUserAccount(String userId);
 
 	void joinInsert(MemberVO memberVO);
+
+	int idDuplicate(String userId);
 }

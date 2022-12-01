@@ -122,7 +122,6 @@ public class HomePageAct {
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
         test.insertReview(rep);
-
         return "redirect:/detail?num="+num;
     }
 

@@ -98,7 +98,6 @@ export class Detail {
             console.log($(e.currentTarget).val());
         })
 
-
         /**
          *  < 수정/삭제 버튼 보이기 >
          * - 현재 세션 아이디와 댓글 아이디를 비교해서 일치했을때 수정/삭제 버튼 보이기
