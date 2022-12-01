@@ -115,6 +115,26 @@ input:focus::placeholder{
     width:100%;
     position: relative;
 }
+#wantEat{
+    width :100%;
+    position: relative;
+}
+#bleft{
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+#bcenter{
+    width: 30%;
+    float: left;
+    box-sizing: border-box;
+}
+#bright{
+    width:20%;
+    float: right;
+    box-sizing: border-box;
+}
+
 #left{
     width: 50%;
     float: left;
@@ -128,7 +148,18 @@ input:focus::placeholder{
 
 
 }
-
+.workplace{
+    color: grey;
+    text-decoration: none;
+    font-size:20px
+}
+.workplace.hover{
+    color: grey;
+}
+.bnum{
+    color: #3f3a61;
+    font-size: 20px;
+}
 .vox{
     color: grey;
     text-decoration: none;
@@ -145,6 +176,9 @@ input:focus::placeholder{
 #whe{
     font-size: 25px;
 
+}
+.deleteWish{
+    line-height: 1;
 }
 
 .navbar{

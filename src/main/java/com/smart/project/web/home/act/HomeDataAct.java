@@ -1,24 +1,18 @@
 package com.smart.project.web.home.act;
 
 import com.smart.project.proc.Test;
-import com.smart.project.web.home.vo.Criteria;
-import com.smart.project.web.home.vo.MainVO;
-import com.smart.project.web.home.vo.ReplyVO;
-import com.smart.project.web.home.vo.ResVO;
+import com.smart.project.web.home.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,11 +82,63 @@ public class HomeDataAct {
         List<String> wnchk = wpn.stream().distinct().collect(Collectors.toList());
         session.setAttribute("able",wpchk);
         session.setAttribute("able2",wnchk);
+        session.getAttribute("userId");
+        session.setAttribute("resNum",res.getNum());
+        session.setAttribute("reswpl",res.getWorkplace());
+
         log.error(String.valueOf(wpchk));
         log.error(String.valueOf(wnchk));
 
+
+
         return res;
 
+    }
+
+        @RequestMapping(value = "delete.do", method = RequestMethod.GET)
+        public void Delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            wpl.clear();
+            wpn.clear();
+            HttpSession session = request.getSession();
+            session.removeAttribute("able");
+            session.removeAttribute("able2");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
+        }
+    @RequestMapping("bookMarkInput")
+    public BookMarkVO bookMarkInput(Map map, HttpSession session, HttpServletRequest request) throws IOException{
+        String id = (String)request.getSession().getAttribute("userId");
+        int resnum = (int)request.getSession().getAttribute("resNum");
+        String reswpl = (String)request.getSession().getAttribute("reswpl");
+        BookMarkVO bookMarkVO =new BookMarkVO();
+        bookMarkVO.setUserId(id);
+        bookMarkVO.setResNum(resnum);
+        bookMarkVO.setResWorkplace(reswpl);
+        log.error(id);
+        log.error(String.valueOf(resnum));
+        log.error(reswpl);
+        BookMarkVO data = bookMarkVO;
+        test.bookMarkInsert(bookMarkVO);
+        return data;
+    }
+@RequestMapping("bookModal")
+public List<BookMarkVO> bookModal(HttpServletRequest request){
+        String userId =(String) request.getSession().getAttribute("userId");
+        List<BookMarkVO> data = test.bookList(userId);
+        return data;
+}
+@RequestMapping("bookDelete")
+public BookMarkVO bookDelete(HttpServletRequest request){
+        String userID=(String) request.getSession().getAttribute("userId");
+        String reswpl=(String) request.getSession().getAttribute("reswpl");
+        int resNum =(int)request.getSession().getAttribute("resNum");
+        BookMarkVO bookMarkVO =new BookMarkVO();
+        bookMarkVO.setUserId(userID);
+        bookMarkVO.setResNum(resNum);
+        bookMarkVO.setResWorkplace(reswpl);
+        BookMarkVO data = bookMarkVO;
+        test.bookDeletego(bookMarkVO);
+        return data;
     }
 
     @PostMapping("viewReply")
@@ -104,14 +150,6 @@ public class HomeDataAct {
         return rep;
     }
 
-    @PostMapping("/delete")
-    public String Delete(HttpServletRequest request,HttpSession session){
-    wpl.clear();
-    wpn.clear();
-    session.removeAttribute("able");
-    session.removeAttribute("able2");
-        return "redirect:" + request.getHeader("Referer");
-    }
     @PostMapping("detailCount")
     public int detailCount(@RequestBody Map map){
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
@@ -156,13 +194,5 @@ public class HomeDataAct {
 
 
 
-
-
-
-
-
-
-
-
-
 }
+

@@ -86,4 +86,16 @@
     <select id="getUserAccount" resultType="com.smart.project.web.home.vo.MemberVO">
         select * FROM userRegister WHERE userId = #{userId}
     </select>
+    <insert id="bookMarkInsert" parameterType="com.smart.project.web.home.vo.BookMarkVO">
+        insert into bookmarkTB (userId, resNum, resWorkplace)
+        select #{userId}, #{resNum}, #{resWorkplace}
+        from dual
+        where not exists (select userId, resWorkplace from bookmarkTB where userId=#{userId} and resWorkplace=#{resWorkplace});
+    </insert>
+    <select id="bookList" resultType="com.smart.project.web.home.vo.BookMarkVO">
+        select resNum, resWorkplace from bookmarkTB where userId =#{userId};
+    </select>
+    <delete id="bookDeletego" parameterType="com.smart.project.web.home.vo.BookMarkVO">
+        delete from bookmarkTB where userID =#{userId} and resNum=#{resNum} and resWorkplace =#{resWorkplace};
+    </delete>
 </mapper>

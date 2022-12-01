@@ -13,6 +13,7 @@ export class Detail {
     constructor() {
         console.log("Detail");
         this.detailEvent();
+        this.bookmarkEvent();
     }
 
     detailEvent(){
@@ -63,6 +64,28 @@ export class Detail {
     }
 
     reviewEvent(){
+        let num = getQueryParam("num");
+        console.log("num :",num);
+
+        axios.post("detailRes", {"num":num}).then((res)=>{
+            // console.log(place);
+            // console.log(res.data);
+            $('#workplace').text(res.data.workplace);
+            $('#roadAddr').text(res.data.roadAddr);
+            $('#locAddr').text(res.data.locAddr);
+            $('#tel').text(res.data.tel===null?"X":res.data.tel);
+            $('#state').text(res.data.state);
+            $('#num').val(res.data.num);
+
+            this.kakaoMap(res.data.roadAddr, res.data.workplace);
+
+
+            axios.post("detailViewsUp", {"num":num}).then(()=>{
+                // console.log("조회수");
+                $('.resViews').text(res.data.resViews);
+            })
+
+        })
         $('.updateButton').on("click", (e)=>{
             // console.log("수정");
             let $e = $(e.currentTarget).parents(".card-body").eq(0);
@@ -78,6 +101,65 @@ export class Detail {
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
         })
+    }
+    bookmarkEvent(){
+
+            axios.post("bookModal",{}).then((result)=>{
+                console.log(result);
+
+                let data = result.data;
+                _.forEach(data,(e)=>{
+                    let workplace = e.resWorkplace;
+                    let num4 = e.resNum;
+
+                    console.log(workplace);
+                    var html = [
+                        '<form class="bookForm">',
+                        '<div id ="bleft">',
+                        '<a class="workplace">'+ workplace +'<br></a>',
+                        '</div>',
+                        '<div id = "bcenter">',
+                        '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
+                        '</div>',
+                        '<div id = "bright">',
+                        '<button type="reset" class = "btn btn-danger deleteWish" id="deleteWish">' + '삭제'+'</button>',
+                        '</div>',
+                        '</form>'
+                    ].join('');
+                    $('#bookMark').append(html);
+                    console.log(num4);
+                })
+            })
+
+
+        $('.wStar').on("click", (e)=> {
+                $('.wStar').addClass("hidden");
+                $('.bStar').removeClass("hidden");
+                $(sessionStorage.getItem("userId"));
+
+                axios.post("bookMarkInput",{}).then((result)=>{
+                console.log(result)
+            })
+
+            }
+        )
+
+        $('.bStar').on("click", (e)=> {
+            $('.bStar').addClass("hidden");
+            $('.wStar').removeClass("hidden");
+let bpl=e.resWorkplace;
+let uid=e.userID;
+            axios.delete("bookDelete", {
+                headers: {
+                    Authorization: uid
+                },
+                data: {
+                    source: bpl
+                }
+            });
+        })
+
+
     }
 
     kakaoMap(locName){
@@ -124,6 +206,7 @@ export class Detail {
 
 
     }
+
 
 
 

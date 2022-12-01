@@ -16,6 +16,9 @@ public interface Test {
 	 * @작성자 : 김남현
 	 * @변경이력 :
 	 **********************************************************************************************/
+	MemberVO getUserAccount(String userId);
+
+	void joinInsert(MemberVO memberVO);
 
 	List<ResVO> selectRes(String input);
 
@@ -50,7 +53,14 @@ public interface Test {
 
 	ReplyVO selectResReview(int num);
 
-	MemberVO getUserAccount(String userId);
+	void bookMarkInsert(BookMarkVO bookMarkVO);
 
-	void joinInsert(MemberVO memberVO);
+
+
+	List<BookMarkVO> bookList(String userId);
+
+
+	void bookDeletego(String userID, String reswpl, int resnum);
+
+	void bookDeletego(BookMarkVO bookMarkVO);
 }

@@ -86,6 +86,8 @@ public class HomePageAct {
     public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
         //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
         MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
+
+
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
         session.setAttribute("userId", memberVO.getUserId());
         session.setAttribute("userName", memberVO.getUserName());
@@ -182,14 +184,4 @@ public class HomePageAct {
         return "redirect:/detail?num="+bno;
     }
 
-    @PostMapping("updateReview")
-    public String updateReview(String updateText, int rno, int bno) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("updateText", updateText);
-        map.put("rno", rno);
-        map.put("bno", bno);
-//        log.error("map :: {}", map);
-        test.updateReview(map);
-        return "redirect:/detail?num=" + bno;
-    }
 }
