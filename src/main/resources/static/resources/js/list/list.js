@@ -61,7 +61,17 @@ export class List {
                         // console.log(r.data.reply);
                         let $n = $("."+n).children("div");
                         $n.children("div").children(".mango_nickname").text(r.data.replyUser==null?" ":r.data.replyUser);
-                        $n.children(".short_review").text(r.data.reply==null?"아직 리뷰가 없습니다.":r.data.reply);
+                        let review;
+                        // console.log(r.data.reply.length);
+                        if(r.data.reply==null){
+                            review="아직 리뷰가 없습니다.";
+                            $n.find(".fa-solid.fa-circle-user").remove();
+                        }else if(r.data.reply.length>=80){
+                            review=r.data.reply.substring(0,80)+"...";
+                        }else{
+                            review=r.data.reply;
+                        }
+                        $n.children(".short_review").text(review);
                     })
                 }
 
