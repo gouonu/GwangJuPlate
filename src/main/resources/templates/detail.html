@@ -27,10 +27,7 @@
     <!-- Navigation-->
     <th:block th:replace="fragments/navSearch.html"></th:block>
     <header class="grid-image">
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />            <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
-        <!--    <img alt="" src=https://mp-seoul-image-production-s3.mangoplate.com/93106/j8xy9s0l7b_o6i.jpg?fit=around|256:256&amp;crop=256:256;*,*&amp;output-format=jpg&amp;output-quality=80" alt="압구정공주떡집 사진 - 서울시 강남구 신사동 569-31" onerror="this.src='https://mp-seoul-image-production-s3.mangoplate.com/web/resources/kssf5eveeva_xlmy.jpg?fit=around|*:*&amp;crop=*:*;*,*&amp;output-format=jpg&amp;output-quality=80'" />-->
+
     </header>
     <!-- Section-->
     <section>
@@ -79,7 +76,7 @@
                         <th></th>
                         <tr class="un">
                             <th class="not">소개</th>
-                            <td></td>
+                            <td id="resContent"></td>
                         </tr>
                     </table>
                     <!--리뷰 작성-->
@@ -90,15 +87,18 @@
                         <div class="card-body" style="width:500px;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <form action="reviewInput" method="post" enctype="multipart/form-data">
-                                        <input id="userId" name="userId" type="hidden" value="testID">
-                                        <input id="num" name="num" type="hidden">
-                                        <textarea class="form-control" name="reviewText" id="reviewText" rows="3" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!">
-                                        </textarea>
-                                        <input id="imageFile" type="file" name="imageFile" accept="image/*, txt" style="width: 60%; margin-top: 5%">
-                                        <button type="submit" class="btn btn-dark mt-3" style="float: right; margin-top: 2.5rem !important;">리뷰
+                                    <form action="reviewInput" method="post">
+                                        <input id="userId" name="userId" type="hidden" value="testID"></input>
+                                        <input id="num" name="num" type="hidden"></input>
+                                        <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
+                                                  placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+                                        <button type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰
                                             작성
                                         </button>
+                                        <p style="float:right; font-size: smaller">
+                                            <span id="byteCount" >0</span>
+                                            <span> / 300자</span>
+                                        </p>
                                     </form>
                                     <div class="img_thumbnail_box hidden">
                                         <button type="button" class="btn btn-close mt-3 review_img_delete"></button>
@@ -121,9 +121,10 @@
             </div>
         </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
 </div>
 </body>
+<section layout:fragment="contentScriptFragment">
+    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
+</section>
 </html>

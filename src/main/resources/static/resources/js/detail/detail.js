@@ -81,23 +81,77 @@ export class Detail {
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
         })
+
+        $(".scoreRadio").on("checked", (e)=>{
+            console.log($(e.currentTarget).val());
+        })
+
+
+        /**
+         *  < 수정/삭제 버튼 보이기 >
+         * - 현재 세션 아이디와 댓글 아이디를 비교해서 일치했을때 수정/삭제 버튼 보이기
+         */
+        let idList = $(".replyUserID").text().split(" ");
+        idList.pop();
+        // console.log(idList);
+        let sessionID = $('#userId').val();
+        console.log("현재 아이디 : ", sessionID===""? "로그인 안됨":sessionID);
+
+        if(sessionID===""){
+            // console.log("미로그인 상태");
+            $('#reviewSubmit').addClass("hidden");
+            $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
+            $('#reviewText').attr("readonly", true);
+        }else{
+            // console.log("로그인 상태");
+            idList.forEach(function (id){
+                // console.log(id);
+                if(id===sessionID){
+                    // let $c = $('.'+id).children().children().eq(2).children();
+                    // console.log($c);
+                    $('.'+id).find('.updateButton').removeClass("hidden");
+                    $('.'+id).find('.removeButton').removeClass("hidden");
+                }
+            })
+
+        }
+
+        /*
+        * 리뷰 텍스트 null 일때 alert 띄우기
+         */
+        $('#reviewText').on("keyup",(e)=>{
+            let byteCount = document.getElementById("reviewText").value.length;
+            let $submit = $("#reviewSubmit");
+            let $bCount = $('#byteCount');
+            $bCount.text(byteCount);
+            if(byteCount === 0 || byteCount > 300) {
+                $submit.attr("disabled",true);
+                $bCount.parent().addClass("error");
+            }else{
+                $submit.attr("disabled",false);
+                $bCount.parent().removeClass("error");
+            }
+        })
+
     }
 
-
     kakaoMap(locName){
+
+
+
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
-        // 지도를 생성합니다
+// 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 주소-좌표 변환 객체를 생성합니다
+// 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-        // 주소로 좌표를 검색합니다
+// 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -129,7 +183,7 @@ export class Detail {
     setThumbnail(){
         let imageFile = $('#imageFile');
         let imgThumbnailBox = $('.img_thumbnail_box');
-        
+
         imageFile.on('change', (e)=>{
             var file = e.target.files[0];
             var reader = new FileReader();

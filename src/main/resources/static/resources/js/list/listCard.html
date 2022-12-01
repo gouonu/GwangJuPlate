@@ -1,46 +1,48 @@
 {{each data.list}}
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <a href="#">
-      <!-- 이미지 들어갈 부분 -->
-      </a>
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h3 class="card-title"><a href="/detail?num={{$value.num}}">{{$value.workplace}} <!--({{$value.state}})--></a>
-<!--          <span class="ratings">3.3</span>-->
-          <span>
-          <button class="btn_favorites">
-              <i class="fa-regular fa-star" id="empty_star"></i>
-            <!--<i class="fa-solid fa-star hidden" id="fill_star" style="color:#ff792a"></i>-->
-              <div class="gagosipda">가고싶다</div>
-          </button>
-          </span>
-        </h3>
-        <p class="card-text">{{$value.roadAddr}}</p>
-        <div class="card_text_wrap">
-          <p class="card-text">
-            <!-- 유저프로필 임시 -->
-            <div>
-              <i class="fa-solid fa-circle-user"></i>
-              <b class="mango_nickname">nickname</b>
-            </div>
-            <small class="text-muted short_review">
-              {{$value.workplace}}의 리뷰 내용
-            </small>
-            <button class="more_review">더보기</button>
-            <small class="text-muted long_review hidden">
-              {{$value.workplace}}의 리뷰 내용
-            </small>
-          </p>
+<div class="card mb-3" xmlns:style="http://www.w3.org/1999/xhtml">
+    <div class="row g-0">
+        <div class="col-md-4" style=" overflow: hidden;">
+            <a href="/detail?num={{$value.num}}">
+                <img class="{{$value.workplace}} img" alt="" style="width: 100%; height: 235px; object-fit: cover;">
+            </a>
         </div>
-        <a href="/detail?num={{$value.num}}" class="visit_restaurant">
-          <div class="restaurant_name">{{$value.workplace}}<span class="more_view_restaurant">더보기 ></span></div>
-        </a>
-      </div>
+        <div class="col-md-8">
+            <div class="card-body {{$value.num}}">
+                <h3 class="card-title">
+                    <a href="/detail?num={{$value.num}}">
+                        <span class="rating"></span>
+                        {{$value.workplace}}
+                    </a>
+                    <span>
+                                    <button class="btn_favorites">
+                                        <i class="fa-regular fa-star" id="empty_star"></i>
+                                        <!--                                                                              <i class="fa-solid fa-star hidden" id="fill_star" style="color:#ff792a"></i>-->
+                                        <div class="gagosipda">가고싶다</div>
+                                    </button>
+                                </span>
+                </h3>
+                <p class="card-text">{{$value.roadAddr}}</p>
+                <div class="card_text_wrap">
+                    <p class="card-text">
+                        <!-- 유저프로필 임시 -->
+                    <div>
+                        <i class="fa-solid fa-circle-user"></i>
+                        <b class="mango_nickname"></b>
+                    </div>
+                    <small class="text-muted short_review">
+                    </small>
+                    <small class="text-muted long_review hidden">
+                        {{$value.workplace}}의 리뷰 내용
+                    </small>
+                    </p>
+                </div>
+                <a href="/detail?num={{$value.num}}" class="visit_restaurant">
+                    <div class="restaurant_name">{{$value.workplace}}<span class="more_view_restaurant">더보기 ></span>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 
 </div>
 {{/each}}

@@ -1,10 +1,11 @@
 {{each data}}
-<div class="card-body" style="width:500px;">
+<div class="card-body {{$value.replyUser}}" style="width:500px;">
     <div class="card-body" style="border:solid 1px rgba(0, 0, 0, 0.125);">
         <div class="reviewHeader">
             <p class="text-black-50" style="float: right">{{$value.updateDate}}</p>
             <p>
-                <i class="fa-regular fa-user"></i> {{$value.replyUser}}
+                <i class="fa-regular fa-user"></i>
+                <span class="replyUserID">{{$value.replyUser}} </span>
             </p>
             <div class="card-group">
                 <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
@@ -29,8 +30,8 @@
         </div>
         <div class="reviewButton">
             <form action="deleteReview" method="post">
-                <button  type="button" class="btn btn-light mt-3 updateButton" style="margin-left: 75%">수정</button>
-                <button type="submit" class="btn btn-light mt-3">삭제</button>
+                <button  type="button" class="btn btn-light mt-3 updateButton hidden" style="margin-left: 75%">수정</button>
+                <button type="submit" class="btn btn-light mt-3 removeButton hidden">삭제</button>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
             </form>

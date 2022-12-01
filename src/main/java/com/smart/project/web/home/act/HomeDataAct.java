@@ -29,14 +29,14 @@ public class HomeDataAct {
     public Map getSearch2(@ModelAttribute Criteria cri) {
         Map<String, Object> data = new HashMap<>();
 
-        log.error("시작/개수{}", cri);
+        log.error("시작/개수 => {}", cri);
 
         int start = cri.getPageStart();
         cri.setStartPage(start);
-        log.error("변경값{}", cri);
+        log.error("변경값 => {}", cri);
 
         List<ResVO> r = test.selectRes2(cri);
-        log.error("정보", r);
+//        log.error("정보 => {}", r);
 
 
         data.put("r",r);
@@ -131,6 +131,43 @@ public class HomeDataAct {
 //        log.error("num : {}",num);
         test.detailViewsUp(num);
     }
+
+    @PostMapping("selectResReview")
+    public ReplyVO selectResReview(@RequestBody Map map){
+        int num = Integer.valueOf(String.valueOf(map.get("num")));
+//        log.error("num : {}",num);
+        ReplyVO r = test.selectResReview(num);
+        return r;
+    }
+
+    @PostMapping("DetailImg")
+    public Map DetailImg(@RequestBody Map map){
+        String workplace = String.valueOf(map.get("workplace"));
+//        log.error("workplace : {}",workplace);
+        int count= test.joinCount(workplace); // 2이상이면 중복
+//        log.error("count : {}",count);
+        if(count>=2){
+//            log.error("중복!");
+            return null;
+        }else{
+            Map i = test.DetailImg(workplace);
+//             log.error("Map : {}",i);
+            return i;
+        }
+    }
+
+    @PostMapping("resViewsTop")
+    public List resViewsTop(){
+        return test.resViewsTop();
+    }
+
+    @PostMapping("ViewTop2")
+    public void ViewTop2(@RequestBody Map map){
+        String resNumString = String.valueOf(map.get("resNumString"));
+        test.updateViewsTop(resNumString);
+    }
+
+
 
 
 

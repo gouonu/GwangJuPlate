@@ -29,6 +29,28 @@ list_restaurants_wrapper a:link{
     /* navbar 명암 */
     box-shadow: 0 4px 11px rgb(0 0 0 / 10%);
 }
+
+.searchFilter{
+    float: right;
+    margin-right: 10px;
+}
+
+.paginationUl{
+    display: flex;
+    justify-content: center;
+}
+.paginationUl li{
+    margin-right: 25px;
+}
+.paginationUl .active{
+    background-color: #00b6e8;
+}
+
+
+.searchFilter.choice{
+    font-weight: bolder;
+}
+
 .category_wrapper{
     margin-top: 2rem;
     margin-bottom: 2rem;
