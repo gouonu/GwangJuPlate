@@ -190,6 +190,7 @@ public class HomePageAct {
         replyVO.setReply(reply);
 //        log.error("newReplyVO :: {}", replyVO);
 
+
         if(!file.isEmpty()){
             String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
             replyVO.setFilePath(filePath);
@@ -217,6 +218,10 @@ public class HomePageAct {
 
             ImageIO.write(btImg, "jpg", thumbnailImg);
         }else{
+            ReplyVO imgList = test.getImageInfo(rno);
+            replyVO.setOriginName(imgList.getOriginName());
+            replyVO.setSavedName(imgList.getSavedName());
+            replyVO.setFilePath(imgList.getFilePath());
             test.updateReview(replyVO);
         }
 

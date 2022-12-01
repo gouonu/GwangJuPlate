@@ -70,7 +70,7 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
-
+            $('.update_img_box').removeClass('hidden');
             this.updateThumbnail();
         })
 
@@ -149,7 +149,6 @@ export class Detail {
 
     updateThumbnail(){
         let updateImg = $('#updateImg');
-        let udtImgBoxP = $('.update_img_box > p');
         let udtImgBox = $('.update_img_box');
         let udtImgBoxI = $('.update_img_box > img');
 
@@ -157,9 +156,6 @@ export class Detail {
             let file = e.target.files[0];
             let reader = new FileReader();
             reader.onload = function (e){
-                if(!udtImgBoxP.hasClass('hidden')){
-                    udtImgBoxP.addClass('hidden');
-                }
                 udtImgBoxI.attr('src', e.target.result);
                 udtImgBox.removeClass('hidden');
             }
@@ -170,7 +166,6 @@ export class Detail {
             udtImgBox.addClass('hidden');
             udtImgBoxI.attr('src', null);
             updateImg.val("");
-            udtImgBoxP.addClass('hidden');
         });
     }
 

@@ -50,4 +50,6 @@ public interface Test {
 	MemberVO getUserAccount(String userId);
 
 	void joinInsert(MemberVO memberVO);
+
+	ReplyVO getImageInfo(int rno);
 }

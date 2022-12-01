@@ -48,6 +48,10 @@
         values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath});
     </insert>
 
+    <select id="getImageInfo" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
+        select originName, savedName, filePath from replyTB where rno=#{rno}
+    </select>
+
     <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
         update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, updateDate=now() where rno=#{rno} and bno=#{bno};
     </update>
