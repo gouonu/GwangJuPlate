@@ -19,14 +19,13 @@
             </div>
             {{if $value.modalName}}
             <div id="{{$value.modalName}}" class="modal" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered  modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">원본 이미지</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <img src="images/{{$value.savedName}}" onerror="this.style.display='none';" alt=''>
+                        <div class="modal-body" style="height: 800px">
+                            <img src="images/{{$value.savedName}}" style="width: 100%; height: 100%; object-fit: contain">
                         </div>
                     </div>
                 </div>

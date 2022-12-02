@@ -167,6 +167,7 @@ public class HomePageAct {
             graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
 
             ImageIO.write(btImg, "jpg", thumbnailImg);
+
         }else{
             test.insertReview(rep);
         }

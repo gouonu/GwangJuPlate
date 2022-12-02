@@ -67,7 +67,7 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
-            
+
             this.reviewEvent();
             this.updateThumbnail();
             this.thumbnailModal();
@@ -198,13 +198,22 @@ export class Detail {
         let imgThumbnailBox = $('.img_thumbnail_box');
 
         imageFile.on('change', (e)=>{
+            let fileSize = e.target.files[0].size; // 파일 크기
+            let maxSize = 1024 * 1024; // 1mb
             var file = e.target.files[0];
             var reader = new FileReader();
-            reader.onload = function (e){
-                $('.img_thumbnail_box > img').attr('src', e.target.result);
-                imgThumbnailBox.removeClass('hidden');
+
+            // 파일용량 체크
+            if(fileSize > maxSize){
+                imageFile.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else{
+                reader.onload = function (e){
+                    $('.img_thumbnail_box > img').attr('src', e.target.result);
+                    imgThumbnailBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
 
         $('.review_img_delete').on('click', ()=>{
@@ -218,14 +227,21 @@ export class Detail {
         let udtImgBox = $('.update_img_box');
 
         updateImg.on('change', (e)=>{
-            console.log("이미지 바뀜!")
+            let fileSize = e.target.files[0].size;
+            let maxSize = 1024 * 1024;
             var file = e.target.files[0];
             var reader = new FileReader();
-            reader.onload = function (e){
-                $('.update_thumbnail').attr('src', e.target.result);
-                udtImgBox.removeClass('hidden');
+
+            if(fileSize > maxSize){
+                updateImg.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else {
+                reader.onload = function (e) {
+                    $('.update_thumbnail').attr('src', e.target.result);
+                    udtImgBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
         $('.update_img_delete').on('click', (e)=>{
             $(e.currentTarget).parent().addClass('hidden');
