@@ -93,15 +93,15 @@ public class HomeDataAct {
 
     }
 
-        @RequestMapping(value = "delete.do", method = RequestMethod.GET)
+        @PostMapping(value = "delete")
         public void Delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
             wpl.clear();
             wpn.clear();
             HttpSession session = request.getSession();
             session.removeAttribute("able");
             session.removeAttribute("able2");
-            String referer = request.getHeader("Referer");
-            response.sendRedirect(referer);
+
+
         }
     @RequestMapping("bookMarkInput")
     public BookMarkVO bookMarkInput(Map map, HttpSession session, HttpServletRequest request) throws IOException{

@@ -14,7 +14,8 @@ export class Detail {
         console.log("Detail");
         this.detailEvent();
         this.bookmarkEvent();
-        this.bookMarkSlctDelete()
+        this.bookMarkSlctDelete();
+        this.recentEvent();
     }
 
     detailEvent(){
@@ -199,6 +200,26 @@ export class Detail {
             })
 
         }
+    recentEvent(){
+        $('.redel').on('click',(e)=>{
+            axios.post("delete",{}).then(()=>{
+                $('.asd').remove();
+                var html = [
+                    ' <div align="center" class="abc">',
+                    '<b id="whe">',
+                    '<br><br>거기가 어디였지?<br>',
+                    '</b>',
+                    '내가 둘러 본 식당이 이 곳에 순서대로<br> 기록됩니다.',
+                    ' <br><br><br>',
+                    '</div>'
+                ].join('');
+                $('#rkfk').empty(html);
+                $('#rkfk').append(html);
+            })
+        })
+
+
+    }
     kakaoMap(locName){
 
 

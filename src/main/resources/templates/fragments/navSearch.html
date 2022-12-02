@@ -40,13 +40,18 @@
           <div class="card">
 
             <div class="card-body">
-              <div th:if="${session.able}">
-                <div id = "left">
-                  <a class="vox" th:each="list,listStats : ${session.able}" th:text="${listStats.current}"><br></a>
+              <div class="asd">
+                <div th:if="${session.able}">
+                  <div id = "left">
+                    <a class="vox" th:each="list,listStats : ${session.able}" th:text="${listStats.current}"><br></a>
+                  </div>
+                  <div id = "right">
+                    <a class="kex" th:each = "num,numStats :${session.able2}" href="detail.html" th:href="'detail?num=' + ${numStats.current}">이동하기</a>
+                  </div>
                 </div>
-                <div id = "right">
-                  <a class="kex" th:each = "num,numStats :${session.able2}" href="detail.html" th:href="'detail?num=' + ${numStats.current}">이동하기</a>
-                </div>
+              </div>
+              <div id="rkfk">
+
               </div>
               <div th:if="${session.able eq null}">
                 <div align="center">
@@ -76,7 +81,7 @@
 
 
         <div class="modal-footer d-grid gap-2 col-4 mx-auto">
-          <button th:if="${session.able}" type="button" class="btn btn-outline-danger" onclick="location.href='delete.do'">기록 삭제</button>
+          <button th:if="${session.able}" type="button" class="btn btn-outline-danger redel" >기록 삭제</button>
           <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
             로그인
           </button>
