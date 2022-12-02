@@ -196,7 +196,7 @@ td{
 }
 
 /*수정 부분*/
-#map{
+.detail_map{
     border: 1px solid #b7b7b7;
     position: absolute;
     right: 25%;
