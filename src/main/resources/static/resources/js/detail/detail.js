@@ -200,6 +200,7 @@ export class Detail {
         imageFile.on('change', (e)=>{
             let fileSize = e.target.files[0].size; // 파일 크기
             let maxSize = 1024 * 1024; // 1mb
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
             var file = e.target.files[0];
             var reader = new FileReader();
 
@@ -207,6 +208,9 @@ export class Detail {
             if(fileSize > maxSize){
                 imageFile.val("");
                 return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else if(!imageFile.val().match(fileForm)){
+                imageFile.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
             }else{
                 reader.onload = function (e){
                     $('.img_thumbnail_box > img').attr('src', e.target.result);
@@ -229,13 +233,17 @@ export class Detail {
         updateImg.on('change', (e)=>{
             let fileSize = e.target.files[0].size;
             let maxSize = 1024 * 1024;
-            var file = e.target.files[0];
-            var reader = new FileReader();
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+            let file = e.target.files[0];
+            let reader = new FileReader();
 
             if(fileSize > maxSize){
                 updateImg.val("");
                 return alert("1MB 이하의 파일만 업로드 가능합니다.");
-            }else {
+            }else if(!updateImg.val().match(fileForm)){
+                updateImg.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
+            }else{
                 reader.onload = function (e) {
                     $('.update_thumbnail').attr('src', e.target.result);
                     udtImgBox.removeClass('hidden');
