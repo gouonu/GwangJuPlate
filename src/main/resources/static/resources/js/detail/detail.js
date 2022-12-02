@@ -14,6 +14,7 @@ export class Detail {
         console.log("Detail");
         this.detailEvent();
         this.bookmarkEvent();
+        this.bookMarkSlctDelete()
     }
 
     detailEvent(){
@@ -57,6 +58,7 @@ export class Detail {
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
             count = count.data;
+
             // console.log("리뷰 수 :",count);
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
@@ -121,19 +123,21 @@ export class Detail {
                     console.log(workplace);
                     var html = [
                         '<form class="bookForm">',
-                        '<div id ="bleft">',
-                        '<a class="workplace">'+ workplace +'<br></a>',
-                        '</div>',
-                        '<div id = "bcenter">',
+
+
+                        '<a class="workplace" >'+ workplace +'<br></a>',
+
+
                         '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
-                        '</div>',
-                        '<div id = "bright">',
-                        '<button type="reset" class = "btn btn-danger deleteWish" id="deleteWish">' + '삭제'+'</button>',
-                        '</div>',
+
+
+                        '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
+
                         '</form>'
                     ].join('');
                     $('#bookMark').append(html);
                     console.log(num4);
+                    this.bookMarkSlctDelete();
                 })
             })
 
@@ -173,8 +177,28 @@ export class Detail {
             });
         })
 
-    }
 
+        // var doc1 = document.getElementsByClassName("doBok");
+        // const w1= document.get('bleft');
+        // // var n1=document.getElementById('bcenter').getElementsByClassName('bnum');
+        // console.log("되긴함? : ",w1);
+        // $('#bright').on("click",(e)=>{
+        //     axios.post("bookSlct",{w1:{w1}, n1:{n1}}).then((result)=>{
+        //
+        //
+        //     })
+        // })
+    }
+        bookMarkSlctDelete(){
+            $('.deleteWish').on("click",(e)=>{
+                let workplce = $(e.currentTarget).prev().prev().text();
+                console.log("가능?:",workplce);
+                axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+                    $(e.currentTarget).parent($('.bookForm')).remove();
+                })
+            })
+
+        }
     kakaoMap(locName){
 
 

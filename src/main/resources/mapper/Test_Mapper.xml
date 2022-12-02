@@ -101,4 +101,7 @@
     <select id="bookMarkCount" parameterType="int" resultType="int">
         select count(*) from bookmarkTB where resNum =#{resNum};
     </select>
+    <delete id="bookSlctDel" parameterType="com.smart.project.web.home.vo.BookMarkVO">
+    delete from bookmarkTB where userID=#{userId} and resWorkplace=#{resWorkplace};
+    </delete>
 </mapper>

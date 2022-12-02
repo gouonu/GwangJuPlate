@@ -119,21 +119,7 @@ input:focus::placeholder{
     width :100%;
     position: relative;
 }
-#bleft{
-    width: 50%;
-    float: left;
-    box-sizing: border-box;
-}
-#bcenter{
-    width: 30%;
-    float: left;
-    box-sizing: border-box;
-}
-#bright{
-    width:20%;
-    float: right;
-    box-sizing: border-box;
-}
+
 
 #left{
     width: 50%;
@@ -149,6 +135,9 @@ input:focus::placeholder{
 
 }
 .workplace{
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
     color: grey;
     text-decoration: none;
     font-size:20px
@@ -157,6 +146,9 @@ input:focus::placeholder{
     color: grey;
 }
 .bnum{
+    width: 30%;
+    float: left;
+    box-sizing: border-box;
     color: #3f3a61;
     font-size: 20px;
 }
@@ -178,6 +170,9 @@ input:focus::placeholder{
 
 }
 .deleteWish{
+    width:20%;
+    float: right;
+    box-sizing: border-box;
     line-height: 1;
 }
 

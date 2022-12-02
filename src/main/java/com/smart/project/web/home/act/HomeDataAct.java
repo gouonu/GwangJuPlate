@@ -89,8 +89,6 @@ public class HomeDataAct {
         log.error(String.valueOf(wpchk));
         log.error(String.valueOf(wnchk));
 
-
-
         return res;
 
     }
@@ -142,6 +140,8 @@ public BookMarkVO bookDelete(HttpServletRequest request){
     }
     @PostMapping("bookCount")
     public int bookCount(HttpServletRequest request, Map map){
+//        int re2 = Integer.valueOf(String.valueOf(map.get("resNum")));
+//        log.error(String.valueOf(re2));
         int resNum =(int)request.getSession().getAttribute("resNum");
         int count = test.bookMarkCount(resNum);
         log.error("리뷰 수 :: {}", count);
@@ -154,6 +154,21 @@ public BookMarkVO bookDelete(HttpServletRequest request){
 //        int count = test.bookMarkCount(resNum);
 //        return count;
 //    }
+    @RequestMapping("bookSlct")
+    public BookMarkVO bookSlct(@RequestBody Map map,HttpServletRequest request){
+        String userID = (String) request.getSession().getAttribute("userId");
+        String workplace = String.valueOf(map.get("workplace"));
+        BookMarkVO bookMarkVO = new BookMarkVO();
+        bookMarkVO.setResWorkplace(workplace);
+        bookMarkVO.setUserId(userID);
+        BookMarkVO result =bookMarkVO;
+        test.bookSlctDel(bookMarkVO);
+        return result;
+
+
+
+
+    }
 
     @PostMapping("viewReply")
 

@@ -63,4 +63,6 @@ public interface Test {
 	void bookDeletego(BookMarkVO bookMarkVO);
 
 	int bookMarkCount(int resNum);
+
+	void bookSlctDel(BookMarkVO bookMarkVO);
 }
