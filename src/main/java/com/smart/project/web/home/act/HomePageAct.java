@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -122,7 +123,7 @@ public class HomePageAct {
     }
 
     @PostMapping("reviewInput")
-    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
+    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
         ReplyVO rep = new ReplyVO();
         rep.setReply(reviewText);
         rep.setBno(num);
@@ -146,6 +147,10 @@ public class HomePageAct {
             String savedName = (uuid + extension).substring(24);
             rep.setSavedName(savedName);
             String saveImage = rep.getFilePath() + rep.getSavedName();
+
+            // test
+            String modalName = uuid.substring(24);
+            //
 
             // 파일 저장
             file.transferTo(new File(saveImage));
@@ -183,11 +188,11 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+    public String updateReview(String updateText, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
         ReplyVO replyVO = new ReplyVO();
         replyVO.setRno(rno);
         replyVO.setBno(bno);
-        replyVO.setReply(reply);
+        replyVO.setReply(updateText);
 //        log.error("newReplyVO :: {}", replyVO);
         ReplyVO imgList = test.getImageInfo(rno);
 

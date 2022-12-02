@@ -11,12 +11,26 @@
                 <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
             </div>
             <div class="reply_img">
-                <img src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt=''>
+                <img type="button" src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" data-bs-toggle="modal" data-bs-target="#" alt=''>
+            </div>
+            <!--            test-->
+            <div id="" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">원본 이미지</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="images/{{$value.savedName}}" onerror="this.style.display='none';" alt=''>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="updateReview hidden">
             <form action="updateReview" method="post" enctype="multipart/form-data">
-                <textarea class="form-control" name="reply" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
+                <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
                 <input type="file" id="updateImg" name="updateImg" accept="image/*, txt" style="margin-top: 1rem"/>

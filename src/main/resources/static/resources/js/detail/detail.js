@@ -67,8 +67,10 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
+            
             this.reviewEvent();
             this.updateThumbnail();
+            this.thumbnailModal();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -209,7 +211,6 @@ export class Detail {
             imgThumbnailBox.addClass('hidden');
             imageFile.val("");
         });
-
     }
 
     updateThumbnail(){
@@ -232,6 +233,12 @@ export class Detail {
         });
     }
 
-
+    //test
+    thumbnailModal(){
+        let replyImgTag = $('.reply_img > img');
+        replyImgTag.on('click', (e)=>{
+            console.log($(e.currentTarget));
+        });
+    }
 
 }
