@@ -14,9 +14,6 @@ export class Detail {
 
     detailEvent(){
 
-        console.log()
-
-
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
                 new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
@@ -84,6 +81,33 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
+
+
+
+            /**
+             * 한 개의 수정이 완료되지 않았을 때, 다른 리뷰 수정 동시에 못하게 막기
+             */
+            let update = document.getElementsByClassName("updateReview");
+            let hiddenCount = 0;
+
+            _.forEach(update, function (u) {
+                // console.log(u);
+                if(!u.className.includes("hidden")){
+                    hiddenCount+=1;
+                }
+            })
+            // console.log(hiddenCount);
+            _.forEach(update, function (u) {
+                let review = u.parentElement.getElementsByClassName("reviewButton");
+                let updateButton = review.item(0).children.item(0).children.item(0);
+                let removeButton = review.item(0).children.item(0).children.item(1);
+                if(hiddenCount>=1&&u.className.includes("hidden")){
+                    // console.log(u);
+                    updateButton.setAttribute("disabled","disabled");
+                    removeButton.setAttribute("disabled","disabled");
+                }
+            })
+
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -92,6 +116,10 @@ export class Detail {
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
+            $(".reviewButtonForm").each(function (index, item) { // 다른 수정,삭제 버튼 막혔던 거 지우기
+                $(this).find(".updateButton").removeAttr("disabled");
+                $(this).find(".removeButton").removeAttr("disabled");
+            })
         })
 
         $(".scoreRadio").on("checked", (e)=>{
