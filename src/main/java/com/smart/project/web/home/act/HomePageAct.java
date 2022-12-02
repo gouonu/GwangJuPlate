@@ -148,9 +148,9 @@ public class HomePageAct {
             rep.setSavedName(savedName);
             String saveImage = rep.getFilePath() + rep.getSavedName();
 
-            // test
+            // modalName 지정
             String modalName = uuid.substring(24);
-            //
+            rep.setModalName("m_"+modalName);
 
             // 파일 저장
             file.transferTo(new File(saveImage));
@@ -208,6 +208,10 @@ public class HomePageAct {
             String savedName = (uuid + extension).substring(24);
             replyVO.setSavedName(savedName);
 
+            // modalName 지정
+            String modalName = uuid.substring(24);
+            replyVO.setModalName("m_"+modalName);
+
             String saveImage = filePath + replyVO.getSavedName();
             file.transferTo(new File(saveImage));
 
@@ -226,6 +230,7 @@ public class HomePageAct {
             replyVO.setOriginName(imgList.getOriginName());
             replyVO.setSavedName(imgList.getSavedName());
             replyVO.setFilePath(imgList.getFilePath());
+            replyVO.setModalName(imgList.getModalName());
             test.updateReview(replyVO);
         }else{
             test.updateReview(replyVO);

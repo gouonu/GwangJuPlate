@@ -11,10 +11,14 @@
                 <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
             </div>
             <div class="reply_img">
-                <img type="button" src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" data-bs-toggle="modal" data-bs-target="#" alt=''>
+                {{if $value.modalName}}
+                <img type="button" src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt='' data-bs-toggle="modal" data-bs-target="#{{$value.modalName}}">
+                {{else}}
+                <img src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt=''>
+                {{/if}}
             </div>
-            <!--            test-->
-            <div id="" class="modal" tabindex="-1">
+            {{if $value.modalName}}
+            <div id="{{$value.modalName}}" class="modal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -27,18 +31,19 @@
                     </div>
                 </div>
             </div>
+            {{/if}}
         </div>
         <div class="updateReview hidden">
             <form action="updateReview" method="post" enctype="multipart/form-data">
                 <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
-                <input type="file" id="updateImg" name="updateImg" accept="image/*, txt" style="margin-top: 1rem"/>
+                <input type="file" id="updateImg" name="updateImg" accept="image/*" style="margin-top: 1rem"/>
                 <div class="update_img_box">
                     <img src="images/s_{{$value.savedName}}" class="update_thumbnail" onerror="this.style.display='none';" alt='' style="margin-top:1rem; width: 120px; height: 120px; object-fit: cover">
-                    <%if($value.savedName){%>
+                    {{if $value.savedName}}
                     <button type="button" class="btn btn-close mt-3 update_img_delete"></button>
-                    <%}%>
+                    {{/if}}
                 </div>
                 <button type="submit" class="btn btn-dark mt-3">수정 완료</button>
                 <button type="button" class="btn btn-outline-dark mt-3 rollbackButton">수정 취소</button>

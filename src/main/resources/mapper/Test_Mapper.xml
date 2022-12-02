@@ -44,16 +44,16 @@
     </select>
 
     <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        insert into replyTB(rno, bno, reply, replyUser, originName, savedName, filePath)
-        values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath});
+        insert into replyTB(rno, bno, reply, replyUser, originName, savedName, filePath, modalName)
+        values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath}, #{modalName});
     </insert>
 
     <select id="getImageInfo" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
-        select originName, savedName, filePath from replyTB where rno=#{rno}
+        select originName, savedName, filePath, modalName from replyTB where rno=#{rno}
     </select>
 
     <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, updateDate=now() where rno=#{rno} and bno=#{bno};
+        update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, modalName=#{modalName}, updateDate=now() where rno=#{rno} and bno=#{bno};
     </update>
 
     <update id="deleteReview" parameterType="Map">
