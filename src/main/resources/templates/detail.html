@@ -72,7 +72,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <form action="reviewInput" method="post" enctype="multipart/form-data">
-                                        <input id="userId" name="userId" type="hidden" value="testID"></input>
+                                        <input id="userId" name="userId" type="hidden" th:value="${session.userId}"></input>
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
                                                   placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
@@ -81,7 +81,7 @@
                                             <span> / 300자</span>
                                         </p>
                                         <input id="imageFile" type="file" name="imageFile" accept="image/*, txt" style="width: 60%; margin-top: 5%">
-                                        <button type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰 작성</button>
+                                        <button id="reviewSubmit" disabled="true" type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰 작성</button>
                                     </form>
                                 </li>
                                 <div class="img_thumbnail_box hidden">

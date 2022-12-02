@@ -164,11 +164,12 @@ export class Detail {
         }
 
         /*
-        * 리뷰 텍스트 null 일때 alert 띄우기
+        * 리뷰 텍스트 null 일때 막기
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            let $submit = $("#reviewSubmit");
+            console.log("byteCount");
+            let $submit = $("#reviewSubmit"); // 리뷰 작성
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
             if(byteCount === 0 || byteCount > 300) {

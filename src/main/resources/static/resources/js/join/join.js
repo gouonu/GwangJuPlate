@@ -19,6 +19,9 @@ export class Join{
         pwCheck1:false,
         pwCheck2:false,
         nameCheck:false,
+        dateCheck:false,
+        genderCheck:false,
+        phoneCheck:false,
         policyCheck:false,
 
     }
@@ -33,12 +36,13 @@ export class Join{
         let $pwCkErr =  $(".userPwchk").find(".error"); // 비밀번호가 동일하지 않습니다.
         let $pwCkCon = $(".userPwchk").find(".confirm"); // 비밀번호가 동일합니다.
         let $nameErr = $(".userName").find(".error"); // 올바르지 않은 이름입니다.
-        // let $phoneErr1 = $(".userPhnum").find(".error:eq(0)"); // 올바르지 않은 번호입니다.
-        // let $phoneErr2 = $(".userPhnum").find(".error:eq(1)"); // -를 제외하고 입력해주세요.
+        let $phoneErr1 = $(".userPhnum").find(".error:eq(0)"); // 올바르지 않은 번호입니다.
+        let $phoneErr2 = $(".userPhnum").find(".error:eq(1)"); // -를 제외하고 입력해주세요.
 
         let idPattern = /^[A-Za-z0-9].{3,12}$/;
         let pwPattern = /^[A-Za-z0-9].{3,12}$/;
         let namePattern = /^[가-힣]{2,8}$/;
+        let phonePattern = /^[0-9]{11}$/;
 
 
         $("#userId").on("keyup", (e)=> {
@@ -127,6 +131,52 @@ export class Join{
             this.joinBtnOnOff();
         })
 
+        $("#userDate").on("change", (e)=>{
+            let date = $("#userDate").val();
+            // console.log(date);
+            if(date!==""){
+                this.inputChecks.dateCheck=true;
+            }else{
+                this.inputChecks.dateCheck=false;
+            }
+            this.joinBtnOnOff();
+        })
+
+        $(".userGender").on("change", (e)=>{
+            let gender = $(e.currentTarget).val();
+            // console.log(gender);
+            if(gender!==""){
+                this.inputChecks.genderCheck=true;
+            }else{
+                this.inputChecks.genderCheck=false;
+            }
+            this.joinBtnOnOff();
+        })
+
+        $("#userPhnum").on("blur", (e)=>{
+            let num = $("#userPhnum").val();
+            // console.log("번호 :", num);
+            let test = phonePattern.test(num);
+
+            // console.log(test );
+            if( test ){
+                // console.log("성공");
+                $phoneErr1.addClass("hidden");
+                $phoneErr2.addClass("hidden");
+                this.inputChecks.phoneCheck=true;
+            }else if(num.includes("-")){
+                $phoneErr2.removeClass("hidden");
+                $phoneErr1.addClass("hidden");
+                this.inputChecks.phoneCheck=false;
+            }else{
+                $phoneErr1.removeClass("hidden");
+                $phoneErr2.addClass("hidden");
+                this.inputChecks.phoneCheck=false;
+            }
+            this.joinBtnOnOff();
+        })
+
+
         $("#userPolicy").on("click",(e)=>{
             let policy = document.getElementById("userPolicy").value;
             if(policy==='on'){
@@ -140,6 +190,9 @@ export class Join{
             this.joinBtnOnOff();
         })
 
+
+
+
     }
 
     joinBtnOnOff(){
@@ -152,13 +205,13 @@ export class Join{
             }
         })
         if(count===checkLength) {
-            console.log("가입완료버튼 활성화");
+            // console.log("가입완료버튼 활성화");
             $(".userJoinBtn").removeAttr("disabled");
         }else{
-            console.log("가입완료버튼 비활성화");
+            // console.log("가입완료버튼 비활성화");
             $(".userJoinBtn").attr("disabled", true);
         }
-        console.log(count+"/"+checkLength);
+        // console.log(count+"/"+checkLength);
     }
 
 
