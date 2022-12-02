@@ -172,6 +172,24 @@ export class Detail {
             }
         })
 
+        /**
+         *  리뷰 수정할때 길이가 0이면 <수정 완료> 버튼 막기
+         */
+        $('.updateText').on("keyup",(e)=>{
+            let byteCount = $(e.currentTarget).val().length;
+            let $submit = $(e.currentTarget).parent().find(".updateSubmit"); // 수정 완료
+            if(byteCount === 0) {
+                $submit.attr("disabled",true);
+            }else{
+                $submit.attr("disabled",false);
+            }
+        })
+
+
+
+
+
+
     }
 
 
