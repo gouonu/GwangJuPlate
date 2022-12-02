@@ -13,6 +13,7 @@ export class Main {
     constructor() {
         this.mainListEvent();
         this.bookmarkEvent();
+        this.bookMarkSlctDelete();
     }
 
     mainListEvent() {
@@ -38,19 +39,14 @@ export class Main {
                 console.log(workplace);
                 var html = [
                     '<form class="bookForm">',
-                    '<div id ="bleft">',
                     '<a class="workplace">'+ workplace +'<br></a>',
-                    '</div>',
-                    '<div id = "bcenter">',
                     '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
-                    '</div>',
-                    '<div id = "bright">',
-                    '<button type="reset" class = "btn btn-danger deleteWish" id="deleteWish">' + '삭제'+'</button>',
-                    '</div>',
+                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
                     '</form>'
                 ].join('');
                 $('#bookMark').append(html);
                 console.log(num4);
+                this.bookMarkSlctDelete()
             })
         })
 
@@ -82,6 +78,16 @@ export class Main {
             });
         })
 
+
+    }
+    bookMarkSlctDelete(){
+        $('.deleteWish').on("click",(e)=>{
+            let workplce = $(e.currentTarget).prev().prev().text();
+            console.log("가능?:",workplce);
+            axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+                $(e.currentTarget).parent($('.bookForm')).remove();
+            })
+        })
 
     }
 }
