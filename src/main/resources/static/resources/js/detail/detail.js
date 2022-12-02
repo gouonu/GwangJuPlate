@@ -61,6 +61,12 @@ export class Detail {
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
         })
+        axios.post("bookCount",{"resNum":num}).then((count)=>{
+            count = count.data;
+            console.log("즐겨찾기 수:",count);
+            $('.bookCount').text(count);
+        })
+
     }
 
     reviewEvent(){
@@ -143,12 +149,20 @@ export class Detail {
 
             }
         )
+        function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
+            let result = window.location.search.match(
+                new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+            );
+            return result ? result[3]:false;
+        }
+        let num = getQueryParam("num");
+        console.log("num :",num);
 
         $('.bStar').on("click", (e)=> {
             $('.bStar').addClass("hidden");
             $('.wStar').removeClass("hidden");
-let bpl=e.resWorkplace;
-let uid=e.userID;
+            let bpl=e.resWorkplace;
+            let uid=e.userID;
             axios.delete("bookDelete", {
                 headers: {
                     Authorization: uid
@@ -158,7 +172,6 @@ let uid=e.userID;
                 }
             });
         })
-
 
     }
 

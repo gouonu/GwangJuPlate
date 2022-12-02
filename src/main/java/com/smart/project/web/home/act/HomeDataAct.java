@@ -140,6 +140,20 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         test.bookDeletego(bookMarkVO);
         return data;
     }
+    @PostMapping("bookCount")
+    public int bookCount(HttpServletRequest request, Map map){
+        int resNum =(int)request.getSession().getAttribute("resNum");
+        int count = test.bookMarkCount(resNum);
+        log.error("리뷰 수 :: {}", count);
+        return count;
+    }
+//    @RequestMapping(value = "bookCount")
+//    public int bookCount(@RequestBody Map map){
+//        int resNum = Integer.valueOf(String.valueOf(map.get("bno")));
+//        log.error("왜");
+//        int count = test.bookMarkCount(resNum);
+//        return count;
+//    }
 
     @PostMapping("viewReply")
 

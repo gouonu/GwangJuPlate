@@ -60,7 +60,7 @@ public interface Test {
 	List<BookMarkVO> bookList(String userId);
 
 
-	void bookDeletego(String userID, String reswpl, int resnum);
-
 	void bookDeletego(BookMarkVO bookMarkVO);
+
+	int bookMarkCount(int resNum);
 }
