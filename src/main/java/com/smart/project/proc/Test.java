@@ -39,7 +39,7 @@ public interface Test {
 
 	void deleteReview(Map map);
 
-	void updateReview(Map map);
+	void updateReview(ReplyVO replyVO);
 
 	MainVO selectList(int index);
 
@@ -60,6 +60,8 @@ public interface Test {
 	MemberVO getUserAccount(String userId);
 
 	void joinInsert(MemberVO memberVO);
+
+	ReplyVO getImageInfo(int rno);
 
 	int idDuplicate(String userId);
 }

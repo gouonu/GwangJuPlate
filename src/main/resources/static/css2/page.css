@@ -196,8 +196,18 @@ td{
 }
 
 /*수정 부분*/
-#map{
+.detail_map{
     border: 1px solid #b7b7b7;
     position: absolute;
     right: 25%;
+}
+
+.img_thumbnail_box{
+    margin-top: 1rem;
+}
+.img_thumbnail_box img{
+    border: 1px solid darkgrey;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
 }

@@ -35,9 +35,9 @@
                     <i class="fa-regular fa-star">즐겨찾기수</i>
                 </div>
                 <br>
-                <div id="box" >
+                <div id="box">
 
-                    <div id="map" style="width:350px; height:350px;"></div>
+                    <div id="map" class="detail_map" style="width:350px; height:350px;"></div>
 
                     <table class="table table-borderless">
                         <tr class=tu>
@@ -63,47 +63,42 @@
                             <td id="resContent"></td>
                         </tr>
                     </table>
-
-<!--                    <div class="alert alert-success" role="alert" style="width: 700px;">-->
-<!--                        리뷰가 성공적으로 등록되었습니다 !-->
-<!--                    </div>-->
-
                     <!--리뷰 작성-->
                     <div class="card mb-2" style="width:500px; ">
                         <div class="card-header bg-light">
                             <i class="fa fa-comment fa"></i> 리뷰를 작성해주세요
                         </div>
-                        <div class="card-body" style="width:500px; ">
+                        <div class="card-body" style="width:500px;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <div id="imageRoad"></div>
-                                    <form action="reviewInput" method="post">
-                                        <input id="userId" name="userId" type="hidden" th:value="${session.userId}"></input>
+                                    <form action="reviewInput" method="post" enctype="multipart/form-data">
+                                        <input id="userId" name="userId" type="hidden" value="testID"></input>
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
                                                   placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
-                                        <button id="reviewSubmit" type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;" disabled="true";>리뷰
-                                            작성
-                                        </button>
                                         <p style="float:right; font-size: smaller">
-                                        <span id="byteCount" >0</span>
-                                        <span> / 300자</span>
+                                            <span id="byteCount" >0</span>
+                                            <span> / 300자</span>
                                         </p>
+                                        <input id="imageFile" type="file" name="imageFile" accept="image/*, txt" style="width: 60%; margin-top: 5%">
+                                        <button type="submit" class="btn btn-dark mt-3" style="margin-right: 50%;">리뷰 작성</button>
                                     </form>
                                 </li>
+                                <div class="img_thumbnail_box hidden">
+                                    <img src="" >
+                                    <button type="button" class="btn btn-close mt-3 review_img_delete"></button>
+                                </div>
                             </ul>
                         </div>
                     </div>
                     <!--작성된 리뷰-->
                     <div class="card mb-2" style="width:500px; ">
                         <div class="card-header bg-light reviewCount">
+
                         </div>
                         <!--이곳에 작성된 리뷰 추가-->
                         <div id="reviewAdd">
                         </div>
-<!--                        <div id="moreButton" role="button" class="card-body"  style="border-top:1px black dotted; color: #0a6fb5; text-align: center;">-->
-<!--                            ▼ 더보기 ▼-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -113,5 +108,6 @@
 </body>
 <section layout:fragment="contentScriptFragment">
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
 </section>
 </html>

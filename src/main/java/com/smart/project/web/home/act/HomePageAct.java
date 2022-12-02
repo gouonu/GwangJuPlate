@@ -9,13 +9,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -115,13 +122,50 @@ public class HomePageAct {
     }
 
     @PostMapping("reviewInput")
-    public String reviewInput(String reviewText,String userId, Integer num){
+    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
         ReplyVO rep = new ReplyVO();
         rep.setReply(reviewText);
         rep.setBno(num);
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
-        test.insertReview(rep);
+
+        if(!file.isEmpty()){
+            // 파일 저장 위치
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            rep.setFilePath(filePath);
+
+            // 원래 파일 이름 추출
+            String originName = file.getOriginalFilename();
+            rep.setOriginName(originName);
+
+            // 파일 이름으로 쓸 uuid 생성
+            String uuid = UUID.randomUUID().toString();
+            // 확장자 추출(ex : .png)
+            String extension = originName.substring(originName.lastIndexOf("."));
+            // uuid와 확장자 결합
+            String savedName = (uuid + extension).substring(24);
+            rep.setSavedName(savedName);
+            String saveImage = rep.getFilePath() + rep.getSavedName();
+
+            // 파일 저장
+            file.transferTo(new File(saveImage));
+            // DB에 정보 저장
+            test.insertReview(rep);
+
+            // 썸네일
+            File thumbnailImg = new File(filePath, "s_" + savedName);
+
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
+
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
+        }else{
+            test.insertReview(rep);
+        }
+
         return "redirect:/detail?num="+num;
     }
 
@@ -139,13 +183,48 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String updateText, int rno, int bno) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("updateText", updateText);
-        map.put("rno", rno);
-        map.put("bno", bno);
-//        log.error("map :: {}", map);
-        test.updateReview(map);
+    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+        ReplyVO replyVO = new ReplyVO();
+        replyVO.setRno(rno);
+        replyVO.setBno(bno);
+        replyVO.setReply(reply);
+//        log.error("newReplyVO :: {}", replyVO);
+        ReplyVO imgList = test.getImageInfo(rno);
+
+        if(!file.isEmpty()){
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            replyVO.setFilePath(filePath);
+
+            String originName = file.getOriginalFilename();
+            replyVO.setOriginName(originName);
+
+            String uuid = UUID.randomUUID().toString();
+            String extension = originName.substring(originName.lastIndexOf("."));
+            String savedName = (uuid + extension).substring(24);
+            replyVO.setSavedName(savedName);
+
+            String saveImage = filePath + replyVO.getSavedName();
+            file.transferTo(new File(saveImage));
+
+            test.updateReview(replyVO);
+
+            File thumbnailImg = new File(filePath, "s_" + savedName);
+
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
+
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
+        }else if(imgList.getOriginName() != null){
+            replyVO.setOriginName(imgList.getOriginName());
+            replyVO.setSavedName(imgList.getSavedName());
+            replyVO.setFilePath(imgList.getFilePath());
+            test.updateReview(replyVO);
+        }else{
+            test.updateReview(replyVO);
+        }
 
         return "redirect:/detail?num=" + bno;
     }

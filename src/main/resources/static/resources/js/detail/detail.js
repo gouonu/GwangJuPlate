@@ -1,6 +1,9 @@
 "use strict";
 
 
+import detailTemplate from "@/detail/detailCard.html";
+import Model from "@/module/common/model";
+
 $(()=>{
     new Detail();
 })
@@ -10,9 +13,13 @@ export class Detail {
     constructor() {
         console.log("Detail");
         this.detailEvent();
+        this.setThumbnail();
     }
 
     detailEvent(){
+
+        console.log()
+
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
@@ -64,6 +71,7 @@ export class Detail {
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
+            this.updateThumbnail();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -81,7 +89,7 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
-
+            $e.children('.update_img_box').removeClass('hidden');
 
 
             /**
@@ -186,32 +194,22 @@ export class Detail {
         })
 
 
-
-
-
-
     }
 
-
-
-
     kakaoMap(locName){
-
-
-
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
-// 지도를 생성합니다
+        // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 주소-좌표 변환 객체를 생성합니다
+        // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다
+        // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -235,9 +233,51 @@ export class Detail {
                 map.setCenter(coords);
             }
         });
+
+
+
     }
 
+    setThumbnail(){
+        let imageFile = $('#imageFile');
+        let imgThumbnailBox = $('.img_thumbnail_box');
 
+        imageFile.on('change', (e)=>{
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e){
+                $('.img_thumbnail_box > img').attr('src', e.target.result);
+                imgThumbnailBox.removeClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
+
+        $('.review_img_delete').on('click', ()=>{
+            imgThumbnailBox.addClass('hidden');
+            imageFile.val("");
+        });
+
+    }
+
+    updateThumbnail(){
+        let updateImg = $('input[name=updateImg]');
+        let udtImgBox = $('.update_img_box');
+
+        updateImg.on('change', (e)=>{
+            console.log("이미지 바뀜!")
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e){
+                $('.update_thumbnail').attr('src', e.target.result);
+                udtImgBox.removeClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
+        $('.update_img_delete').on('click', (e)=>{
+            $(e.currentTarget).parent().addClass('hidden');
+            $(e.currentTarget).prev().attr('src', null);
+        });
+    }
 
 
 
