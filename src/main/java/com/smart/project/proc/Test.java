@@ -70,4 +70,8 @@ public interface Test {
 	int bookMarkCount(int resNum);
 
 	void bookSlctDel(BookMarkVO bookMarkVO);
+
+	void ImgViewsUp(String crntImg);
+
+	List<ReplyVO> detailReplyImg(int num);
 }

@@ -215,6 +215,12 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         test.listViewsUp(index);
     }
 
+    @PostMapping("imgViews")
+    public void imgViews(@RequestBody Map map){
+        String crntImg = String.valueOf(map.get("crntImg"));
+        test.ImgViewsUp(crntImg);
+    }
+
     @PostMapping("detailViewsUp")
     public void detailViewsUp(@RequestBody Map map){
         int num = Integer.valueOf(String.valueOf(map.get("num")));
@@ -233,17 +239,21 @@ public BookMarkVO bookDelete(HttpServletRequest request){
     @PostMapping("DetailImg")
     public Map DetailImg(@RequestBody Map map){
         String workplace = String.valueOf(map.get("workplace"));
-//        log.error("workplace : {}",workplace);
         int count= test.joinCount(workplace); // 2이상이면 중복
-//        log.error("count : {}",count);
-        if(count>=2){
-//            log.error("중복!");
-            return null;
-        }else{
+        if(count==1){
             Map i = test.DetailImg(workplace);
-//             log.error("Map : {}",i);
             return i;
+        }else{
+            return null;
         }
+    }
+
+    @PostMapping("detailReplyImg")
+    public List<ReplyVO> detailReplyImg(@RequestBody Map map){
+        int num = Integer.valueOf(String.valueOf(map.get("num")));
+        List<ReplyVO> data = test.detailReplyImg(num);
+//        log.error("data : {}", data);
+        return data;
     }
 
     @PostMapping("resViewsTop")

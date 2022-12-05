@@ -51,10 +51,13 @@ export class Detail {
             axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
                 // console.log(i.data);
                 if(i.data===""){
-                    // console.log("음식점 이름 중복 or 없음");
-                    // for(let j=1;j<=4;j++){
-                    //     $("#img"+j).attr("class", "hidden");
-                    // }
+                    axios.post("detailReplyImg", {"num":num}).then((data)=>{
+
+                        console.log(data.data);
+                        let replyImgTmpt = require('@/detail/detailImage2.html');
+                        $(".grid-image").empty()
+                        $(".grid-image").append(replyImgTmpt(data.data));
+                    })
                 }else{
                     $("#resContent").text(i.data.content);
                     let imageTempl = require('@/detail/detailImage.html');
@@ -70,7 +73,6 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
-
             this.reviewEvent();
             this.updateThumbnail();
             this.thumbnailModal();
@@ -92,29 +94,6 @@ export class Detail {
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
-
-            /**
-             * 한 개의 수정이 완료되지 않았을 때, 다른 리뷰 수정 동시에 못하게 막기
-             */
-            let update = document.getElementsByClassName("updateReview");
-            let hiddenCount = 0;
-            _.forEach(update, function (u) {
-                // console.log(u);
-                if(!u.className.includes("hidden")){
-                    hiddenCount+=1;
-                }
-            })
-            _.forEach(update, function (u) {
-                let review = u.parentElement.getElementsByClassName("reviewButton");
-                let updateButton = review.item(0).children.item(0).children.item(0);
-                let removeButton = review.item(0).children.item(0).children.item(1);
-                if(hiddenCount>=1&&u.className.includes("hidden")){
-                    // console.log(u);
-                    updateButton.setAttribute("disabled","disabled");
-                    removeButton.setAttribute("disabled","disabled");
-                }
-            })
-
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -123,10 +102,6 @@ export class Detail {
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
-            $(".reviewButtonForm").each(function (index, item) { // 다른 수정,삭제 버튼 막혔던 거 지우기
-                $(this).find(".updateButton").removeAttr("disabled");
-                $(this).find(".removeButton").removeAttr("disabled");
-            })
         })
 
         $(".scoreRadio").on("checked", (e)=>{
@@ -167,7 +142,7 @@ export class Detail {
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            let $submit = $("#reviewSubmit"); // 리뷰 작성
+            let $submit = $("#reviewSubmit");
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
             if(byteCount === 0 || byteCount > 300) {
@@ -351,13 +326,26 @@ export class Detail {
         let imgThumbnailBox = $('.img_thumbnail_box');
 
         imageFile.on('change', (e)=>{
+            let fileSize = e.target.files[0].size; // 파일 크기
+            let maxSize = 1024 * 1024; // 1mb
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
             var file = e.target.files[0];
             var reader = new FileReader();
-            reader.onload = function (e){
-                $('.img_thumbnail_box > img').attr('src', e.target.result);
-                imgThumbnailBox.removeClass('hidden');
+
+            // 파일용량 체크
+            if(fileSize > maxSize){
+                imageFile.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else if(!imageFile.val().match(fileForm)){
+                imageFile.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
+            }else{
+                reader.onload = function (e){
+                    $('.img_thumbnail_box > img').attr('src', e.target.result);
+                    imgThumbnailBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
 
         $('.review_img_delete').on('click', ()=>{
@@ -371,14 +359,25 @@ export class Detail {
         let udtImgBox = $('.update_img_box');
 
         updateImg.on('change', (e)=>{
-            console.log("이미지 바뀜!")
-            var file = e.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e){
-                $('.update_thumbnail').attr('src', e.target.result);
-                udtImgBox.removeClass('hidden');
+            let fileSize = e.target.files[0].size;
+            let maxSize = 1024 * 1024;
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+            let file = e.target.files[0];
+            let reader = new FileReader();
+
+            if(fileSize > maxSize){
+                updateImg.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else if(!updateImg.val().match(fileForm)){
+                updateImg.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
+            }else{
+                reader.onload = function (e) {
+                    $('.update_thumbnail').attr('src', e.target.result);
+                    udtImgBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
         $('.update_img_delete').on('click', (e)=>{
             $(e.currentTarget).parent().addClass('hidden');
@@ -391,7 +390,9 @@ export class Detail {
     thumbnailModal(){
         let replyImgTag = $('.reply_img > img');
         replyImgTag.on('click', (e)=>{
-            console.log($(e.currentTarget));
+            let crntImg = $(e.currentTarget).attr('data-bs-target').slice(1);
+            console.log(crntImg);
+            axios.post("imgViews", {"crntImg" : crntImg});
         });
     }
 

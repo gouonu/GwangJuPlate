@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -129,7 +130,7 @@ public class HomePageAct {
     }
 
     @PostMapping("reviewInput")
-    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
+    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
         ReplyVO rep = new ReplyVO();
         rep.setReply(reviewText);
         rep.setBno(num);
@@ -154,6 +155,10 @@ public class HomePageAct {
             rep.setSavedName(savedName);
             String saveImage = rep.getFilePath() + rep.getSavedName();
 
+            // modalName 지정
+            String modalName = uuid.substring(24);
+            rep.setModalName("m_"+modalName);
+
             // 파일 저장
             file.transferTo(new File(saveImage));
             // DB에 정보 저장
@@ -169,6 +174,7 @@ public class HomePageAct {
             graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
 
             ImageIO.write(btImg, "jpg", thumbnailImg);
+
         }else{
             test.insertReview(rep);
         }
@@ -210,6 +216,10 @@ public class HomePageAct {
             String savedName = (uuid + extension).substring(24);
             replyVO.setSavedName(savedName);
 
+            // modalName 지정
+            String modalName = uuid.substring(24);
+            replyVO.setModalName("m_"+modalName);
+
             String saveImage = filePath + replyVO.getSavedName();
             file.transferTo(new File(saveImage));
 
@@ -228,6 +238,7 @@ public class HomePageAct {
             replyVO.setOriginName(imgList.getOriginName());
             replyVO.setSavedName(imgList.getSavedName());
             replyVO.setFilePath(imgList.getFilePath());
+            replyVO.setModalName(imgList.getModalName());
             test.updateReview(replyVO);
         }else{
             test.updateReview(replyVO);
