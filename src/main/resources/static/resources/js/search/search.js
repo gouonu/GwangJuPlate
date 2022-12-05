@@ -15,8 +15,133 @@ export class Search {
         this.searchEvent();
         this.pagination();
         this.paginationBtn();
+        this.bookMarkSlctDelete();
+        this.bookmarkEvent();
+        this.recentEvent();
     }
+    bookmarkEvent(){
 
+        axios.post("bookModal",{}).then((result)=>{
+            console.log(result);
+
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let workplace = e.resWorkplace;
+                let num4 = e.resNum;
+
+                console.log(workplace);
+                var html = [
+                    '<form class="bookForm">',
+
+
+                    '<a class="workplace" >'+ workplace +'<br></a>',
+
+
+                    '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
+
+
+                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
+
+                    '</form>'
+                ].join('');
+                $('#bookMark').append(html);
+                console.log(num4);
+                this.bookMarkSlctDelete();
+            })
+        })
+
+
+
+        $('.wStar').on("click", (e)=> {
+                $('.wStar').addClass("hidden");
+                $('.bStar').removeClass("hidden");
+                $(sessionStorage.getItem("userId"));
+
+                axios.post("bookMarkInput",{}).then((result)=>{
+                    console.log(result)
+                })
+
+            }
+        )
+        function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
+            let result = window.location.search.match(
+                new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+            );
+            return result ? result[3]:false;
+        }
+        let num = getQueryParam("num");
+        console.log("num :",num);
+
+        $('.bStar').on("click", (e)=> {
+            $('.bStar').addClass("hidden");
+            $('.wStar').removeClass("hidden");
+            let bpl=e.resWorkplace;
+            let uid=e.userID;
+            axios.delete("bookDelete", {
+                headers: {
+                    Authorization: uid
+                },
+                data: {
+                    source: bpl
+                }
+            });
+        })
+
+        //북마크 기본
+
+        axios.post("bookMarkCheck",{}).then((result)=>{
+            console.log(result);
+            if(result.data == true){
+                $('.bStar').removeClass("hidden");
+                $('.wStar').addClass("hidden");
+            }else{
+                $('.bStar').addClass("hidden");
+                $('.wStar').removeClass("hidden");
+
+            }
+        })
+
+        // var doc1 = document.getElementsByClassName("doBok");
+        // const w1= document.get('bleft');
+        // // var n1=document.getElementById('bcenter').getElementsByClassName('bnum');
+        // console.log("되긴함? : ",w1);
+        // $('#bright').on("click",(e)=>{
+        //     axios.post("bookSlct",{w1:{w1}, n1:{n1}}).then((result)=>{
+        //
+        //
+        //     })
+        // })
+    }
+    bookMarkSlctDelete(){
+        $('.deleteWish').on("click",(e)=>{
+            let workplce = $(e.currentTarget).prev().prev().text();
+            console.log("가능?:",workplce);
+            axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+                $(e.currentTarget).parent($('.bookForm')).remove();
+            })
+        })
+
+    }
+    recentEvent(){
+        $('.redel').on('click',(e)=>{
+            axios.post("delete",{}).then(()=>{
+                $('.asd').remove();
+                var html = [
+                    ' <div align="center" class="abc">',
+                    '<b id="whe">',
+                    '<br><br>거기가 어디였지?<br>',
+                    '</b>',
+                    '내가 둘러 본 식당이 이 곳에 순서대로<br> 기록됩니다.',
+                    ' <br><br><br>',
+                    '</div>'
+                ].join('');
+                $('#rkfk').empty(html);
+                $('#rkfk').append(html);
+            })
+        })
+
+
+    }
     searchEvent() {
         console.log("검색 이벤트");
         let result = $('#query').text();
