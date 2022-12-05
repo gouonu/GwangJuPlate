@@ -29,6 +29,11 @@ export class Detail {
         }
         let num = getQueryParam("num");
         console.log("num :",num);
+        axios.post("bookCount",{"bno":num}).then((count)=>{
+            count = count.data;
+            console.log("즐겨찾기 수:",count);
+            $('.bookCount').text(count);
+        })
 
         axios.post("detailRes", {"num":num}).then((res)=>{
             // console.log(place);
@@ -84,11 +89,7 @@ export class Detail {
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
         })
-        axios.post("bookCount",{"resNum":num}).then((count)=>{
-            count = count.data;
-            console.log("즐겨찾기 수:",count);
-            $('.bookCount').text(count);
-        })
+
 
 
     }

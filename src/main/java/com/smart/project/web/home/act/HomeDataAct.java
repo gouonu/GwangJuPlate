@@ -139,11 +139,10 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         return data;
     }
     @PostMapping("bookCount")
-    public int bookCount(HttpServletRequest request, Map map){
-//        int re2 = Integer.valueOf(String.valueOf(map.get("resNum")));
-//        log.error(String.valueOf(re2));
-        int resNum = (int) request.getSession().getAttribute("resNum");
-        int count = test.bookMarkCount(resNum);
+    public int bookCount(@RequestBody Map map){
+        int bno = Integer.valueOf(String.valueOf(map.get("bno")));
+        log.error("bno1 :: {}",bno);
+        int count = test.bookMarkCount(bno);
         log.error("리뷰 수 :: {}", count);
         return count;
     }
