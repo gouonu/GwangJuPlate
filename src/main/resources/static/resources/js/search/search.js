@@ -55,7 +55,14 @@ export class Search {
                     let $i = $("." + value.num).children().children().children();
                     if (e.data === "") {
                         // console.log(value.workplace+" 이미지 없음");
-                        $i.attr("src", "/image/empty.png");
+                        // $i.attr("src", "/image/empty.png");
+
+                        axios.post("detailReplyImg", {"num":value.num}).then((data)=>{
+                            // console.log(data.data[0].savedName);
+                            _.forEach(data.data, ()=>{
+                                $i.attr('src', "/images/" + data.data[0].savedName);
+                            });
+                        });
                     } else {
                         console.log(value.workplace + " 이미지 있음");
                         // console.log(e.data.img1src);
