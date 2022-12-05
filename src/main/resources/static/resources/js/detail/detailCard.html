@@ -12,7 +12,7 @@
                 <pre id="reply" style="font-family:NotoSansKR; font-size: 14px;">{{$value.reply}}</pre>
             </div>
             <div class="reply_img">
-                <img src="images/s_{{$value.savedName}}"    onerror="this.style.display='none';" alt=''>
+<!--                <img src="images/s_{{$value.savedName}}"    onerror="this.style.display='none';" alt=''>-->
                 {{if $value.modalName}}
                 <img type="button" src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt='' data-bs-toggle="modal" data-bs-target="#{{$value.modalName}}">
                 {{else}}
@@ -35,10 +35,8 @@
             {{/if}}
         </div>
         <div class="updateReview hidden">
-            <form action="updateReview"  method="post" enctype="multipart/form-data" >
-                <textarea class="form-control updateText" name="updateText" id="updateText" rows="3" maxlength="300">{{$value.reply}}</textarea>
             <form action="updateReview" method="post" enctype="multipart/form-data">
-                <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
+                <textarea class="form-control updateText" name="updateText" id="updateText" rows="3"maxlength="300">{{$value.reply}}</textarea>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
                 <input type="file" id="updateImg" name="updateImg" accept="image/*" style="margin-top: 1rem"/>
