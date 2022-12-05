@@ -90,7 +90,7 @@
         select savedName, filePath
         from replyTB
         where bno=#{num} and not savedName is null
-        order by imgViews;
+        order by imgViews desc;
     </select>
 
     <select id="joinCount" parameterType="String" resultType="int">

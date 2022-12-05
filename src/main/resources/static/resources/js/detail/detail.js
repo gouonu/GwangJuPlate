@@ -50,11 +50,12 @@ export class Detail {
                 // console.log(i.data);
                 if(i.data===""){
                     axios.post("detailReplyImg", {"num":num}).then((data)=>{
-
-                        console.log(data.data);
+                        console.log(data);
                         let replyImgTmpt = require('@/detail/detailImage2.html');
+                        let newData = data.data.slice(0, 4);
+                        console.log("newData", newData);
                         $(".grid-image").empty()
-                        $(".grid-image").append(replyImgTmpt(data.data));
+                        $(".grid-image").append(replyImgTmpt(newData));
                     })
                 }else{
                     $("#resContent").text(i.data.content);

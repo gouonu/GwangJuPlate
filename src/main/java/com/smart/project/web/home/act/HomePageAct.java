@@ -195,7 +195,7 @@ public class HomePageAct {
         replyVO.setBno(bno);
         replyVO.setReply(updateText);
 //        log.error("newReplyVO :: {}", replyVO);
-        ReplyVO imgList = test.getImageInfo(rno);
+//        ReplyVO imgList = test.getImageInfo(rno);
 
         if(!file.isEmpty()){
             String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
@@ -227,14 +227,16 @@ public class HomePageAct {
             graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
 
             ImageIO.write(btImg, "jpg", thumbnailImg);
-        }else if(imgList.getOriginName() != null){
-            replyVO.setOriginName(imgList.getOriginName());
-            replyVO.setSavedName(imgList.getSavedName());
-            replyVO.setFilePath(imgList.getFilePath());
-            replyVO.setModalName(imgList.getModalName());
-            test.updateReview(replyVO);
         }else{
-            test.updateReview(replyVO);
+            if(replyVO.getSavedName() == null){
+                test.updateReview(replyVO);
+            }else{
+                ReplyVO imgList = test.getImageInfo(rno);
+                replyVO.setOriginName(imgList.getOriginName());
+                replyVO.setSavedName(imgList.getSavedName());
+                replyVO.setFilePath(imgList.getFilePath());
+                test.updateReview(replyVO);
+            }
         }
 
         return "redirect:/detail?num=" + bno;
