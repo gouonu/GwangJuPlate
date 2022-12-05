@@ -84,6 +84,13 @@ export class Detail {
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
         })
+        axios.post("bookCount",{"resNum":num}).then((count)=>{
+            count = count.data;
+            console.log("즐겨찾기 수:",count);
+            $('.bookCount').text(count);
+        })
+
+
     }
 
     reviewEvent(){
@@ -201,6 +208,7 @@ export class Detail {
         })
 
 
+
         $('.wStar').on("click", (e)=> {
                 $('.wStar').addClass("hidden");
                 $('.bStar').removeClass("hidden");
@@ -236,6 +244,19 @@ export class Detail {
             });
         })
 
+        //북마크 기본
+
+        axios.post("bookMarkCheck",{}).then((result)=>{
+            console.log(result);
+            if(result.data == true){
+                $('.bStar').removeClass("hidden");
+                $('.wStar').addClass("hidden");
+            }else{
+                $('.bStar').addClass("hidden");
+                $('.wStar').removeClass("hidden");
+
+            }
+        })
 
         // var doc1 = document.getElementsByClassName("doBok");
         // const w1= document.get('bleft');

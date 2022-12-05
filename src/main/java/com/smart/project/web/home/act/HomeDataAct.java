@@ -142,7 +142,7 @@ public BookMarkVO bookDelete(HttpServletRequest request){
     public int bookCount(HttpServletRequest request, Map map){
 //        int re2 = Integer.valueOf(String.valueOf(map.get("resNum")));
 //        log.error(String.valueOf(re2));
-        int resNum =(int)request.getSession().getAttribute("resNum");
+        int resNum = (int) request.getSession().getAttribute("resNum");
         int count = test.bookMarkCount(resNum);
         log.error("리뷰 수 :: {}", count);
         return count;
@@ -164,10 +164,17 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         BookMarkVO result =bookMarkVO;
         test.bookSlctDel(bookMarkVO);
         return result;
-
-
-
-
+    }
+    @RequestMapping("bookMarkCheck")
+    public boolean bookMarkCHeck(HttpServletRequest request){
+        int resNum = (int) request.getSession().getAttribute("resNum");
+        String userID = (String)request.getSession().getAttribute("userId");
+        BookMarkVO bookMarkVO = new BookMarkVO();
+        bookMarkVO.setResNum(resNum);
+        bookMarkVO.setUserId(userID);
+        boolean result = test.bookCheck(bookMarkVO);
+        log.error(String.valueOf(result));
+        return result;
     }
 
     @PostMapping("viewReply")

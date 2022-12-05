@@ -22,8 +22,8 @@
                 <h1 class="restaurant_name">
                         <span id="workplace"> </span>
                     <!--즐겨찾기 클릭 시 아이콘 변경-->
-                     <button th:if="${session.userId}" class="btn btn-outline-dark wStar" type="submit" style="margin-left: 30%;" >
-                     <i class="fa-regular fa-star"></i>
+                <button th:if="${session.userId}" class="btn btn-outline-dark wStar" type="submit" style="margin-left: 30%;" >
+                <i class="fa-regular fa-star"></i>
                     즐겨찾기
                 </button>
                 <button th:if="${session.userId eq null}" class="btn btn-outline-dark" type="button" style="margin-left: 30%;" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
@@ -31,8 +31,8 @@
                     즐겨찾기
                 </button>
 
-                    <button class="btn btn-outline-dark bStar hidden" style="margin-left: 30%;" >
-                     <i class="fa-solid fa-star"></i>
+                <button class="btn btn-outline-dark bStar hidden" style="margin-left: 30%;" >
+                    <i class="fa-solid fa-star"></i>
                     즐겨찾기
                 </button>
                 </h1>

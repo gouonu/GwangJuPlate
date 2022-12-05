@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MemberService memberService;
-    private final AuthenticationFailureHandler customFailureHandler;
+
     /**
      * 규칙 설정
      * @param http
