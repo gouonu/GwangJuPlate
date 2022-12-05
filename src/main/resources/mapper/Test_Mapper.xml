@@ -53,7 +53,7 @@
     </select>
 
     <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, updateDate=now() where rno=#{rno} and bno=#{bno};
+        update replyTB set reply=#{updateText},updateDate=now(), originName=#{originName}, savedName=#{savedName} where rno=#{rno} and bno=#{bno};
     </update>
 
     <update id="deleteReview" parameterType="Map">

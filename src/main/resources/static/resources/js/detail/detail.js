@@ -13,16 +13,13 @@ export class Detail {
     constructor() {
         console.log("Detail");
         this.detailEvent();
+        this.setThumbnail();
         this.bookmarkEvent();
         this.bookMarkSlctDelete();
         this.recentEvent();
-        this.setThumbnail();
     }
 
     detailEvent(){
-
-        console.log()
-
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
@@ -73,8 +70,10 @@ export class Detail {
             $("#reviewAdd").empty();
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
+
             this.reviewEvent();
             this.updateThumbnail();
+            this.thumbnailModal();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -83,37 +82,9 @@ export class Detail {
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
         })
-        axios.post("bookCount",{"resNum":num}).then((count)=>{
-            count = count.data;
-            console.log("즐겨찾기 수:",count);
-            $('.bookCount').text(count);
-        })
-
     }
 
     reviewEvent(){
-        let num = getQueryParam("num");
-        console.log("num :",num);
-
-        axios.post("detailRes", {"num":num}).then((res)=>{
-            // console.log(place);
-            // console.log(res.data);
-            $('#workplace').text(res.data.workplace);
-            $('#roadAddr').text(res.data.roadAddr);
-            $('#locAddr').text(res.data.locAddr);
-            $('#tel').text(res.data.tel===null?"X":res.data.tel);
-            $('#state').text(res.data.state);
-            $('#num').val(res.data.num);
-
-            this.kakaoMap(res.data.roadAddr, res.data.workplace);
-
-
-            axios.post("detailViewsUp", {"num":num}).then(()=>{
-                // console.log("조회수");
-                $('.resViews').text(res.data.resViews);
-            })
-
-        })
         $('.updateButton').on("click", (e)=>{
             // console.log("수정");
             let $e = $(e.currentTarget).parents(".card-body").eq(0);
@@ -122,20 +93,17 @@ export class Detail {
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
 
-
             /**
              * 한 개의 수정이 완료되지 않았을 때, 다른 리뷰 수정 동시에 못하게 막기
              */
             let update = document.getElementsByClassName("updateReview");
             let hiddenCount = 0;
-
             _.forEach(update, function (u) {
                 // console.log(u);
                 if(!u.className.includes("hidden")){
                     hiddenCount+=1;
                 }
             })
-            // console.log(hiddenCount);
             _.forEach(update, function (u) {
                 let review = u.parentElement.getElementsByClassName("reviewButton");
                 let updateButton = review.item(0).children.item(0).children.item(0);
@@ -195,11 +163,10 @@ export class Detail {
         }
 
         /*
-        * 리뷰 텍스트 null 일때 막기
+        * 리뷰 텍스트 null 일때 alert 띄우기
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            console.log("byteCount");
             let $submit = $("#reviewSubmit"); // 리뷰 작성
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
@@ -215,7 +182,7 @@ export class Detail {
         /**
          *  리뷰 수정할때 길이가 0이면 <수정 완료> 버튼 막기
          */
-        $('.updateText').on("keyup",(e)=>{
+        $('#updateText').on("keyup",(e)=>{
             let byteCount = $(e.currentTarget).val().length;
             let $submit = $(e.currentTarget).parent().find(".updateSubmit"); // 수정 완료
             if(byteCount === 0) {
@@ -229,34 +196,34 @@ export class Detail {
     }
     bookmarkEvent(){
 
-            axios.post("bookModal",{}).then((result)=>{
-                console.log(result);
+        axios.post("bookModal",{}).then((result)=>{
+            console.log(result);
 
-                let data = result.data;
-                _.forEach(data,(e)=>{
-                    let workplace = e.resWorkplace;
-                    let num4 = e.resNum;
+            let data = result.data;
+            _.forEach(data,(e)=>{
+                let workplace = e.resWorkplace;
+                let num4 = e.resNum;
 
-                    console.log(workplace);
-                    var html = [
-                        '<form class="bookForm">',
-
-
-                        '<a class="workplace" >'+ workplace +'<br></a>',
+                console.log(workplace);
+                var html = [
+                    '<form class="bookForm">',
 
 
-                        '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
+                    '<a class="workplace" >'+ workplace +'<br></a>',
 
 
-                        '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
+                    '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
 
-                        '</form>'
-                    ].join('');
-                    $('#bookMark').append(html);
-                    console.log(num4);
-                    this.bookMarkSlctDelete();
-                })
+
+                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
+
+                    '</form>'
+                ].join('');
+                $('#bookMark').append(html);
+                console.log(num4);
+                this.bookMarkSlctDelete();
             })
+        })
 
 
         $('.wStar').on("click", (e)=> {
@@ -265,8 +232,8 @@ export class Detail {
                 $(sessionStorage.getItem("userId"));
 
                 axios.post("bookMarkInput",{}).then((result)=>{
-                console.log(result)
-            })
+                    console.log(result)
+                })
 
             }
         )
@@ -306,16 +273,16 @@ export class Detail {
         //     })
         // })
     }
-        bookMarkSlctDelete(){
-            $('.deleteWish').on("click",(e)=>{
-                let workplce = $(e.currentTarget).prev().prev().text();
-                console.log("가능?:",workplce);
-                axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
-                    $(e.currentTarget).parent($('.bookForm')).remove();
-                })
+    bookMarkSlctDelete(){
+        $('.deleteWish').on("click",(e)=>{
+            let workplce = $(e.currentTarget).prev().prev().text();
+            console.log("가능?:",workplce);
+            axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+                $(e.currentTarget).parent($('.bookForm')).remove();
             })
+        })
 
-        }
+    }
     recentEvent(){
         $('.redel').on('click',(e)=>{
             axios.post("delete",{}).then(()=>{
@@ -336,6 +303,7 @@ export class Detail {
 
 
     }
+
     kakaoMap(locName){
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
@@ -343,13 +311,13 @@ export class Detail {
                 level: 3 // 지도의 확대 레벨
             };
 
-// 지도를 생성합니다
+        // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 주소-좌표 변환 객체를 생성합니다
+        // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다
+        // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locName, function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
@@ -398,7 +366,6 @@ export class Detail {
         });
 
     }
-
     updateThumbnail(){
         let updateImg = $('input[name=updateImg]');
         let udtImgBox = $('.update_img_box');
@@ -416,6 +383,15 @@ export class Detail {
         $('.update_img_delete').on('click', (e)=>{
             $(e.currentTarget).parent().addClass('hidden');
             $(e.currentTarget).prev().attr('src', null);
+        });
+    }
+
+
+    //test
+    thumbnailModal(){
+        let replyImgTag = $('.reply_img > img');
+        replyImgTag.on('click', (e)=>{
+            console.log($(e.currentTarget));
         });
     }
 

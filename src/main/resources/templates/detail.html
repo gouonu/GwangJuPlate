@@ -22,7 +22,16 @@
                 <h1 class="restaurant_name">
                         <span id="workplace"> </span>
                     <!--즐겨찾기 클릭 시 아이콘 변경-->
-                 <button class="btn btn-outline-dark" style="margin-left: 30%;">
+               <button th:if="${session.userId}" class="btn btn-outline-dark wStar" type="submit" style="margin-left: 30%;" >
+                     <i class="fa-regular fa-star"></i>
+                    즐겨찾기
+                </button>
+                <button th:if="${session.userId eq null}" class="btn btn-outline-dark" type="button" style="margin-left: 30%;" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
+                     <i class="fa-regular fa-star"></i>
+                    즐겨찾기
+                </button>
+
+                    <button class="btn btn-outline-dark bStar hidden" style="margin-left: 30%;" >
                      <i class="fa-solid fa-star"></i>
                     즐겨찾기
                 </button>
@@ -104,10 +113,9 @@
             </div>
         </div>
     </section>
-</div>
-</body>
-<section layout:fragment="contentScriptFragment">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" th:src="${@versionComponent.getVersion('/resources/build/detail.bundle.js')}"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4e7aa977dce1bff94f0ecefccc64931&libraries=services"></script>
-</section>
+</div>
+</body>
 </html>

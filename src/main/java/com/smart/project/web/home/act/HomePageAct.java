@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -189,11 +190,11 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+    public String updateReview(String updateText, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
         ReplyVO replyVO = new ReplyVO();
         replyVO.setRno(rno);
         replyVO.setBno(bno);
-        replyVO.setReply(reply);
+        replyVO.setReply(updateText);
 //        log.error("newReplyVO :: {}", replyVO);
         ReplyVO imgList = test.getImageInfo(rno);
 
@@ -234,8 +235,6 @@ public class HomePageAct {
 
         return "redirect:/detail?num=" + bno;
     }
-
-
 
 
 }

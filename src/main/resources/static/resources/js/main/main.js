@@ -24,6 +24,7 @@ export class Main {
             // console.log(data.data.list);
             $('.popular_top_list_wrap > div > div').append(listTemplate(data));
         });
+        let str =""
         axios.post("resViewsTop",{}).then((li)=>{
             // console.log(li.data);
 
