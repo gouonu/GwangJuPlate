@@ -1,9 +1,7 @@
 package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
-import com.smart.project.common.vo.MenuVO;
 import com.smart.project.web.home.vo.*;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -64,4 +62,8 @@ public interface Test {
 	ReplyVO getImageInfo(int rno);
 
 	int idDuplicate(String userId);
+
+	void ImgViewsUp(String crntImg);
+
+	List<ReplyVO> detailReplyImg(int num);
 }

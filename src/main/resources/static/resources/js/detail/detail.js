@@ -3,6 +3,7 @@
 
 import detailTemplate from "@/detail/detailCard.html";
 import Model from "@/module/common/model";
+import imageTempl from "@/detail/detailImage.html";
 
 $(()=>{
     new Detail();
@@ -48,10 +49,13 @@ export class Detail {
             axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
                 // console.log(i.data);
                 if(i.data===""){
-                    // console.log("음식점 이름 중복 or 없음");
-                    // for(let j=1;j<=4;j++){
-                    //     $("#img"+j).attr("class", "hidden");
-                    // }
+                    axios.post("detailReplyImg", {"num":num}).then((data)=>{
+
+                        console.log(data.data);
+                        let replyImgTmpt = require('@/detail/detailImage2.html');
+                        $(".grid-image").empty()
+                        $(".grid-image").append(replyImgTmpt(data.data));
+                    })
                 }else{
                     $("#resContent").text(i.data.content);
                     let imageTempl = require('@/detail/detailImage.html');
@@ -261,7 +265,9 @@ export class Detail {
     thumbnailModal(){
         let replyImgTag = $('.reply_img > img');
         replyImgTag.on('click', (e)=>{
-            console.log($(e.currentTarget));
+            let crntImg = $(e.currentTarget).attr('data-bs-target').slice(1);
+            console.log(crntImg);
+            axios.post("imgViews", {"crntImg" : crntImg});
         });
     }
 
