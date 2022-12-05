@@ -183,11 +183,11 @@ public class HomePageAct {
     }
 
     @PostMapping("updateReview")
-    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+    public String updateReview(String updateText, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
         ReplyVO replyVO = new ReplyVO();
         replyVO.setRno(rno);
         replyVO.setBno(bno);
-        replyVO.setReply(reply);
+        replyVO.setReply(updateText);
 //        log.error("newReplyVO :: {}", replyVO);
         ReplyVO imgList = test.getImageInfo(rno);
 

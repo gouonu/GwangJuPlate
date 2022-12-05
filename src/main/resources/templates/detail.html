@@ -31,7 +31,7 @@
             <div class="restaurant_action_button_wrap">
                 <div id="iclass">
                     <i class="fa-solid fa-eye resViews"></i>
-                    <i class="fa-solid fa-pen reviewCountNum"></i>
+                    <i class="fa-solid fa-pen reviewCountNum" id="reviewCountNum"></i>
                     <i class="fa-regular fa-star">즐겨찾기수</i>
                 </div>
                 <br>
@@ -64,6 +64,7 @@
                         </tr>
                     </table>
                     <!--리뷰 작성-->
+
                     <div class="card mb-2" style="width:500px; ">
                         <div class="card-header bg-light">
                             <i class="fa fa-comment fa"></i> 리뷰를 작성해주세요
@@ -76,7 +77,7 @@
                                         <input id="num" name="num" type="hidden"></input>
                                         <textarea class="form-control" name="reviewText" id="reviewText" rows="3"
                                                   placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
-                                        <p style="float:right; font-size: smaller">
+                                        <p class="byteCount" style="float:right; font-size: smaller">
                                             <span id="byteCount" >0</span>
                                             <span> / 300자</span>
                                         </p>
@@ -99,7 +100,11 @@
                         <!--이곳에 작성된 리뷰 추가-->
                         <div id="reviewAdd">
                         </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-secondary hidden" id="moreButton" type="button">더보기</button>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

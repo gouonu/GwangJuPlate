@@ -90,6 +90,18 @@ public class HomeDataAct {
         return rep;
     }
 
+//    @PostMapping("viewReply2")
+//    public List<ReplyVO> viewReply2(@RequestBody Map map){
+//        int bno = Integer.valueOf(String.valueOf(map.get("bno")));
+//        int startPage = Integer.valueOf(String.valueOf(map.get("startPage")));
+//
+//        Map m = new HashMap<>();
+//        map.put("bno", bno);
+//        map.put("startPage", startPage);
+//        List<ReplyVO> rep = test.viewReply2(m);
+//        return rep;
+//    }
+
     @PostMapping("detailCount")
     public int detailCount(@RequestBody Map map){
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));

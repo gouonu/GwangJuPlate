@@ -1,8 +1,8 @@
 "use strict";
 
 
+
 import detailTemplate from "@/detail/detailCard.html";
-import Model from "@/module/common/model";
 
 $(()=>{
     new Detail();
@@ -17,8 +17,6 @@ export class Detail {
     }
 
     detailEvent(){
-
-        console.log()
 
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
@@ -56,7 +54,7 @@ export class Detail {
                     //     $("#img"+j).attr("class", "hidden");
                     // }
                 }else{
-                    $("#resContent").text(i.data.content);
+                    $("#resContent").text(i.data.content); //
                     let imageTempl = require('@/detail/detailImage.html');
                     $(".grid-image").empty();
                     $(".grid-image").append(imageTempl(i));
@@ -66,9 +64,40 @@ export class Detail {
         })
 
         let detailTemplate = require('@/detail/detailCard.html');
+
         axios.post("viewReply", {"bno":num}).then((rep)=>{
+            console.log(rep.data.length);
             $("#reviewAdd").empty();
-            $("#reviewAdd").append(detailTemplate(rep));
+
+            /*
+            * 리뷰 더보기 버튼 제어
+             */
+            let perPage = 5; // 리뷰 몇개씩 보일지
+            if(rep.data.length>perPage){
+                let viewData=rep.data.slice(0,perPage);
+                $("#reviewAdd").append(detailTemplate(viewData));
+                $("#moreButton").removeClass("hidden");
+            }else{
+                $("#reviewAdd").append(detailTemplate(rep.data));
+            }
+
+            let viewPage=perPage;
+            $("#moreButton").on("click", (e)=>{
+                let viewData=rep.data.slice(viewPage,viewPage+perPage);
+
+                if(viewData.length!==perPage){
+                    viewPage=rep.data.slice(viewPage);
+                    $("#moreButton").addClass("hidden");
+                }
+
+                if(viewData.length!=0){
+                    $("#reviewAdd").append(detailTemplate(viewData));
+                    viewPage+=perPage;
+                }
+                console.log(viewData);
+            })
+
+
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
             this.updateThumbnail();
@@ -146,7 +175,9 @@ export class Detail {
 
         if(sessionID===""){
             // console.log("미로그인 상태");
-            $('#reviewSubmit').addClass("hidden");
+            $('#reviewSubmit').remove();
+            $(".byteCount").remove();
+            $('#imageFile').remove();
             $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
             $('#reviewText').attr("readonly", true);
         }else{
@@ -168,7 +199,6 @@ export class Detail {
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            console.log("byteCount");
             let $submit = $("#reviewSubmit"); // 리뷰 작성
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);

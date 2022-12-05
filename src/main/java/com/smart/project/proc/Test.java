@@ -64,4 +64,6 @@ public interface Test {
 	ReplyVO getImageInfo(int rno);
 
 	int idDuplicate(String userId);
+
+	List<ReplyVO> viewReply2(Map map);
 }
