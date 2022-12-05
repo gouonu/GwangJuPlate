@@ -48,16 +48,16 @@
     </select>
 
     <insert id="insertReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        insert into replyTB(rno, bno, reply, replyUser, originName, savedName, filePath)
-        values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath});
+        insert into replyTB(rno, bno, reply, replyUser, originName, savedName, filePath, modalName)
+        values(#{rno}, #{bno}, #{reply}, #{replyUser}, #{originName}, #{savedName}, #{filePath}, #{modalName});
     </insert>
 
     <select id="getImageInfo" resultType="com.smart.project.web.home.vo.ReplyVO" parameterType="int">
-        select originName, savedName, filePath from replyTB where rno=#{rno}
+        select originName, savedName, filePath, modalName from replyTB where rno=#{rno}
     </select>
 
     <update id="updateReview" parameterType="com.smart.project.web.home.vo.ReplyVO">
-        update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, updateDate=now() where rno=#{rno} and bno=#{bno};
+        update replyTB set reply=#{reply}, originName=#{originName}, savedName=#{savedName}, filePath=#{filePath}, modalName=#{modalName}, updateDate=now() where rno=#{rno} and bno=#{bno};
     </update>
 
     <update id="deleteReview" parameterType="Map">
@@ -76,6 +76,10 @@
         update restaurant set resViews=resViews+1 where num=#{num};
     </update>
 
+    <update id="ImgViewsUp" parameterType="String">
+        update replyTB set imgViews = imgViews+1 where modalName=#{crntImg};
+    </update>
+
     <select id="selectResReview" parameterType="int" resultType="com.smart.project.web.home.vo.ReplyVO">
         select * from replyTB where bno=#{num} and replyDel=0 order by updateDate desc limit 1;
     </select>
@@ -84,6 +88,13 @@
         select c.storeName, c.content, c.img1src, c.img2src, c.img3src, c.img4src, c.img5src, c.img6src
         from common2 c join restaurant r on r.workplace=c.storeName
         where r.workplace=#{workplace};
+    </select>
+
+    <select id="detailReplyImg" parameterType="int" resultType="com.smart.project.web.home.vo.ReplyVO">
+        select savedName, filePath
+        from replyTB
+        where bno=#{num} and not savedName is null
+        order by imgViews desc;
     </select>
 
     <select id="joinCount" parameterType="String" resultType="int">

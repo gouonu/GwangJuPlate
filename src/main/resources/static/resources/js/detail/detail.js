@@ -3,6 +3,8 @@
 
 
 import detailTemplate from "@/detail/detailCard.html";
+import Model from "@/module/common/model";
+import imageTempl from "@/detail/detailImage.html";
 
 $(()=>{
     new Detail();
@@ -17,7 +19,6 @@ export class Detail {
     }
 
     detailEvent(){
-
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
@@ -49,12 +50,16 @@ export class Detail {
             axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
                 // console.log(i.data);
                 if(i.data===""){
-                    // console.log("음식점 이름 중복 or 없음");
-                    // for(let j=1;j<=4;j++){
-                    //     $("#img"+j).attr("class", "hidden");
-                    // }
+                    axios.post("detailReplyImg", {"num":num}).then((data)=>{
+                        console.log(data);
+                        let replyImgTmpt = require('@/detail/detailImage2.html');
+                        let newData = data.data.slice(0, 4);
+                        console.log("newData", newData);
+                        $(".grid-image").empty()
+                        $(".grid-image").append(replyImgTmpt(newData));
+                    })
                 }else{
-                    $("#resContent").text(i.data.content); //
+                    $("#resContent").text(i.data.content);
                     let imageTempl = require('@/detail/detailImage.html');
                     $(".grid-image").empty();
                     $(".grid-image").append(imageTempl(i));
@@ -101,6 +106,7 @@ export class Detail {
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
             this.updateThumbnail();
+            this.thumbnailModal();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
@@ -274,20 +280,32 @@ export class Detail {
         let imgThumbnailBox = $('.img_thumbnail_box');
 
         imageFile.on('change', (e)=>{
+            let fileSize = e.target.files[0].size; // 파일 크기
+            let maxSize = 1024 * 1024; // 1mb
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
             var file = e.target.files[0];
             var reader = new FileReader();
-            reader.onload = function (e){
-                $('.img_thumbnail_box > img').attr('src', e.target.result);
-                imgThumbnailBox.removeClass('hidden');
+
+            // 파일용량 체크
+            if(fileSize > maxSize){
+                imageFile.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else if(!imageFile.val().match(fileForm)){
+                imageFile.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
+            }else{
+                reader.onload = function (e){
+                    $('.img_thumbnail_box > img').attr('src', e.target.result);
+                    imgThumbnailBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
 
         $('.review_img_delete').on('click', ()=>{
             imgThumbnailBox.addClass('hidden');
             imageFile.val("");
         });
-
     }
 
     updateThumbnail(){
@@ -295,14 +313,25 @@ export class Detail {
         let udtImgBox = $('.update_img_box');
 
         updateImg.on('change', (e)=>{
-            console.log("이미지 바뀜!")
-            var file = e.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e){
-                $('.update_thumbnail').attr('src', e.target.result);
-                udtImgBox.removeClass('hidden');
+            let fileSize = e.target.files[0].size;
+            let maxSize = 1024 * 1024;
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+            let file = e.target.files[0];
+            let reader = new FileReader();
+
+            if(fileSize > maxSize){
+                updateImg.val("");
+                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+            }else if(!updateImg.val().match(fileForm)){
+                updateImg.val("");
+                return alert("이미지 파일만 업로드 가능합니다.");
+            }else{
+                reader.onload = function (e) {
+                    $('.update_thumbnail').attr('src', e.target.result);
+                    udtImgBox.removeClass('hidden');
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         });
         $('.update_img_delete').on('click', (e)=>{
             $(e.currentTarget).parent().addClass('hidden');
@@ -310,6 +339,14 @@ export class Detail {
         });
     }
 
-
+    //test
+    thumbnailModal(){
+        let replyImgTag = $('.reply_img > img');
+        replyImgTag.on('click', (e)=>{
+            let crntImg = $(e.currentTarget).attr('data-bs-target').slice(1);
+            console.log(crntImg);
+            axios.post("imgViews", {"crntImg" : crntImg});
+        });
+    }
 
 }

@@ -13,19 +13,40 @@
             </div>
             <div class="reply_img">
                 <img src="images/s_{{$value.savedName}}"    onerror="this.style.display='none';" alt=''>
+                {{if $value.modalName}}
+                <img type="button" src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt='' data-bs-toggle="modal" data-bs-target="#{{$value.modalName}}">
+                {{else}}
+                <img src="images/s_{{$value.savedName}}" onerror="this.style.display='none';" alt=''>
+                {{/if}}
             </div>
+            {{if $value.modalName}}
+            <div id="{{$value.modalName}}" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="height: 800px">
+                            <img src="images/{{$value.savedName}}" style="width: 100%; height: 100%; object-fit: contain">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
         </div>
         <div class="updateReview hidden">
             <form action="updateReview"  method="post" enctype="multipart/form-data" >
                 <textarea class="form-control updateText" name="updateText" id="updateText" rows="3" maxlength="300">{{$value.reply}}</textarea>
+            <form action="updateReview" method="post" enctype="multipart/form-data">
+                <textarea class="form-control" name="updateText" id="updateText" rows="3" style="">{{$value.reply}}</textarea>
                 <input type="hidden" name="rno" value="{{$value.rno}}"/>
                 <input type="hidden" name="bno" value="{{$value.bno}}"/>
-                <input type="file" id="updateImg" name="updateImg" accept="image/*, txt" style="margin-top: 1rem"/>
+                <input type="file" id="updateImg" name="updateImg" accept="image/*" style="margin-top: 1rem"/>
                 <div class="update_img_box">
                     <img src="images/s_{{$value.savedName}}" class="update_thumbnail" onerror="this.style.display='none';" alt='' style="margin-top:1rem; width: 120px; height: 120px; object-fit: cover">
-                    <%if($value.savedName){%>
+                    {{if $value.savedName}}
                     <button type="button" class="btn btn-close mt-3 update_img_delete"></button>
-                    <%}%>
+                    {{/if}}
                 </div>
                 <button type="submit" class="updateSubmit btn btn-dark mt-3" disabled="true" >수정 완료</button>
                 <button type="button" class="updateReset btn btn-outline-dark mt-3 rollbackButton" >수정 취소</button>

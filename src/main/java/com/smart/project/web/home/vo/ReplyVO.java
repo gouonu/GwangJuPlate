@@ -21,4 +21,5 @@ public class ReplyVO {
     private String originName; // 파일 원본 이름
     private String savedName; // 파일 저장될 이름(중복 이름으로 저장될 시 오류 발생)
     private String filePath; // 파일 경로
+    private String modalName; // modal target될 이름
 }
