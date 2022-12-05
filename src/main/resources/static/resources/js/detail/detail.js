@@ -16,9 +16,13 @@ export class Detail {
         this.bookmarkEvent();
         this.bookMarkSlctDelete();
         this.recentEvent();
+        this.setThumbnail();
     }
 
     detailEvent(){
+
+        console.log()
+
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
@@ -45,7 +49,22 @@ export class Detail {
             axios.post("detailViewsUp", {"num":num}).then(()=>{
                 // console.log("조회수");
                 $('.resViews').text(res.data.resViews);
-            })
+            });
+
+            axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
+                // console.log(i.data);
+                if(i.data===""){
+                    // console.log("음식점 이름 중복 or 없음");
+                    // for(let j=1;j<=4;j++){
+                    //     $("#img"+j).attr("class", "hidden");
+                    // }
+                }else{
+                    $("#resContent").text(i.data.content);
+                    let imageTempl = require('@/detail/detailImage.html');
+                    $(".grid-image").empty();
+                    $(".grid-image").append(imageTempl(i));
+                }
+            });
 
         })
 
@@ -55,11 +74,11 @@ export class Detail {
             $("#reviewAdd").append(detailTemplate(rep));
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
+            this.updateThumbnail();
         })
 
         axios.post("detailCount", {"bno":num}).then((count)=>{
             count = count.data;
-
             // console.log("리뷰 수 :",count);
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
@@ -101,6 +120,33 @@ export class Detail {
             $e.children(".updateReview").removeClass("hidden");
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
+            $e.children('.update_img_box').removeClass('hidden');
+
+
+            /**
+             * 한 개의 수정이 완료되지 않았을 때, 다른 리뷰 수정 동시에 못하게 막기
+             */
+            let update = document.getElementsByClassName("updateReview");
+            let hiddenCount = 0;
+
+            _.forEach(update, function (u) {
+                // console.log(u);
+                if(!u.className.includes("hidden")){
+                    hiddenCount+=1;
+                }
+            })
+            // console.log(hiddenCount);
+            _.forEach(update, function (u) {
+                let review = u.parentElement.getElementsByClassName("reviewButton");
+                let updateButton = review.item(0).children.item(0).children.item(0);
+                let removeButton = review.item(0).children.item(0).children.item(1);
+                if(hiddenCount>=1&&u.className.includes("hidden")){
+                    // console.log(u);
+                    updateButton.setAttribute("disabled","disabled");
+                    removeButton.setAttribute("disabled","disabled");
+                }
+            })
+
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -109,7 +155,77 @@ export class Detail {
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
+            $(".reviewButtonForm").each(function (index, item) { // 다른 수정,삭제 버튼 막혔던 거 지우기
+                $(this).find(".updateButton").removeAttr("disabled");
+                $(this).find(".removeButton").removeAttr("disabled");
+            })
         })
+
+        $(".scoreRadio").on("checked", (e)=>{
+            console.log($(e.currentTarget).val());
+        })
+
+        /**
+         *  < 수정/삭제 버튼 보이기 >
+         * - 현재 세션 아이디와 댓글 아이디를 비교해서 일치했을때 수정/삭제 버튼 보이기
+         */
+        let idList = $(".replyUserID").text().split(" ");
+        idList.pop();
+        // console.log(idList);
+        let sessionID = $('#userId').val();
+        console.log("현재 아이디 : ", sessionID===""? "로그인 안됨":sessionID);
+
+        if(sessionID===""){
+            // console.log("미로그인 상태");
+            $('#reviewSubmit').addClass("hidden");
+            $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
+            $('#reviewText').attr("readonly", true);
+        }else{
+            // console.log("로그인 상태");
+            idList.forEach(function (id){
+                // console.log(id);
+                if(id===sessionID){
+                    // let $c = $('.'+id).children().children().eq(2).children();
+                    // console.log($c);
+                    $('.'+id).find('.updateButton').removeClass("hidden");
+                    $('.'+id).find('.removeButton').removeClass("hidden");
+                }
+            })
+
+        }
+
+        /*
+        * 리뷰 텍스트 null 일때 막기
+         */
+        $('#reviewText').on("keyup",(e)=>{
+            let byteCount = document.getElementById("reviewText").value.length;
+            console.log("byteCount");
+            let $submit = $("#reviewSubmit"); // 리뷰 작성
+            let $bCount = $('#byteCount');
+            $bCount.text(byteCount);
+            if(byteCount === 0 || byteCount > 300) {
+                $submit.attr("disabled",true);
+                $bCount.parent().addClass("error");
+            }else{
+                $submit.attr("disabled",false);
+                $bCount.parent().removeClass("error");
+            }
+        })
+
+        /**
+         *  리뷰 수정할때 길이가 0이면 <수정 완료> 버튼 막기
+         */
+        $('.updateText').on("keyup",(e)=>{
+            let byteCount = $(e.currentTarget).val().length;
+            let $submit = $(e.currentTarget).parent().find(".updateSubmit"); // 수정 완료
+            if(byteCount === 0) {
+                $submit.attr("disabled",true);
+            }else{
+                $submit.attr("disabled",false);
+            }
+        })
+
+
     }
     bookmarkEvent(){
 
@@ -221,9 +337,6 @@ export class Detail {
 
     }
     kakaoMap(locName){
-
-
-
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -265,8 +378,45 @@ export class Detail {
 
     }
 
+    setThumbnail(){
+        let imageFile = $('#imageFile');
+        let imgThumbnailBox = $('.img_thumbnail_box');
 
+        imageFile.on('change', (e)=>{
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e){
+                $('.img_thumbnail_box > img').attr('src', e.target.result);
+                imgThumbnailBox.removeClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
 
+        $('.review_img_delete').on('click', ()=>{
+            imgThumbnailBox.addClass('hidden');
+            imageFile.val("");
+        });
 
+    }
+
+    updateThumbnail(){
+        let updateImg = $('input[name=updateImg]');
+        let udtImgBox = $('.update_img_box');
+
+        updateImg.on('change', (e)=>{
+            console.log("이미지 바뀜!")
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e){
+                $('.update_thumbnail').attr('src', e.target.result);
+                udtImgBox.removeClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
+        $('.update_img_delete').on('click', (e)=>{
+            $(e.currentTarget).parent().addClass('hidden');
+            $(e.currentTarget).prev().attr('src', null);
+        });
+    }
 
 }

@@ -41,14 +41,27 @@ export class Search {
             $('.list_restaurants_wrapper').empty();
             $('.list_restaurants_wrapper').append(searchTemplate(data));
 
-            data.data.r.forEach(value=>{
-                // console.log(value.num);
-                axios.post("detailCount", {"bno":value.num}).then((count)=>{
+            // 이미지, 조회수
+            data.data.r.forEach(value=> {
+                // 조회수
+                axios.post("detailCount", {"bno": value.num}).then((count) => {
                     count = count.data;
                     // console.log($("."+value.num));
-                    $("."+value.num).children().children(".restaurant_info").children("div").eq(1).children().children(".restaurant_reviews").text(count);
-                })
-
+                    $("." + value.num).children().children(".restaurant_info").children("div").eq(1).children().children(".restaurant_reviews").text(count);
+                });
+                // 이미지
+                axios.post("DetailImg", {"workplace": value.workplace}).then((e) => {
+                    // console.log(e.data);
+                    let $i = $("." + value.num).children().children().children();
+                    if (e.data === "") {
+                        // console.log(value.workplace+" 이미지 없음");
+                        $i.attr("src", "/image/empty.png");
+                    } else {
+                        console.log(value.workplace + " 이미지 있음");
+                        // console.log(e.data.img1src);
+                        $i.attr("src", e.data.img1src);
+                    }
+                });
             });
 
             // map
@@ -133,6 +146,29 @@ export class Search {
                 // 지도 다시 넣기
                 $('.list_map').append('<div id="map" style="width:400px;height:500px;"></div>');
 
+                // 페이징 넘길 때 이미지, 조회수
+                data.data.r.forEach(value=> {
+                    // 조회수
+                    axios.post("detailCount", {"bno": value.num}).then((count) => {
+                        count = count.data;
+                        // console.log($("."+value.num));
+                        $("." + value.num).children().children(".restaurant_info").children("div").eq(1).children().children(".restaurant_reviews").text(count);
+                    });
+                    // 이미지
+                    axios.post("DetailImg", {"workplace": value.workplace}).then((e) => {
+                        // console.log(e.data);
+                        let $i = $("." + value.num).children().children().children();
+                        if (e.data === "") {
+                            // console.log(value.workplace+" 이미지 없음");
+                            $i.attr("src", "/image/empty.png");
+                        } else {
+                            console.log(value.workplace + " 이미지 있음");
+                            // console.log(e.data.img1src);
+                            $i.attr("src", e.data.img1src);
+                        }
+                    });
+                });
+
                 // map
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
@@ -149,6 +185,7 @@ export class Search {
 
 
                 _.forEach(data.data.r, (obj)=> {
+
                     let roadAddr = obj.roadAddr;
                     let workplace = obj.workplace;
                     // 주소로 좌표를 검색합니다
@@ -176,6 +213,8 @@ export class Search {
                     });
                 });
 
+
+
             });
         });
 
@@ -198,9 +237,3 @@ export class Search {
 
 
 }// Search
-
-
-
-
-
-

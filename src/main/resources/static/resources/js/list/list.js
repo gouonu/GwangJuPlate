@@ -5,13 +5,16 @@ $(()=>{
     new List();
 })
 
+
 export class List {
 
     constructor() {
         console.log("List");
         this.listEvent();
+        this.buttonEvent();
 
     }
+
 
     listEvent(){
 
@@ -47,24 +50,93 @@ export class List {
 
 
             axios.post("/listDetail", resNum).then((result)=>{
-                // console.log("result :: ", result);
+                // console.log("result :: ", result.data.list);
                 $('.listCardAppend').empty();
                 $('.listCardAppend').append(listDetailTemplate(result));
+
+                for(let i=0; i<resNum.length; i++){
+                    axios.post("selectResReview", {"num":Number(resNum[i])}).then((r)=>{
+                        let n = Number(resNum[i]);
+                        // console.log(r.data.replyUser);
+                        // console.log(r.data.reply);
+                        let $n = $("."+n).children("div");
+                        $n.children("div").children(".mango_nickname").text(r.data.replyUser==null?" ":r.data.replyUser);
+                        let review;
+                        // console.log(r.data.reply.length);
+                        if(r.data.reply==null){
+                            review="아직 리뷰가 없습니다.";
+                            $n.find(".fa-solid.fa-circle-user").remove();
+                        }else if(r.data.reply.length>=80){
+                            review=r.data.reply.substring(0,80)+"...";
+                        }else{
+                            review=r.data.reply;
+                        }
+                        $n.children(".short_review").text(review);
+                    })
+                }
+
+                for(let i=0; i<result.data.list.length; i++){
+                    // console.log("result :: ", result.data.list[i].workplace);
+                    axios.post("DetailImg", {"workplace":result.data.list[i].workplace}).then((e)=>{
+                        // console.log(e.data);
+                        let $i =  $("." + result.data.list[i].num).parent().parent().children().eq(0).children().children();
+                        // console.log($i);
+                        $("." + result.data.list[i].num).children().children('a').children('span').text((i+1)+".");
+                        if(e.data===""){
+                            // console.log(result.data.list[i].workplace+" 이미지 없음");
+                            $i.attr("src", "/image/empty.png");
+                        }else {
+                            console.log(result.data.list[i].workplace+" 이미지 있음");
+                            $i.attr("src", e.data.img1src);
+                        }
+                    })
+
+
+                }
+
+
+
+
             });
 
-            // resNum.forEach(r=>{
-            //     console.log(Number(r));
-            //     // axios.post("selectResReview", {"num":Number(r)}).then((vo)=>{
-            //     //     console.log(vo);
-            //     // })
-            // })
+            // axios.post("DetailImg", {"workplace":})
+
+
 
         })
 
         axios.post("listViewsUp", {"index":index}).then(()=>{
             // console.log("조회수 up");
         })
+
     }
+
+    buttonEvent(){
+
+        $(".btn_copy_link").on("click", (e)=>{
+            console.log("링크 복사 하기 클릭");
+            let url ="";
+            let textarea =  document.createElement("textarea");
+
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            $(".alert.alert-primary").removeClass("hidden");
+        })
+
+        $(".alert.alert-primary").on("click", (e)=>{
+            $(".alert.alert-primary").addClass("hidden");
+        })
+    }
+
+
+
+
+
+
 
 
 

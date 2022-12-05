@@ -36,14 +36,11 @@ public interface Test {
 
 	void insertReview(ReplyVO r);
 
-	//test
-	void uploadImage(FileVO vo);
-
 	int countReview(int bno);
 
 	void deleteReview(Map map);
 
-	void updateReview(Map map);
+	void updateReview(ReplyVO replyVO);
 
 	MainVO selectList(int index);
 
@@ -54,11 +51,19 @@ public interface Test {
 	ReplyVO selectResReview(int num);
 
 	void bookMarkInsert(BookMarkVO bookMarkVO);
+	Map DetailImg(String workplace);
 
+	int joinCount(String workplace);
+
+	List resViewsTop();
+
+	void updateViewsTop(String resNumString);
 
 
 	List<BookMarkVO> bookList(String userId);
+	ReplyVO getImageInfo(int rno);
 
+	int idDuplicate(String userId);
 
 	void bookDeletego(BookMarkVO bookMarkVO);
 

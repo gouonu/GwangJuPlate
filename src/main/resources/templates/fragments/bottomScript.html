@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html  lagn="ko" xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:fragment="bottomScriptFragment">
     <footer class="py-5 bg-dark">
         <div class="container">
+            <button class="btn btn-warning" type="button" onclick="kakaoShare();" style="float: right;">카카오톡 공유하기</button>
             <p class="m-0  text-white">
                 망고플레이트 광주편 프로젝트<br><br>
                 참여자 : 김건우, 김나현, 김여정, 손우주, 이성은<br>
                 프로젝트 기간 : 2022.11.15 ~ ing<br><br>
                 Copyright &copy; Your Website 2022
             </p>
+
         </div>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script>
+            // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해야 합니다.
+            Kakao.init('d4e7aa977dce1bff94f0ecefccc64931');
+            // SDK 초기화 여부를 판단합니다.
+            console.log(Kakao.isInitialized());
+        </script>
+        <script>
+            function kakaoShare(){
+                Kakao.Share.sendDefault({
+                    objectType: 'text',
+                    text:
+                        '🤍 광주 플레이트 🤍' +
+                        ' 〰 솔직한 리뷰, 믿을 수 있는 평점!',
+                    link: {
+                        mobileWebUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://developers.kakao.com',
+                    },
+                });
+            }
+        </script>
     </footer>
 </th:block>
+
 </html>

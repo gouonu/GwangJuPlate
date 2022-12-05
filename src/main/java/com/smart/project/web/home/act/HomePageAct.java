@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
@@ -33,7 +36,6 @@ import java.util.UUID;
 public class HomePageAct {
     final private Test test;
 
-
     private final MemberService memberService;
 
     @GetMapping("/register")
@@ -43,7 +45,6 @@ public class HomePageAct {
 
     /**
      * 회원가입 진행
-     *
      * @param
      * @return
      */
@@ -55,7 +56,6 @@ public class HomePageAct {
 
     /**
      * 로그인 폼
-     *
      * @return
      */
     @GetMapping("/login")
@@ -64,20 +64,16 @@ public class HomePageAct {
         return "index";
     }
 
-
     /**
      * 로그인 실패 폼
-     *
      * @return
      */
     @GetMapping("/access_denied")
     public String accessDenied() {
         return "asset_denied";
     }
-
     /**
      * 유저 페이지
-     *
      * @param model
      * @param authentication
      * @return
@@ -86,15 +82,13 @@ public class HomePageAct {
     public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
         //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
         MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
-
-
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
-        session.setAttribute("userId", memberVO.getUserId());
-        session.setAttribute("userName", memberVO.getUserName());
-        session.setAttribute("userSex", memberVO.getUserSex());
-        session.setAttribute("userPhnum", memberVO.getUserPhnum());
-        session.setAttribute("userAuth", memberVO.getUserAuth());
-        session.setAttribute("appendDate", memberVO.getAppendDate());
+        session.setAttribute("userId",memberVO.getUserId());
+        session.setAttribute("userName",memberVO.getUserName());
+        session.setAttribute("userSex",memberVO.getUserSex());
+        session.setAttribute("userPhnum",memberVO.getUserPhnum());
+        session.setAttribute("userAuth",memberVO.getUserAuth());
+        session.setAttribute("appendDate",memberVO.getAppendDate());
 
         return "redirect:" + request.getHeader("Referer");
     }
@@ -113,9 +107,12 @@ public class HomePageAct {
     @GetMapping(value = {"/searchInput", "searchInputPaging"})
     public String getSearch(Model model, @RequestParam(value = "searchInput") String input, Criteria cri) {
 
+        List<ResVO> r = test.selectRes(input);
+        model.addAttribute("res", r);
+        model.addAttribute("input", input);
 
         int selectTotalCnt = test.selectTotalCnt(input);
-        log.error("가져온 정보의 총 개수 {}", selectTotalCnt);
+        log.error("가져온 정보의 총 개수 {}",selectTotalCnt);
 
         Paging paging = new Paging();
         paging.setCri(cri);
@@ -130,7 +127,6 @@ public class HomePageAct {
         return "search";
     }
 
-
     @PostMapping("reviewInput")
     public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
         ReplyVO rep = new ReplyVO();
@@ -138,37 +134,45 @@ public class HomePageAct {
         rep.setBno(num);
         rep.setReplyUser(userId);
         log.error("rep :: {}", rep);
-        test.insertReview(rep);
 
-        FileVO fileVO = new FileVO();
-        // 파일 저장 위치
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
-        fileVO.setFilePath(filePath);
+        if(!file.isEmpty()){
+            // 파일 저장 위치
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            rep.setFilePath(filePath);
 
-        // 원래 파일 이름 추출
-        String originName = file.getOriginalFilename();
-        fileVO.setOriginName(originName);
+            // 원래 파일 이름 추출
+            String originName = file.getOriginalFilename();
+            rep.setOriginName(originName);
 
-        // 파일 이름으로 쓸 uuid 생성
-        String uuid = UUID.randomUUID().toString();
+            // 파일 이름으로 쓸 uuid 생성
+            String uuid = UUID.randomUUID().toString();
+            // 확장자 추출(ex : .png)
+            String extension = originName.substring(originName.lastIndexOf("."));
+            // uuid와 확장자 결합
+            String savedName = (uuid + extension).substring(24);
+            rep.setSavedName(savedName);
+            String saveImage = rep.getFilePath() + rep.getSavedName();
 
-        // 확장자 추출(ex : .png)
-        String extension = originName.substring(originName.lastIndexOf("."));
+            // 파일 저장
+            file.transferTo(new File(saveImage));
+            // DB에 정보 저장
+            test.insertReview(rep);
 
-        // uuid와 확장자 결합
-        String savedName = uuid + extension;
-        fileVO.setSavedName(savedName);
+            // 썸네일
+            File thumbnailImg = new File(filePath, "s_" + savedName);
 
-        log.error("fileVO : {}", fileVO);
-        String fullPath = fileVO.getFilePath() + fileVO.getSavedName();
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
 
-        // 파일 저장, DB에 정보 저장
-        if (!file.isEmpty()) {
-            file.transferTo(new File(fullPath));
-            test.uploadImage(fileVO);
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
+        }else{
+            test.insertReview(rep);
         }
 
-        return "redirect:/detail?num=" + num;
+        return "redirect:/detail?num="+num;
     }
 
     @PostMapping("deleteReview")
@@ -183,5 +187,55 @@ public class HomePageAct {
         test.deleteReview(map);
         return "redirect:/detail?num="+bno;
     }
+
+    @PostMapping("updateReview")
+    public String updateReview(String reply, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
+        ReplyVO replyVO = new ReplyVO();
+        replyVO.setRno(rno);
+        replyVO.setBno(bno);
+        replyVO.setReply(reply);
+//        log.error("newReplyVO :: {}", replyVO);
+        ReplyVO imgList = test.getImageInfo(rno);
+
+        if(!file.isEmpty()){
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+            replyVO.setFilePath(filePath);
+
+            String originName = file.getOriginalFilename();
+            replyVO.setOriginName(originName);
+
+            String uuid = UUID.randomUUID().toString();
+            String extension = originName.substring(originName.lastIndexOf("."));
+            String savedName = (uuid + extension).substring(24);
+            replyVO.setSavedName(savedName);
+
+            String saveImage = filePath + replyVO.getSavedName();
+            file.transferTo(new File(saveImage));
+
+            test.updateReview(replyVO);
+
+            File thumbnailImg = new File(filePath, "s_" + savedName);
+
+            BufferedImage boImg = ImageIO.read(new File(saveImage));
+            BufferedImage btImg = new BufferedImage(120, 120, BufferedImage.TYPE_3BYTE_BGR);
+
+            Graphics2D graphics2D = btImg.createGraphics();
+            graphics2D.drawImage(boImg, 0, 0, 120, 120, null);
+
+            ImageIO.write(btImg, "jpg", thumbnailImg);
+        }else if(imgList.getOriginName() != null){
+            replyVO.setOriginName(imgList.getOriginName());
+            replyVO.setSavedName(imgList.getSavedName());
+            replyVO.setFilePath(imgList.getFilePath());
+            test.updateReview(replyVO);
+        }else{
+            test.updateReview(replyVO);
+        }
+
+        return "redirect:/detail?num=" + bno;
+    }
+
+
+
 
 }

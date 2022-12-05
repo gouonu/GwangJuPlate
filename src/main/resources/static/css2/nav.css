@@ -44,17 +44,48 @@
     font-weight: bold
 }
 
-input {
+/*input {*/
 
-    width : 100%;
-    box-sizing: border-box;
-    padding: 15px;
-    padding-left: 30px;
-    border-radius: 5px;
+/*    width : 100%;*/
+/*    box-sizing: border-box;*/
+/*    padding: 15px;*/
+/*    padding-left: 30px;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid rgba(0, 0, 0, 0.233);*/
+/*    margin-top:-10px;*/
+/*}*/
+
+.joinInput{
     border: 1px solid rgba(0, 0, 0, 0.233);
-    margin-top:-10px;
-
+    padding: 5px;
+    margin: 10px;
 }
+
+.joinCheck{
+    padding:15px;
+    width: 20px;
+    height: 20px;
+    appearance: auto;
+}
+
+.userPolicy{
+    background-color: white;
+    text-align: center;
+    font-style: italic;
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.userJoinBtn{
+    margin-bottom: 50px;
+    text-align: center;
+    padding: 15px 20px 15px 20px;
+}
+
+.joinForm > div{
+    margin-bottom: 20px;
+}
+
 input:hover{
     border: 1px solid dodgerblue;
     box-shadow: 0 0 5px dodgerblue;

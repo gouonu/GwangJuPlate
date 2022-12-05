@@ -20,26 +20,24 @@
 </head>
 <body id="bootstrap-overrides">
 <div layout:fragment="content">
-    <!-- Navigation-->
     <th:block th:replace="fragments/navSearch.html"></th:block>
-    <!-- header -->
     <header class="header">
         <div class="header_inner">
-            <!--조회수 // 게시 날짜 추가--->
             <div style="padding-bottom: 10px; color:#9b9b9b;">
                 <span id="views"></span>
                 <span id="date"></span>
             </div>
-            <h1 style="padding: 10px; font-size: 2.563rem;"></h1> <!-- 여기에 타이틀 넣음 -->
+            <h1 style="padding: 10px; font-size: 2.563rem; font-weight: bold;"></h1> <!-- 여기에 타이틀 넣음 -->
             <h5 style="color:#9b9b9b;"></h5>
         </div>
     </header>
-
-    <!-- list -->
     <main class="list_container">
         <div class="inner_container">
             <div class="listCardAppend">
                 <!-- 여기에 listCard.html append -->
+            </div>
+            <div class="alert alert-primary hidden" role="alert">
+                링크가 복사되었습니다 !!
             </div>
             <div class="share_restaurant_list">
                 <!-- 따라만들기 힘듦 -->
@@ -49,7 +47,9 @@
             </div>
         </div>
     </main>
-    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/list.bundle.js')}"></script>
 </div>
 </body>
+<section layout:fragment="contentScriptFragment">
+    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/list.bundle.js')}"></script>
+</section>
 </html>

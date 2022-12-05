@@ -1,115 +1,95 @@
 <!DOCTYPE html>
-<html
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutContents.html}">
 <head>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="/js/main.js"></script>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-
-	<!--        <link rel="icon" type="image/x-icon" href="assets/profile_icon.ico" />-->
-	<!-- Bootstrap icons-->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="css2/styles.css" rel="stylesheet" />
-	<meta charset="UTF-8">
-	<title>회원 가입</title>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
-
-
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container px-4 px-lg-5">
-		<a class="navbar-brand" href="/">광주 플레이트</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-			</ul>
-		</div>
-	</div>
-</nav>
+<div layout:fragment="content">
+    <th:block th:replace="fragments/navJoin.html"></th:block>
+    <header class="bg-light py-5">
+        <div class="container px-4 px-lg-5 my-5 text-center">
+            <div class="text-center text-white">
+                <!--                    <p class="lead fw-normal text-white-50 mb-0 ">솔직한 리뷰, 믿을 수 있는 평점!</p>-->
+                <h1 class="display-5 fw-bolder" style="color: black; margin-bottom: 20px;">회원가입</h1>
+            </div>
+        </div>
+    </header>
+    <section >
+        <div id="wrap" style="width: 33%; margin: 0 auto;">
+            <div style="text-align : left;">
+                <form id="registerForm" method="post" action="/register" class="joinForm">
+                    <div class="userID">
+                        <span>아이디</span>
+                        <input type="text" class="joinInput" placeholder="아이디" name="userId" id="userId" title="아이디"
+                               maxlength="20" size="22"/>
+                        <p class="join_txt">※ 영어 소문자, 숫자(4자 ~ 12자)</p>
+                        <p class="join_txt error hidden">아이디가 올바르지 않습니다.</p>
+                        <p class="join_txt confirm hidden " style="color: darkgreen">사용 가능한 아이디입니다.</p>
+                        <p class="join_txt error hidden ">중복되는 아이디입니다.</p>
+                    </div>
+                    <div class="userPw">
+                        <span>비밀번호</span>
+                        <input type="password" id="userPw" class="joinInput" placeholder="비밀번호" name="userPw"
+                               title="비밀번호" maxlength="12" size="22"/>
+                        <p class="join_txt">※ 영어, 숫자(4자 ~ 12자)</p>
+                        <p class="join_txt confirm hidden" style="color: darkgreen">등록 가능합니다.</p>
+                        <p class="join_txt error hidden">4자 ~ 12자 영어, 숫자만 사용가능합니다.</p>
+                    </div>
+                    <div class="userPwchk">
+                        <span>비밀번호 확인</span>
+                        <input type="password" id="userPwchk" class="joinInput" placeholder="비밀번호 확인" name="userPwchk"
+                               title="비밀번호" maxlength="12" size="22" disabled="true"/>
+                        <p class="join_txt confirm hidden" style="color: darkgreen">비밀번호가 동일합니다.</p>
+                        <p class="join_txt error hidden">비밀번호가 동일하지 않습니다.</p>
+                    </div>
+                    <div class="userName">
+                        <span>이름</span>
+                        <input type="text" id="userName" class="joinInput" placeholder="이름" name="userName" title="이름"
+                               maxlength="20" size="22"/>
+                        <p class="join_txt error hidden">올바르지 않은 이름입니다.</p>
+                    </div>
+                    <div class="userDate">
+                        <span>생년월일</span>
+                        <input type="date" id="userDate" class="joinInput" placeholder="생년월일" name="userDate"
+                               size="22"/>
+                    </div>
+                    <div class="userSex">
+                        <span>성별</span>
+                        <input type="radio" class="joinInput joinCheck userGender" id="userSex" name="userSex" value="M"
+                               title="성별"/>
+                        남자
+                        <input type="radio" class="joinInput joinCheck userGender" id="userSex2" name="userSex" value="F"
+                               title="성별"/>
+                        여자
+                    </div>
+                    <div class="userPhnum">
+                        <span>핸드폰 번호</span>
+                        <input type="text" id="userPhnum" name="userPhnum" class="joinInput"
+                               placeholder="-를 제외하고 입력 하시오" title="핸드폰 번호" maxlength="11" size="22"/>
+                        <p class="join_txt error hidden">올바르지 않은 번호입니다.</p>
+                        <p class="join_txt error hidden">-를 제외하고 입력해주세요.</p>
+                    </div>
+                    <div class="userPolicy">
+                        이용약관,개인정보 수집 및 이용, 위치기반 서비스에 동의합니다.
+                        <span role="button">[보기]</span>
+                        <input class="joinInput joinCheck" type="checkbox" id="userPolicy" name="userPolicy" value="off"/>
+                    </div>
+                    <div style="display:flex; justify-content: center">
+                        <input class="userJoinBtn btn btn-dark" type="submit" value="가입완료" disabled>
+                    </div>
+                </form>
+            </div>
 
+        </div>
+    </section>
 
-<header class="bg-light py-5">
-	<div class="container px-4 px-lg-5 my-5 text-center">
-		<div class="text-center text-white">
-			<!--                    <p class="lead fw-normal text-white-50 mb-0 ">솔직한 리뷰, 믿을 수 있는 평점!</p>-->
-			<h1 class="display-5 fw-bolder" style="color: black;">회원가입</h1>
-		</div>
-	</div>
-	<div id="wrap">
-		<div style="text-align : center;">
-
-
-
-			<form id = "registerForm" method="post" action="/register">
-				<h3>아이디</h3>
-				<div class="userID">
-					<input type="text" class="input" placeholder="아이디" name="userId"  id = "userId" title="아이디" maxlength="20" size="22"/>
-
-				</div>
-				<br>
-				<h3>비밀번호</h3>
-				<div class="userPw">
-					<input type="password" id = "userPw" class="input" placeholder="비밀번호" name="userPw" title="비밀번호" maxlength="20" size="22"/>
-				</div>
-				<br>
-				<h3>비밀번호 확인</h3>
-				<br>
-				<div class="userPwchk">
-					<input type="password" id = "userPwchk" class="input" placeholder="비밀번호확인" name="userPwchk" title="비밀번호" maxlength="20" size="22"/>
-				</div>
-
-
-				<h3>이름</h3>
-				<div class="userName">
-					<input type="text" id = "userName" class="input" placeholder="이름" name="userName" title="이름" maxlength="20" size="22"/>
-				</div>
-				<br>
-				<h3>생년월일</h3>
-				<div class="userDate">
-					<input type="date" id = "userDate" class="input" placeholder="생년월일" name="userDate" size="22" />
-				</div>
-				<br>
-				<h3>성별</h3>
-				<div class="userSex">
-					<input type="radio" id = "userSex" name="userSex" value="M" title="성별"/>
-					남자
-					<input type="radio" id = "userSex2" name="userSex" value="F" title="성별"/>
-					여자
-				</div>
-				<br>
-				<h3>핸드폰 번호</h3>
-				<div class="userPhnum">
-					<input type="text" id = "userPhnum" name = "userPhnum" class="input" placeholder="-를 제외하고 입력 하시오" title="핸드폰 번호" maxlength="20" size="22"/>
-
-				</div>
-				<br>
-				<br>
-				<br>
-				<div class = "userPolicy">
-					이용약관,개인정보 수집 및 이용, 위치기반 서비스에 동의합니다.<input type="checkbox" id = "userPolicy" name = "userPolicy"/>
-				</div>
-				<br>
-				<br>
-				<br>
-				<div>
-					<input class="btn_member" type="submit" value="가입완료">
-				</div>
-			</form>
-		</div>
-
-	</div>
-</header>
-
-<!--<script src = "/Scripts/jquery-2.2.1.js"></script>-->
-<!--<script src = "/Scripts/jquery.validate.js"></script>-->
-<!--<script type = "text/javascript" src = "/static/resources/js/join"></script>-->
+</div>
 </body>
+<section layout:fragment="contentScriptFragment">
+    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/main.bundle.js')}"></script>
+    <script type="module" th:src="${@versionComponent.getVersion('/resources/build/join.bundle.js')}"></script>
+</section>
 </html>
