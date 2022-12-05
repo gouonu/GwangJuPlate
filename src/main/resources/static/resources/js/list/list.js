@@ -139,6 +139,19 @@ export class List {
         $(".alert.alert-primary").on("click", (e)=>{
             $(".alert.alert-primary").addClass("hidden");
         })
+
+        $(".btn_share_facebook").on("click", (e)=>{
+            let thisUrl = document.URL;
+            let url = "http://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(thisUrl);
+            window.open(url, "", "width=486, height=286");
+        })
+
+        $(".btn_share_twitter").on("click", (e)=>{
+            let thisUrl = document.URL;
+            let snsTitle = "광주 플레이트";
+            let url = "http://twitter.com/share?url="+encodeURIComponent(thisUrl)+"&text="+encodeURIComponent(snsTitle);
+            window.open(url, "tweetPop", "width=486, height=286,scrollbars=yes");
+        })
     }
 
 
