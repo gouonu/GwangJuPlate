@@ -102,6 +102,7 @@ export class Detail {
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
+
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -150,7 +151,7 @@ export class Detail {
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            let $submit = $("#reviewSubmit");
+            let $submit = $("#reviewSubmit"); // 리뷰 작성
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
             if(byteCount === 0 || byteCount > 300) {
