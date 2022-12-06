@@ -15,6 +15,7 @@ export class Main {
         this.bookmarkEvent();
         this.bookMarkSlctDelete();
         this.recentEvent();
+        this.logEvent();
     }
 
     mainListEvent() {
@@ -122,5 +123,37 @@ export class Main {
         })
 
 
+    }
+    logEvent(){
+        //로그인 체크
+        $('#logID').on("keyup",(e)=>{
+            let id = document.getElementById("logID").value;
+            console.log(id);
+            axios.post("logIdChk",{"id":id}).then((result)=>{
+                if(result.data == false){
+                    $('#logerror').removeClass("hidden");
+                }
+                else{
+                    $('#logerror').addClass("hidden");
+                    $('#login').removeAttr("disabled")
+                }
+            })
+
+        })
+
+        $('#logPW').on("keyup",(e)=>{
+            let pw = document.getElementById("logPW").value;
+            let id = document.getElementById("logID").value;
+            console.log(pw);
+            axios.post("logPwChk",{"id":id,"pw":pw}).then((matches)=>{
+                if(matches.data ==false){
+                    $('#pwerror').removeClass("hidden");
+                    $('#login').attr("disabled",true);
+                }else{
+                    $('#pwerror').addClass("hidden");
+                    $('#login').removeAttr("disabled");
+                }
+            })
+        })
     }
 }

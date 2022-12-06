@@ -4,9 +4,18 @@ import com.smart.project.proc.Test;
 import com.smart.project.web.home.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +32,7 @@ import java.util.Map;
 public class HomeDataAct {
 
     final private Test test;
+
     ArrayList<String>wpl = new ArrayList<String>();
     ArrayList<String> wpn = new ArrayList<String>();
     @PostMapping (value = {"/searchInput", "/searchInputPaging"})
@@ -175,6 +185,57 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         log.error(String.valueOf(result));
         return result;
     }
+        @PostMapping("logIdChk")
+        public boolean logIdChk(@RequestBody Map map){
+            String userId = String.valueOf(map.get("id"));
+            log.error(userId);
+            MemberVO memberVO = new MemberVO();
+            memberVO.setUserId(userId);
+            boolean result = test.logIdChk(memberVO);
+            log.error(String.valueOf(result));
+            return result;
+        }
+        @PostMapping("logPwChk")
+        public boolean logPwChk(@RequestBody Map map){
+        String userID = String.valueOf(map.get("id"));
+        MemberVO memberVO = new MemberVO();
+        String ee = test.pwchk(userID);
+        log.error(ee);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String userPw = String.valueOf(map.get("pw"));
+        memberVO.setUserPw(userPw);
+        boolean matches = encoder.matches(userPw,ee);
+        log.error(String.valueOf(matches));
+        memberVO.setUserId(userID);
+
+        return matches;
+        }
+
+    //    @GetMapping("/loginFail")
+//    public String onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+//                                          AuthenticationException exception) throws IOException, ServletException {
+//        String errorMessage;
+//        if (exception instanceof BadCredentialsException) {
+//            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
+//        } else if (exception instanceof InternalAuthenticationServiceException) {
+//            errorMessage = "내부적으로 발생한 시스템 문제로 인해 요청을 처리할 수 없습니다. 관리자에게 문의하세요.";
+//        } else if (exception instanceof UsernameNotFoundException) {
+//            errorMessage = "계정이 존재하지 않습니다. 회원가입 진행 후 로그인 해주세요.";
+//        } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
+//            errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
+//        } else {
+//            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
+//        }
+//
+//        return "/";
+//    }
+//@PostMapping("logF")
+//public boolean logF(@RequestBody Map map){
+//
+//
+//}
+
+
 
     @PostMapping("viewReply")
 
@@ -284,9 +345,6 @@ public BookMarkVO bookDelete(HttpServletRequest request){
             return true;
         }
     }
-
-
-
 
 
 }

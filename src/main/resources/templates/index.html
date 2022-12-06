@@ -5,13 +5,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutContents.html}">
 <head>
+    <style>
+        #backImage{
+            background-image:url("https://cdn.pixabay.com/photo/2014/06/11/17/00/food-366875_960_720.jpg");
+
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
     <!-- Navigation-->
     <th:block th:replace="fragments/nav.html"></th:block>
     <!-- Header-->
-    <header class="bg-light py-5">
+    <header class="bg-light py-5 backImage" id="backImage">
         <div class="container px-4 px-lg-5 my-5 text-center">
             <div class="text-center text-white">
                 <p class="fw-bolder" style="color: black; font-size: large;">솔직한 리뷰, 믿을 수 있는 평점!</p>

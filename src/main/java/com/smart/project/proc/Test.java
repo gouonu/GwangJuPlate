@@ -76,4 +76,8 @@ public interface Test {
 	List<ReplyVO> detailReplyImg(int num);
 
 	boolean bookCheck(BookMarkVO bookMarkVO);
+
+	boolean logIdChk(MemberVO memberVO);
+
+	String pwchk(String userID);
 }

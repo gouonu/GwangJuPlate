@@ -141,6 +141,10 @@
     <select id="idDuplicate" resultType="int" parameterType="String">
         select count(*) from userRegister where userId=#{userId};
     </select>
-
-
+    <select id="logIdChk" resultType="boolean" parameterType="com.smart.project.web.home.vo.MemberVO">
+        select if(count(*) = 1, 1, 0) from userRegister where userId=#{userId};
+    </select>
+  <select id="pwchk" resultType="String" parameterType="com.smart.project.web.home.vo.MemberVO">
+        select userPw from userRegister where userId=#{userId}
+  </select>
 </mapper>

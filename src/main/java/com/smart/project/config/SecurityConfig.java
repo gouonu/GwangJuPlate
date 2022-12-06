@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MemberService memberService;
+    private final AuthenticationFailureHandler customFailureHandler;
 
     /**
      * 규칙 설정
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
                 .defaultSuccessUrl("/user_access")
-                .failureUrl("/asset_denied")
+                .failureHandler(customFailureHandler) // 로그인 실패 핸들러
                 .and()
                 .csrf().disable();		//로그인 창
 

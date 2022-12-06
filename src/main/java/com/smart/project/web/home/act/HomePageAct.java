@@ -53,6 +53,7 @@ public class HomePageAct {
     @PostMapping("/register")
     public String signUp(MemberVO memberVO) {
         memberService.joinUser(memberVO);
+
         return "redirect:/"; //로그인 구현 예정
     }
 
@@ -61,7 +62,11 @@ public class HomePageAct {
      * @return
      */
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false)String error,
+                        @RequestParam(value = "exception", required = false)String exception,
+                        Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
 
         return "index";
     }
@@ -70,9 +75,10 @@ public class HomePageAct {
      * 로그인 실패 폼
      * @return
      */
-    @GetMapping("/access_denied")
-    public String accessDenied() {
-        return "asset_denied";
+    @RequestMapping("/loginFail")
+    public String accessDenied( HttpServletRequest request) {
+
+        return "redirect:" + request.getHeader("Referer") ;
     }
     /**
      * 유저 페이지

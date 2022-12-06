@@ -17,6 +17,7 @@ export class Detail {
         this.bookmarkEvent();
         this.bookMarkSlctDelete();
         this.recentEvent();
+        // this.loginEvent();
     }
 
     detailEvent(){
@@ -236,9 +237,8 @@ export class Detail {
             $('.wStar').removeClass("hidden");
             let bpl=e.resWorkplace;
             let uid=e.userID;
-            axios.delete("bookDelete", {
-                headers: {
-                    Authorization: uid
+            axios.delete("bookDelete", {headers: {
+                Authorization: uid
                 },
                 data: {
                     source: bpl
@@ -301,6 +301,14 @@ export class Detail {
 
 
     }
+    //로그인 실패 axios 테스트
+    // loginEvent(){
+    //     axios.get("/loginFail",{}).then((errorMessage)=>{
+    //         alert(errorMessage);
+    //
+    //     })
+    //
+    // }
 
     kakaoMap(locName){
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -343,6 +351,7 @@ export class Detail {
 
 
     }
+
 
     setThumbnail(){
         let imageFile = $('#imageFile');

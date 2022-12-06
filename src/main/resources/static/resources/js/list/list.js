@@ -120,6 +120,7 @@ export class List {
         })
 
     }
+
     recentEvent(){
         $('.redel').on('click',(e)=>{
             axios.post("delete",{}).then(()=>{
