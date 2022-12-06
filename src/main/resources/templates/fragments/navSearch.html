@@ -1,128 +1,130 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" href="/">광주 플레이트</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-        <form action="/searchInput" method="get">
-          <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
-          <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식"
-                 style="width: 300px; height: 33px;">
-        </form>
-      </ul>
-      <a class="btn" data-bs-toggle="modal" href="#favorite">
-        <button class="btn btn-outline-dark">
-          <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
-        </button>
-      </a>
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">광주 플레이트</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <form action="/searchInput" method="get">
+                    <img src="assets/search_ico.ico" style="height:30px; width: 30px; margin-right: 5px;">
+                    <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식"
+                           style="width: 300px; height: 33px;">
+                </form>
+            </ul>
+            <a class="btn" data-bs-toggle="modal" href="#favorite">
+                <button class="btn btn-outline-dark">
+                    <img src="assets/profile_icon.ico" style="height: 30px;  width: 30px;">
+                </button>
+            </a>
+        </div>
     </div>
-  </div>
 </nav>
-  <div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1" data-backdrop="static">
+<div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1"
+     data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        <div class="modal-content">
+            <div class="modal-header">
+                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 
-          <button type="button" id = "recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집</button>
-          <!--                            <button type="button" id = "want" class="btn btn-light btn-outline-secondary btn-lg want">가고싶다.</button>-->
-          <button th:if="${session.userId eq null}" id = "ddd1" type="button" class="btn btn-light btn-outline-secondary btn-lg want" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
-            가고 싶다
-          </button>
-          <button th:if="${session.userId}" id = "want" type="button" class="btn btn-light btn-outline-secondary btn-lg want">
-            가고 싶다
-          </button>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <!--                        가고싶다.-->
-        <div class = "modal-body" id = "Recon">
-
-          <div class="card">
-
-            <div class="card-body">
-
+                <button type="button" id="recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집
+                </button>
+                <!--                            <button type="button" id = "want" class="btn btn-light btn-outline-secondary btn-lg want">가고싶다.</button>-->
+                <button th:if="${session.userId eq null}" id="ddd1" type="button"
+                        class="btn btn-light btn-outline-secondary btn-lg want" data-bs-target="#log1n"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                    가고 싶다
+                </button>
+                <button th:if="${session.userId}" id="want" type="button"
+                        class="btn btn-light btn-outline-secondary btn-lg want">
+                    가고 싶다
+                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-          </div>
-        </div>
-        <div class = "modal-body visually-hidden" id = "wantEat">
-          <div class="card">
-            가고싶다.
-            <div class="card-body">
+            <!--                        가고싶다.-->
+            <div class="modal-body" id="Recon">
 
+                <div class="card">
+
+                    <div class="card-body">
+
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="modal-body visually-hidden" id="wantEat">
+                <div class="card">
+                    가고싶다.
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal-footer d-grid gap-2 col-4 mx-auto">
+
+                <button th:if="${session.userId eq null}" id="ddd" type="button" class="btn btn-outline-danger btn-lg"
+                        data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    로그인
+                </button>
+                <button th:if="${session.userId}" type="button" class="btn btn-outline-danger btn-lg"
+                        onclick="location.href='logout.do'">
+                    로그아웃
+                </button>
+            </div>
+
         </div>
-
-
-
-
-        <div class="modal-footer d-grid gap-2 col-4 mx-auto">
-
-          <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
-            로그인
-          </button>
-          <button th:if="${session.userId}" type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='logout.do'" >
-            로그아웃
-          </button>
-        </div>
-
-      </div>
     </div>
-  </div>
-
-  <!--            로그인 모달-->
-
-  <div class="modal fade" id="log1n" aria-hidden="true" aria-labelledby="log1n" tabindex="-1">
+</div>
+<!--            로그인 모달-->
+<div class="modal fade" id="log1n" aria-hidden="true" aria-labelledby="log1n" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+        <div class="modal-content">
 
 
-        <form id="log11n" th:action="@{/login_proc}" method="post">
-          <div class="login_info" id="loggw">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <p class = "text">로그인</p>
-            <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
-            <p><label th:for="username">아이디</label></p>
-            <input  type="text" name = "username" class="form-control" placeholder="아이디">
-            <p><label th:for="password">비밀번호</label></p>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호">
-          </div>
-          <button type="submit" id="login">Log in</button>
-          <br>
-          <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
-<!--          <br>-->
-          <!--    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>-->
-<!--          <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>-->
-<!--          <br>-->
+            <form id="log11n" th:action="@{/login_proc}" method="post">
+                <div class="login_info" id="loggw">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <p class="text">로그인</p>
+                    <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
+                    <p><label th:for="username">아이디</label></p>
+                    <input type="text" name="username" class="form-control" placeholder="아이디">
+                    <p><label th:for="password">비밀번호</label></p>
+                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
+                </div>
+                <button type="submit" id="login">Log in</button>
+                <br>
+                <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
+                <!--          <br>-->
+                <!--    <button id ="kakao" class="btn" id="btn" type="submit"><img class="btn-img" src="js/kakao-l.png" width="100%"></button>-->
+                <!--          <button id ="kakao" class="btn" type="submit" onclick="kakaoLogin();"><a href="javascript:void(0)"><img class="btn-img" src="form/kakao-l.png" width="100%"></a></button>-->
+                <!--          <br>-->
 
-          <!--    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>-->
-<!--          <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
-<!--            <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">-->
-<!--          </a>-->
+                <!--    <button id="naver" class="btn" id="btn2" type="submit"><img class="btn-img" src="js/naver.png" width="100%" height="100%"></button>-->
+                <!--          <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
+                <!--            <img class="btn-img naver-img" src="form/naver.png" width="340px" height="50px">-->
+                <!--          </a>-->
 
-        </form>
-      </div>
+            </form>
+        </div>
 
     </div>
-  </div>
-
-  <script>
-    $('#ddd').on('click',()=>{
-      $('#favorite').modal('hide');
+</div>
+<script>
+    $('#ddd').on('click', () => {
+        $('#favorite').modal('hide');
     })
-    $('#ddd1').on('click',()=>{
-      $('#favorite').modal('hide');
+    $('#ddd1').on('click', () => {
+        $('#favorite').modal('hide');
     })
-    $('#want').on('click',()=>{
-      $('#Recon').addClass('visually-hidden');
-      $('#wantEat').removeClass('visually-hidden');
+    $('#want').on('click', () => {
+        $('#Recon').addClass('visually-hidden');
+        $('#wantEat').removeClass('visually-hidden');
     })
-    $('#recent').on('click',()=>{
-      $('#wantEat').addClass('visually-hidden');
-      $('#Recon').removeClass('visually-hidden');
+    $('#recent').on('click', () => {
+        $('#wantEat').addClass('visually-hidden');
+        $('#Recon').removeClass('visually-hidden');
     })
-
-
-  </script>
+</script>
 
 

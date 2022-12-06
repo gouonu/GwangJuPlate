@@ -70,4 +70,6 @@ public interface Test {
 	void ImgViewsUp(String crntImg);
 
 	List<ReplyVO> detailReplyImg(int num);
+
+	List<ResVO> viewTopRes();
 }

@@ -125,5 +125,9 @@
         select count(*) from userRegister where userId=#{userId};
     </select>
 
+    <select id="viewTopRes" resultType="com.smart.project.web.home.vo.ResVO">
+        select * from restaurant order by resViews desc limit 8;
+    </select>
+
 
 </mapper>

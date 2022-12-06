@@ -11,8 +11,29 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
+.mainTitle{
+  color:#ff8b0f;
+  /*text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;*/
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8);
+}
+
+.middleTitle{
+  color: rgb(255, 255, 255); font-size: large;
+  text-shadow: 2px 2px 6px gray;
+}
+
 p.error{
-  color:red;
+  color:red !important;
+}
+
+h5.active{
+  color: rgba(15, 15, 15, 0.8);
+  text-decoration: underline;
+}
+
+.resList.card.active{
+  /*border:2px dotted rgba(0, 0, 0, 0.25);*/
+  background-color: bisque !important;
 }
 
 
@@ -5120,7 +5141,7 @@ textarea.form-control-lg {
   padding: 0.5rem 1rem;
   color: #212529;
   text-decoration: none;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 .list-group-item:first-child {

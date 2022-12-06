@@ -11,11 +11,11 @@
     <!-- Navigation-->
     <th:block th:replace="fragments/nav.html"></th:block>
     <!-- Header-->
-    <header class="bg-light py-5">
+    <header class="py-5">
         <div class="container px-4 px-lg-5 my-5 text-center">
             <div class="text-center text-white">
-                <p class="fw-bolder" style="color: black; font-size: large;">솔직한 리뷰, 믿을 수 있는 평점!</p>
-                <h1 class="display-5 fw-bolder" style="color: black;">광주 플레이트</h1>
+                <p class="middleTitle fw-bolder">솔직한 리뷰, 나만의 최애 맛집 저장!</p>
+                <h1 class="mainTitle display-5 fw-bolder">광주 플레이트 👀</h1>
             </div>
             <br>
             <div style="display: inline-block; text-align: center; width: 742px; height: 56px;">
@@ -24,7 +24,7 @@
                     <input name="searchInput" id="searchInput" type="text" placeholder="지역, 식당 또는 음식"
                            style="width: 415px; height: 50px;">
                     <button type="submit" id="searchButton"
-                            style="width:80px; height: 50px; background-color: black; color:white;">
+                            style="width:80px; height: 50px; background-color:#ff8b0f; color:white; border-radius: 5%">
                         검 색
                     </button>
                 </form>
@@ -32,12 +32,20 @@
         </div>
     </header>
     <!-- Section-->
-    <section class="popular_top_list_wrap py-5">
-        <div>
-            <h2 style="font-size:medium; text-align: center; font-weight: bold">믿고 보는 맛집 리스트</h2>
-        </div>
+    <section class="popular_top_list_wrap py-5" style="border-bottom: 1px solid #dbdbdb">
+        <h2 style="color:rgba(0,0,0,0.5); font-size:medium; text-align: center; font-weight: bold">지금 광플에서 조회수가 높은
+            인기식당</h2>
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
+            <div id="TopResAppend"
+                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            </div>
+        </div>
+    </section>
+    <section class="popular_top_list_wrap py-5">
+        <h2 style="color:rgba(0,0,0,0.5); font-size:medium; text-align: center; font-weight: bold">믿고 보는 맛집 리스트 </h2>
+        <div class="container px-4 px-lg-5 mt-5">
+            <div id="listAppend"
+                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
         </div>
     </section>
 </div>

@@ -152,6 +152,10 @@ export class List {
             let url = "http://twitter.com/share?url="+encodeURIComponent(thisUrl)+"&text="+encodeURIComponent(snsTitle);
             window.open(url, "tweetPop", "width=486, height=286,scrollbars=yes");
         })
+
+
+
+
     }
 
 
