@@ -212,10 +212,16 @@ export class Detail {
             // 파일용량 체크
             if(fileSize > maxSize){
                 imageFile.val("");
-                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "1MB 이하의 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else if(!imageFile.val().match(fileForm)){
                 imageFile.val("");
-                return alert("이미지 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "이미지 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else{
                 reader.onload = function (e){
                     $('.img_thumbnail_box > img').attr('src', e.target.result);
@@ -244,10 +250,16 @@ export class Detail {
 
             if(fileSize > maxSize){
                 updateImg.val("");
-                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "1MB 이하의 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else if(!updateImg.val().match(fileForm)){
                 updateImg.val("");
-                return alert("이미지 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "이미지 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else{
                 reader.onload = function (e) {
                     $('.update_thumbnail').attr('src', e.target.result);
