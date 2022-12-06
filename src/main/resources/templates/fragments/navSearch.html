@@ -107,11 +107,15 @@
             <p class = "text">로그인</p>
             <p style="text-align: center">로그인 하면 가고싶은 식당을<br> 저장할 수 있어요</p>
             <p><label th:for="username">아이디</label></p>
-            <input  type="text" name = "username" class="form-control" placeholder="아이디">
+            <input  type="text" name = "username" class="form-control" id = "logID" placeholder="아이디">
+            <p class="login_txt error hidden" id="logerror">존재하지 않는 아이디 입니다.</p>
             <p><label th:for="password">비밀번호</label></p>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호">
+            <input type="password" name="password" class="form-control" id ="logPW" placeholder="비밀번호">
+            <p class="login_txt error hidden" id="pwerror">비밀번호가 틀렸습니다..</p>
           </div>
-          <button type="submit" id="login">Log in</button>
+          <span>
+        </span>
+          <button type="submit" id="login" disabled="true">Log in</button>
           <br>
           <button id="register" type="button" onclick="location.href='join'">회원 가입</button>
 <!--          <br>-->
