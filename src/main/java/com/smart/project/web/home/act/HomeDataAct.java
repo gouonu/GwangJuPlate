@@ -113,6 +113,7 @@ public class HomeDataAct {
 
 
         }
+//  즐겨찾기 넣기
     @RequestMapping("bookMarkInput")
     public BookMarkVO bookMarkInput(Map map, HttpSession session, HttpServletRequest request) throws IOException{
         String id = (String)request.getSession().getAttribute("userId");
@@ -135,6 +136,7 @@ public List<BookMarkVO> bookModal(HttpServletRequest request){
         List<BookMarkVO> data = test.bookList(userId);
         return data;
 }
+//즐겨찾기 삭제
 @RequestMapping("bookDelete")
 public BookMarkVO bookDelete(HttpServletRequest request){
         String userID=(String) request.getSession().getAttribute("userId");
@@ -148,6 +150,7 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         test.bookDeletego(bookMarkVO);
         return data;
     }
+//    즐겨찾기수
     @PostMapping("bookCount")
     public int bookCount(@RequestBody Map map){
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
@@ -163,6 +166,8 @@ public BookMarkVO bookDelete(HttpServletRequest request){
 //        int count = test.bookMarkCount(resNum);
 //        return count;
 //    }
+
+//        즐겨찾기 선택 삭제
     @RequestMapping("bookSlct")
     public BookMarkVO bookSlct(@RequestBody Map map,HttpServletRequest request){
         String userID = (String) request.getSession().getAttribute("userId");
@@ -174,6 +179,7 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         test.bookSlctDel(bookMarkVO);
         return result;
     }
+//    이미 즐겨찾기가 되어 있으면 즐겨찾기 표시
     @RequestMapping("bookMarkCheck")
     public boolean bookMarkCHeck(HttpServletRequest request){
         int resNum = (int) request.getSession().getAttribute("resNum");
@@ -185,6 +191,7 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         log.error(String.valueOf(result));
         return result;
     }
+//    아이디 체크
         @PostMapping("logIdChk")
         public boolean logIdChk(@RequestBody Map map){
             String userId = String.valueOf(map.get("id"));
@@ -195,50 +202,24 @@ public BookMarkVO bookDelete(HttpServletRequest request){
             log.error(String.valueOf(result));
             return result;
         }
+//        비밀번호 체크
         @PostMapping("logPwChk")
         public boolean logPwChk(@RequestBody Map map){
         String userID = String.valueOf(map.get("id"));
         MemberVO memberVO = new MemberVO();
-        String ee = test.pwchk(userID);
-        log.error(ee);
+        String pwEncode = test.pwchk(userID);
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String userPw = String.valueOf(map.get("pw"));
         memberVO.setUserPw(userPw);
-        boolean matches = encoder.matches(userPw,ee);
+        boolean matches = encoder.matches(userPw,pwEncode);
         log.error(String.valueOf(matches));
         memberVO.setUserId(userID);
 
         return matches;
         }
 
-    //    @GetMapping("/loginFail")
-//    public String onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-//                                          AuthenticationException exception) throws IOException, ServletException {
-//        String errorMessage;
-//        if (exception instanceof BadCredentialsException) {
-//            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
-//        } else if (exception instanceof InternalAuthenticationServiceException) {
-//            errorMessage = "내부적으로 발생한 시스템 문제로 인해 요청을 처리할 수 없습니다. 관리자에게 문의하세요.";
-//        } else if (exception instanceof UsernameNotFoundException) {
-//            errorMessage = "계정이 존재하지 않습니다. 회원가입 진행 후 로그인 해주세요.";
-//        } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
-//            errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
-//        } else {
-//            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
-//        }
-//
-//        return "/";
-//    }
-//@PostMapping("logF")
-//public boolean logF(@RequestBody Map map){
-//
-//
-//}
-
-
-
     @PostMapping("viewReply")
-
     public List<ReplyVO> viewReply(@RequestBody Map map) {
         int bno = Integer.valueOf(String.valueOf(map.get("bno")));
         log.error("bno :: {}", bno);
