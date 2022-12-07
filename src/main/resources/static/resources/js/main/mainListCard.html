@@ -2,11 +2,10 @@
 <div class="col mb-5">
     <a href="/list?index={{$value.listIndex}}" style="color:black; text-decoration: none;">
     <div class="resList card h-100">
-        <img class="card-img-top" src="/main_image/{{$value.image}}" alt="..." />
+        <img class="card-img-top" src="/main_image/{{$value.image}}" alt="..." style="height:240px "/>
         <div class="card-body p-4">
             <div class="text-center">
                 <h5 class="fw-bolder" name="cardTitle" id="cardTitle" >{{$value.title}}</h5>
-                <p class="hidden">/</p>
                 <p name="cardContext" id="cardContext">{{$value.context}}</p>
             </div>
         </div>
