@@ -1,8 +1,7 @@
 "use strict";
 
 
-import listTemplate from "@/main/mainListCard.html";
-import searchTemplate from "@/search/search2-1.html";
+
 
 $(()=>{
     new Search();

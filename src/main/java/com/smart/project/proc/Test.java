@@ -1,7 +1,9 @@
 package com.smart.project.proc;
 
 import com.smart.project.annotation.Master;
+import com.smart.project.common.vo.MenuVO;
 import com.smart.project.web.home.vo.*;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -59,7 +61,6 @@ public interface Test {
 
 	void updateViewsTop(String resNumString);
 
-
 	List<BookMarkVO> bookList(String userId);
 	ReplyVO getImageInfo(int rno);
 
@@ -71,6 +72,8 @@ public interface Test {
 
 	void bookSlctDel(BookMarkVO bookMarkVO);
 
+	List<ReplyVO> viewReply2(Map map);
+
 	void ImgViewsUp(String crntImg);
 
 	List<ReplyVO> detailReplyImg(int num);
@@ -80,4 +83,6 @@ public interface Test {
 	boolean logIdChk(MemberVO memberVO);
 
 	String pwchk(String userID);
+
+	List<ResVO> viewTopRes();
 }

@@ -55,7 +55,6 @@ public class HomeDataAct {
         return data;
     }
 
-
     @PostMapping("/mainList")
     public Map<String, Object> getMainList() {
         Map<String, Object> data = new HashMap<>();
@@ -73,8 +72,6 @@ public class HomeDataAct {
         for (String r : resNum) {
             resNumString += r + ",";
         }
-        resNumString = resNumString.substring(0, resNumString.length() - 1);
-        log.error("resNumString :: {}", resNumString);
         resNumString=resNumString.substring(0, resNumString.length() - 1);
         List<ResVO> result = test.ListDetailMatch(resNumString);
         data.put("list", result);
@@ -322,6 +319,19 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         }
     }
 
+    @GetMapping("viewTopRes")
+    public List<ResVO> viewTopRes(){
+        return test.viewTopRes();
+    }
+
 
 }
+
+
+
+
+
+
+
+
 

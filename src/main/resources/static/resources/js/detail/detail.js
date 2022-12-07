@@ -1,8 +1,10 @@
 "use strict";
 
 
+
 import detailTemplate from "@/detail/detailCard.html";
 import Model from "@/module/common/model";
+import imageTempl from "@/detail/detailImage.html";
 
 $(()=>{
     new Detail();
@@ -110,8 +112,38 @@ export class Detail {
 
         let detailTemplate = require('@/detail/detailCard.html');
         axios.post("viewReply", {"bno":num}).then((rep)=>{
+            console.log(rep.data.length);
             $("#reviewAdd").empty();
-            $("#reviewAdd").append(detailTemplate(rep));
+
+            /*
+            * 리뷰 더보기 버튼 제어
+             */
+            let perPage = 5; // 리뷰 몇개씩 보일지
+            if(rep.data.length>perPage){
+                let viewData=rep.data.slice(0,perPage);
+                $("#reviewAdd").append(detailTemplate(viewData));
+                $("#moreButton").removeClass("hidden");
+            }else{
+                $("#reviewAdd").append(detailTemplate(rep.data));
+            }
+
+            let viewPage=perPage;
+            $("#moreButton").on("click", (e)=>{
+                let viewData=rep.data.slice(viewPage,viewPage+perPage);
+
+                if(viewData.length!==perPage){
+                    viewPage=rep.data.slice(viewPage);
+                    $("#moreButton").addClass("hidden");
+                }
+
+                if(viewData.length!=0){
+                    $("#reviewAdd").append(detailTemplate(viewData));
+                    viewPage+=perPage;
+                }
+                console.log(viewData);
+            })
+
+
             // console.log("리뷰 :",rep.data);
             this.reviewEvent();
             this.updateThumbnail();
@@ -134,6 +166,32 @@ export class Detail {
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
+
+
+            /**
+             * 한 개의 수정이 완료되지 않았을 때, 다른 리뷰 수정 동시에 못하게 막기
+             */
+            let update = document.getElementsByClassName("updateReview");
+            let hiddenCount = 0;
+
+            _.forEach(update, function (u) {
+                // console.log(u);
+                if(!u.className.includes("hidden")){
+                    hiddenCount+=1;
+                }
+            })
+            // console.log(hiddenCount);
+            _.forEach(update, function (u) {
+                let review = u.parentElement.getElementsByClassName("reviewButton");
+                let updateButton = review.item(0).children.item(0).children.item(0);
+                let removeButton = review.item(0).children.item(0).children.item(1);
+                if(hiddenCount>=1&&u.className.includes("hidden")){
+                    // console.log(u);
+                    updateButton.setAttribute("disabled","disabled");
+                    removeButton.setAttribute("disabled","disabled");
+                }
+            })
+
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -142,6 +200,10 @@ export class Detail {
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
+            $(".reviewButtonForm").each(function (index, item) { // 다른 수정,삭제 버튼 막혔던 거 지우기
+                $(this).find(".updateButton").removeAttr("disabled");
+                $(this).find(".removeButton").removeAttr("disabled");
+            })
         })
 
         $(".scoreRadio").on("checked", (e)=>{
@@ -160,7 +222,9 @@ export class Detail {
 
         if(sessionID===""){
             // console.log("미로그인 상태");
-            $('#reviewSubmit').addClass("hidden");
+            $('#reviewSubmit').remove();
+            $(".byteCount").remove();
+            $('#imageFile').remove();
             $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
             $('#reviewText').attr("readonly", true);
         }else{
@@ -178,7 +242,7 @@ export class Detail {
         }
 
         /*
-        * 리뷰 텍스트 null 일때 alert 띄우기
+        * 리뷰 텍스트 null 일때 막기
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
@@ -197,7 +261,7 @@ export class Detail {
         /**
          *  리뷰 수정할때 길이가 0이면 <수정 완료> 버튼 막기
          */
-        $('#updateText').on("keyup",(e)=>{
+        $('.updateText').on("keyup",(e)=>{
             let byteCount = $(e.currentTarget).val().length;
             let $submit = $(e.currentTarget).parent().find(".updateSubmit"); // 수정 완료
             if(byteCount === 0) {
