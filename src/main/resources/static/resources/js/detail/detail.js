@@ -1,12 +1,7 @@
 "use strict";
 
 
-
-import detailTemplate from "@/detail/detailCard.html";
-import Model from "@/module/common/model";
-import imageTempl from "@/detail/detailImage.html";
-
-$(()=>{
+$(() => {
     new Detail();
 })
 
@@ -20,18 +15,17 @@ export class Detail {
         this.bookMarkSlctDelete();
         this.recentEvent();
         this.logEvent();
-        // this.loginEvent();
     }
-    logEvent(){
+
+    logEvent() {
         //로그인 체크
-        $('#logID').on("keyup",(e)=>{
+        $('#logID').on("keyup", (e) => {
             let id = document.getElementById("logID").value;
             // console.log(id);
-            axios.post("logIdChk",{"id":id}).then((result)=>{
-                if(result.data == false){
+            axios.post("logIdChk", {"id": id}).then((result) => {
+                if (!result.data) {
                     $('#logerror').removeClass("hidden");
-                }
-                else{
+                } else {
                     $('#logerror').addClass("hidden");
                     $('#login').removeAttr("disabled");
                 }
@@ -39,15 +33,15 @@ export class Detail {
 
         })
 
-        $('#logPW').on("keyup",(e)=>{
+        $('#logPW').on("keyup", (e) => {
             let pw = document.getElementById("logPW").value;
             let id = document.getElementById("logID").value;
             // console.log(pw);
-            axios.post("logPwChk",{"id":id,"pw":pw}).then((matches)=>{
-                if(matches.data ==false){
+            axios.post("logPwChk", {"id": id, "pw": pw}).then((matches) => {
+                if (matches.data == false) {
                     $('#pwerror').removeClass("hidden");
-                    $('#login').attr("disabled",true);
-                }else{
+                    $('#login').attr("disabled", true);
+                } else {
                     $('#pwerror').addClass("hidden");
                     $('#login').removeAttr("disabled");
                 }
@@ -55,44 +49,45 @@ export class Detail {
         })
     }
 
-    detailEvent(){
+    detailEvent() {
 
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
                 new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
             );
-            return result ? result[3]:false;
+            return result ? result[3] : false;
         }
+
         let num = getQueryParam("num");
-        console.log("num :",num);
-        axios.post("bookCount",{"bno":num}).then((count)=>{
+        console.log("num :", num);
+        axios.post("bookCount", {"bno": num}).then((count) => {
             count = count.data;
-            console.log("즐겨찾기 수:",count);
+            console.log("즐겨찾기 수:", count);
             $('.bookCount').text(count);
         })
 
-        axios.post("detailRes", {"num":num}).then((res)=>{
+        axios.post("detailRes", {"num": num}).then((res) => {
             // console.log(place);
             // console.log(res.data);
             $('#workplace').text(res.data.workplace);
             $('#roadAddr').text(res.data.roadAddr);
             $('#locAddr').text(res.data.locAddr);
-            $('#tel').text(res.data.tel===null?"X":res.data.tel);
+            $('#tel').text(res.data.tel === null ? "X" : res.data.tel);
             $('#state').text(res.data.state);
             $('#num').val(res.data.num);
 
             this.kakaoMap(res.data.roadAddr, res.data.workplace);
 
 
-            axios.post("detailViewsUp", {"num":num}).then(()=>{
+            axios.post("detailViewsUp", {"num": num}).then(() => {
                 // console.log("조회수");
                 $('.resViews').text(res.data.resViews);
             });
 
-            axios.post("DetailImg",{"workplace":res.data.workplace}).then((i)=>{
+            axios.post("DetailImg", {"workplace": res.data.workplace}).then((i) => {
                 // console.log(i.data);
-                if(i.data===""){
-                    axios.post("detailReplyImg", {"num":num}).then((data)=>{
+                if (i.data === "") {
+                    axios.post("detailReplyImg", {"num": num}).then((data) => {
                         console.log(data);
                         let replyImgTmpt = require('@/detail/detailImage2.html');
                         let newData = data.data.slice(0, 4);
@@ -100,7 +95,7 @@ export class Detail {
                         $(".grid-image").empty()
                         $(".grid-image").append(replyImgTmpt(newData));
                     })
-                }else{
+                } else {
                     $("#resContent").text(i.data.content);
                     let imageTempl = require('@/detail/detailImage.html');
                     $(".grid-image").empty();
@@ -111,7 +106,7 @@ export class Detail {
         })
 
         let detailTemplate = require('@/detail/detailCard.html');
-        axios.post("viewReply", {"bno":num}).then((rep)=>{
+        axios.post("viewReply", {"bno": num}).then((rep) => {
             console.log(rep.data.length);
             $("#reviewAdd").empty();
 
@@ -119,26 +114,26 @@ export class Detail {
             * 리뷰 더보기 버튼 제어
              */
             let perPage = 5; // 리뷰 몇개씩 보일지
-            if(rep.data.length>perPage){
-                let viewData=rep.data.slice(0,perPage);
+            if (rep.data.length > perPage) {
+                let viewData = rep.data.slice(0, perPage);
                 $("#reviewAdd").append(detailTemplate(viewData));
                 $("#moreButton").removeClass("hidden");
-            }else{
+            } else {
                 $("#reviewAdd").append(detailTemplate(rep.data));
             }
 
-            let viewPage=perPage;
-            $("#moreButton").on("click", (e)=>{
-                let viewData=rep.data.slice(viewPage,viewPage+perPage);
+            let viewPage = perPage;
+            $("#moreButton").on("click", () => {
+                let viewData = rep.data.slice(viewPage, viewPage + perPage);
 
-                if(viewData.length!==perPage){
-                    viewPage=rep.data.slice(viewPage);
+                if (viewData.length !== perPage) {
+                    viewPage = rep.data.slice(viewPage);
                     $("#moreButton").addClass("hidden");
                 }
 
-                if(viewData.length!=0){
+                if (viewData.length != 0) {
                     $("#reviewAdd").append(detailTemplate(viewData));
-                    viewPage+=perPage;
+                    viewPage += perPage;
                 }
                 console.log(viewData);
             })
@@ -150,16 +145,16 @@ export class Detail {
             this.thumbnailModal();
         })
 
-        axios.post("detailCount", {"bno":num}).then((count)=>{
+        axios.post("detailCount", {"bno": num}).then((count) => {
             count = count.data;
             // console.log("리뷰 수 :",count);
-            $('.reviewCount').text("리뷰 ("+count+")");
+            $('.reviewCount').text("리뷰 (" + count + ")");
             $('.reviewCountNum').text(count);
         })
     }
 
-    reviewEvent(){
-        $('.updateButton').on("click", (e)=>{
+    reviewEvent() {
+        $('.updateButton').on("click", (e) => {
             // console.log("수정");
             let $e = $(e.currentTarget).parents(".card-body").eq(0);
             $e.children(".updateReview").removeClass("hidden");
@@ -176,8 +171,8 @@ export class Detail {
 
             _.forEach(update, function (u) {
                 // console.log(u);
-                if(!u.className.includes("hidden")){
-                    hiddenCount+=1;
+                if (!u.className.includes("hidden")) {
+                    hiddenCount += 1;
                 }
             })
             // console.log(hiddenCount);
@@ -185,28 +180,28 @@ export class Detail {
                 let review = u.parentElement.getElementsByClassName("reviewButton");
                 let updateButton = review.item(0).children.item(0).children.item(0);
                 let removeButton = review.item(0).children.item(0).children.item(1);
-                if(hiddenCount>=1&&u.className.includes("hidden")){
+                if (hiddenCount >= 1 && u.className.includes("hidden")) {
                     // console.log(u);
-                    updateButton.setAttribute("disabled","disabled");
-                    removeButton.setAttribute("disabled","disabled");
+                    updateButton.setAttribute("disabled", "disabled");
+                    removeButton.setAttribute("disabled", "disabled");
                 }
             })
 
         })
 
-        $(".rollbackButton").on("click", (e)=>{
+        $(".rollbackButton").on("click", (e) => {
             // console.log("수정 취소");
             let $e = $(e.currentTarget).parents(".card-body").eq(0);
             $e.children(".updateReview").addClass("hidden");
             $e.children(".reviewHeader").removeClass("hidden");
             $e.children(".reviewButton").removeClass("hidden");
-            $(".reviewButtonForm").each(function (index, item) { // 다른 수정,삭제 버튼 막혔던 거 지우기
+            $(".reviewButtonForm").each(function () { // 다른 수정,삭제 버튼 막혔던 거 지우기
                 $(this).find(".updateButton").removeAttr("disabled");
                 $(this).find(".removeButton").removeAttr("disabled");
             })
         })
 
-        $(".scoreRadio").on("checked", (e)=>{
+        $(".scoreRadio").on("checked", (e) => {
             console.log($(e.currentTarget).val());
         })
 
@@ -218,24 +213,24 @@ export class Detail {
         idList.pop();
         // console.log(idList);
         let sessionID = $('#userId').val();
-        console.log("현재 아이디 : ", sessionID===""? "로그인 안됨":sessionID);
+        console.log("현재 아이디 : ", sessionID === "" ? "로그인 안됨" : sessionID);
 
-        if(sessionID===""){
+        if (sessionID === "") {
             // console.log("미로그인 상태");
             $('#reviewSubmit').remove();
             $(".byteCount").remove();
             $('#imageFile').remove();
             $('#reviewText').attr("placeholder", "로그인 후 리뷰를 남기실 수 있습니다.");
             $('#reviewText').attr("readonly", true);
-        }else{
+        } else {
             // console.log("로그인 상태");
-            idList.forEach(function (id){
+            idList.forEach(function (id) {
                 // console.log(id);
-                if(id===sessionID){
+                if (id === sessionID) {
                     // let $c = $('.'+id).children().children().eq(2).children();
                     // console.log($c);
-                    $('.'+id).find('.updateButton').removeClass("hidden");
-                    $('.'+id).find('.removeButton').removeClass("hidden");
+                    $('.' + id).find('.updateButton').removeClass("hidden");
+                    $('.' + id).find('.removeButton').removeClass("hidden");
                 }
             })
 
@@ -244,16 +239,16 @@ export class Detail {
         /*
         * 리뷰 텍스트 null 일때 막기
          */
-        $('#reviewText').on("keyup",(e)=>{
+        $('#reviewText').on("keyup", () => {
             let byteCount = document.getElementById("reviewText").value.length;
             let $submit = $("#reviewSubmit");
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
-            if(byteCount === 0 || byteCount > 300) {
-                $submit.attr("disabled",true);
+            if (byteCount === 0 || byteCount > 300) {
+                $submit.attr("disabled", true);
                 $bCount.parent().addClass("error");
-            }else{
-                $submit.attr("disabled",false);
+            } else {
+                $submit.attr("disabled", false);
                 $bCount.parent().removeClass("error");
             }
         })
@@ -261,25 +256,34 @@ export class Detail {
         /**
          *  리뷰 수정할때 길이가 0이면 <수정 완료> 버튼 막기
          */
-        $('.updateText').on("keyup",(e)=>{
+        $('.updateText').on("keyup", (e) => {
             let byteCount = $(e.currentTarget).val().length;
             let $submit = $(e.currentTarget).parent().find(".updateSubmit"); // 수정 완료
-            if(byteCount === 0) {
-                $submit.attr("disabled",true);
-            }else{
-                $submit.attr("disabled",false);
+            if (byteCount === 0) {
+                $submit.attr("disabled", true);
+            } else {
+                $submit.attr("disabled", false);
             }
         })
 
 
     }
-    bookmarkEvent(){
 
-        axios.post("bookModal",{}).then((result)=>{
+    getQueryParam(param) { // https://diaryofgreen.tistory.com/49
+        let result = window.location.search.match(
+            new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+        );
+        return result ? result[3] : false;
+    }
+
+
+    bookmarkEvent() {
+
+        axios.post("bookModal", {}).then((result) => {
             console.log(result);
 
             let data = result.data;
-            _.forEach(data,(e)=>{
+            _.forEach(data, (e) => {
                 let workplace = e.resWorkplace;
                 let num4 = e.resNum;
 
@@ -288,13 +292,13 @@ export class Detail {
                     '<form class="bookForm">',
 
 
-                    '<a class="workplace" >'+ workplace +'<br></a>',
+                    '<a class="workplace" >' + workplace + '<br></a>',
 
 
-                    '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
+                    '<button class="bnum" type="button" onclick="location.href=\'detail?num=' + num4 + '\'">이동하기</button>',
 
 
-                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
+                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제' + '</button>',
 
                     '</form>'
                 ].join('');
@@ -305,34 +309,29 @@ export class Detail {
         })
 
 
-
-        $('.wStar').on("click", (e)=> {
+        $('.wStar').on("click", () => {
                 $('.wStar').addClass("hidden");
                 $('.bStar').removeClass("hidden");
                 $(sessionStorage.getItem("userId"));
 
-                axios.post("bookMarkInput",{}).then((result)=>{
+                axios.post("bookMarkInput", {}).then((result) => {
                     console.log(result)
                 })
 
             }
         )
-        function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
-            let result = window.location.search.match(
-                new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
-            );
-            return result ? result[3]:false;
-        }
-        let num = getQueryParam("num");
-        console.log("num :",num);
 
-        $('.bStar').on("click", (e)=> {
+        let num = this.getQueryParam("num");
+        console.log("num :", num);
+
+        $('.bStar').on("click", (e) => {
             $('.bStar').addClass("hidden");
             $('.wStar').removeClass("hidden");
-            let bpl=e.resWorkplace;
-            let uid=e.userID;
-            axios.delete("bookDelete", {headers: {
-                Authorization: uid
+            let bpl = e.resWorkplace;
+            let uid = e.userID;
+            axios.delete("bookDelete", {
+                headers: {
+                    Authorization: uid
                 },
                 data: {
                     source: bpl
@@ -341,43 +340,34 @@ export class Detail {
         })
 
         //북마크 기본
-
-        axios.post("bookMarkCheck",{}).then((result)=>{
+        axios.post("bookMarkCheck", {}).then((result) => {
             console.log(result);
-            if(result.data == true){
+            if (result.data) {
                 $('.bStar').removeClass("hidden");
                 $('.wStar').addClass("hidden");
-            }else{
+            } else {
                 $('.bStar').addClass("hidden");
                 $('.wStar').removeClass("hidden");
 
             }
         })
 
-        // var doc1 = document.getElementsByClassName("doBok");
-        // const w1= document.get('bleft');
-        // // var n1=document.getElementById('bcenter').getElementsByClassName('bnum');
-        // console.log("되긴함? : ",w1);
-        // $('#bright').on("click",(e)=>{
-        //     axios.post("bookSlct",{w1:{w1}, n1:{n1}}).then((result)=>{
-        //
-        //
-        //     })
-        // })
     }
-    bookMarkSlctDelete(){
-        $('.deleteWish').on("click",(e)=>{
+
+    bookMarkSlctDelete() {
+        $('.deleteWish').on("click", (e) => {
             let workplce = $(e.currentTarget).prev().prev().text();
-            console.log("가능?:",workplce);
-            axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+            console.log("가능?:", workplce);
+            axios.post("bookSlct", {"workplace": workplce}).then((result) => {
                 $(e.currentTarget).parent($('.bookForm')).remove();
             })
         })
 
     }
-    recentEvent(){
-        $('.redel').on('click',(e)=>{
-            axios.post("delete",{}).then(()=>{
+
+    recentEvent() {
+        $('.redel').on('click', (e) => {
+            axios.post("delete", {}).then(() => {
                 $('.asd').remove();
                 var html = [
                     ' <div align="center" class="abc">',
@@ -395,16 +385,9 @@ export class Detail {
 
 
     }
-    //로그인 실패 axios 테스트
-    // loginEvent(){
-    //     axios.get("/loginFail",{}).then((errorMessage)=>{
-    //         alert(errorMessage);
-    //
-    //     })
-    //
-    // }
 
-    kakaoMap(locName){
+
+    kakaoMap(locName) {
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -418,7 +401,7 @@ export class Detail {
         var geocoder = new kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(locName, function(result, status) {
+        geocoder.addressSearch(locName, function (result, status) {
 
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
@@ -431,47 +414,39 @@ export class Detail {
                     position: coords
                 });
 
-                // // 인포윈도우로 장소에 대한 설명을 표시합니다
-                // var infowindow = new kakao.maps.InfoWindow({
-                //     content: '<div style="width:150px;text-align:center;padding:6px 0;" th:text="${workplace}"></div>'
-                // });
-                // infowindow.open(map, marker);
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
             }
         });
 
 
-
     }
 
-    setThumbnail(){
+    setThumbnail() {
         let imageFile = $('#imageFile');
         let imgThumbnailBox = $('.img_thumbnail_box');
 
-        imageFile.on('change', (e)=>{
+        imageFile.on('change', (e) => {
             let fileSize = e.target.files[0].size; // 파일 크기
             let maxSize = 1024 * 1024; // 1mb
-            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf|PNG)$/;
             var file = e.target.files[0];
             var reader = new FileReader();
 
             // 파일용량 체크
-            if(fileSize > maxSize){
+            if (fileSize > maxSize) {
                 imageFile.val("");
                 return swal({
                     text: "1MB 이하의 파일만 업로드 가능합니다.",
                     icon: "error",
                 });
-            }else if(!imageFile.val().match(fileForm)){
+            } else if (!imageFile.val().match(fileForm)) {
                 imageFile.val("");
                 return swal({
                     text: "이미지 파일만 업로드 가능합니다.",
                     icon: "error",
                 });
-            }else{
-                reader.onload = function (e){
+            } else {
+                reader.onload = function (e) {
                     $('.img_thumbnail_box > img').attr('src', e.target.result);
                     imgThumbnailBox.removeClass('hidden');
                 }
@@ -479,36 +454,36 @@ export class Detail {
             }
         });
 
-        $('.review_img_delete').on('click', ()=>{
+        $('.review_img_delete').on('click', () => {
             imgThumbnailBox.addClass('hidden');
             imageFile.val("");
         });
     }
 
-    updateThumbnail(){
+    updateThumbnail() {
         let updateImg = $('input[name=updateImg]');
         let udtImgBox = $('.update_img_box');
 
-        updateImg.on('change', (e)=>{
+        updateImg.on('change', (e) => {
             let fileSize = e.target.files[0].size;
             let maxSize = 1024 * 1024;
-            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+            let fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf|PNG)$/;
             let file = e.target.files[0];
             let reader = new FileReader();
 
-            if(fileSize > maxSize){
+            if (fileSize > maxSize) {
                 updateImg.val("");
                 return swal({
                     text: "1MB 이하의 파일만 업로드 가능합니다.",
                     icon: "error",
                 });
-            }else if(!updateImg.val().match(fileForm)){
+            } else if (!updateImg.val().match(fileForm)) {
                 updateImg.val("");
                 return swal({
                     text: "이미지 파일만 업로드 가능합니다.",
                     icon: "error",
                 });
-            }else{
+            } else {
                 reader.onload = function (e) {
                     $('.update_thumbnail').attr('src', e.target.result);
                     udtImgBox.removeClass('hidden');
@@ -516,19 +491,19 @@ export class Detail {
                 reader.readAsDataURL(file);
             }
         });
-        $('.update_img_delete').on('click', (e)=>{
+        $('.update_img_delete').on('click', (e) => {
             $(e.currentTarget).parent().addClass('hidden');
             $(e.currentTarget).prev().attr('src', null);
         });
     }
 
     //test
-    thumbnailModal(){
+    thumbnailModal() {
         let replyImgTag = $('.reply_img > img');
-        replyImgTag.on('click', (e)=>{
+        replyImgTag.on('click', (e) => {
             let crntImg = $(e.currentTarget).attr('data-bs-target').slice(1);
             console.log(crntImg);
-            axios.post("imgViews", {"crntImg" : crntImg});
+            axios.post("imgViews", {"crntImg": crntImg});
         });
     }
 

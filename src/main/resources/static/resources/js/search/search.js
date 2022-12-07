@@ -1,9 +1,7 @@
 "use strict";
 
 
-
-
-$(()=>{
+$(() => {
     new Search();
 })
 
@@ -19,16 +17,16 @@ export class Search {
         this.recentEvent();
         this.logEvent();
     }
-    logEvent(){
+
+    logEvent() {
         //로그인 체크
-        $('#logID').on("keyup",(e)=>{
+        $('#logID').on("keyup", () => {
             let id = document.getElementById("logID").value;
 
-            axios.post("logIdChk",{"id":id}).then((result)=>{
-                if(result.data == false){
+            axios.post("logIdChk", {"id": id}).then((result) => {
+                if (!result.data) {
                     $('#logerror').removeClass("hidden");
-                }
-                else{
+                } else {
                     $('#logerror').addClass("hidden");
                     $('#login').removeAttr("disabled")
                 }
@@ -36,127 +34,71 @@ export class Search {
 
         })
 
-        $('#logPW').on("keyup",(e)=>{
+        $('#logPW').on("keyup", () => {
             let pw = document.getElementById("logPW").value;
             let id = document.getElementById("logID").value;
 
-            axios.post("logPwChk",{"id":id,"pw":pw}).then((matches)=>{
-                if(matches.data ==false){
+            axios.post("logPwChk", {"id": id, "pw": pw}).then((matches) => {
+                if (!matches.data) {
                     $('#pwerror').removeClass("hidden");
-                    $('#login').attr("disabled",true);
-                }else{
+                    $('#login').attr("disabled", true);
+                } else {
                     $('#pwerror').addClass("hidden");
                     $('#login').removeAttr("disabled");
                 }
             })
         })
     }
-    bookmarkEvent(){
 
-        axios.post("bookModal",{}).then((result)=>{
-            console.log(result);
-
+    bookmarkEvent() {
+        axios.post("bookModal").then((result) => {
+            // console.log(result);
             let data = result.data;
-            _.forEach(data,(e)=>{
+            _.forEach(data, (e) => {
                 let workplace = e.resWorkplace;
                 let num4 = e.resNum;
 
                 console.log(workplace);
                 var html = [
                     '<form class="bookForm">',
-
-
-                    '<a class="workplace" >'+ workplace +'<br></a>',
-
-
-                    '<button class="bnum" type="button" onclick="location.href=\'detail?num='+num4+'\'">이동하기</button>',
-
-
-                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제'+'</button>',
-
+                    '<a class="workplace" >' + workplace + '<br></a>',
+                    '<button class="bnum" type="button" onclick="location.href=\'detail?num=' + num4 + '\'">이동하기</button>',
+                    '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제' + '</button>',
                     '</form>'
                 ].join('');
                 $('#bookMark').append(html);
-                console.log(num4);
+                // console.log(num4);
                 this.bookMarkSlctDelete();
             })
         })
 
 
-
-        $('.wStar').on("click", (e)=> {
-                $('.wStar').addClass("hidden");
-                $('.bStar').removeClass("hidden");
-                $(sessionStorage.getItem("userId"));
-
-                axios.post("bookMarkInput",{}).then((result)=>{
-                    console.log(result)
-                })
-
-            }
-        )
         function getQueryParam(param) { // https://diaryofgreen.tistory.com/49
             let result = window.location.search.match(
                 new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
             );
-            return result ? result[3]:false;
+            return result ? result[3] : false;
         }
+
         let num = getQueryParam("num");
-        console.log("num :",num);
+        console.log("num :", num);
 
-        $('.bStar').on("click", (e)=> {
-            $('.bStar').addClass("hidden");
-            $('.wStar').removeClass("hidden");
-            let bpl=e.resWorkplace;
-            let uid=e.userID;
-            axios.delete("bookDelete", {
-                headers: {
-                    Authorization: uid
-                },
-                data: {
-                    source: bpl
-                }
-            });
-        })
-
-        //북마크 기본
-
-        axios.post("bookMarkCheck",{}).then((result)=>{
-            console.log(result);
-            if(result.data == true){
-                $('.bStar').removeClass("hidden");
-                $('.wStar').addClass("hidden");
-            }else{
-                $('.bStar').addClass("hidden");
-                $('.wStar').removeClass("hidden");
-
-            }
-        })
-
-        // var doc1 = document.getElementsByClassName("doBok");
-        // const w1= document.get('bleft');
-        // // var n1=document.getElementById('bcenter').getElementsByClassName('bnum');
-        // console.log("되긴함? : ",w1);
-        // $('#bright').on("click",(e)=>{
-        //     axios.post("bookSlct",{w1:{w1}, n1:{n1}}).then((result)=>{
-        //
-        //
-        //     })
-        // })
     }
-    bookMarkSlctDelete(){
-        $('.deleteWish').on("click",(e)=>{
-            let workplce = $(e.currentTarget).prev().prev().text();
-            console.log("가능?:",workplce);
-            axios.post("bookSlct",{"workplace": workplce}).then((result)=>{
+
+    bookMarkSlctDelete() {
+        $('.deleteWish').on("click", (e) => {
+            let workplace = $(e.currentTarget).prev().prev().text();
+            console.log("가능?:", workplace);
+            axios.post("bookSlct", {"workplace": workplace}).then(() => {
                 $(e.currentTarget).parent($('.bookForm')).remove();
             })
         })
 
     }
-    recentEvent(){
-        $('.redel').on('click',(e)=>{
-            axios.post("delete",{}).then(()=>{
+
+    recentEvent() {
+        $('.redel').on('click', () => {
+            axios.post("delete").then(() => {
                 $('.asd').remove();
                 var html = [
                     ' <div align="center" class="abc">',
@@ -171,9 +113,8 @@ export class Search {
                 $('#rkfk').append(html);
             })
         })
-
-
     }
+
     searchEvent() {
         console.log("검색 이벤트");
         let result = $('#query').text();
@@ -183,23 +124,23 @@ export class Search {
         let startPage = 1;
         let perPage = 20;
         let object = {
-            "result" : result,
+            "result": result,
             "startPage": startPage,
-            "perPage" : perPage
+            "perPage": perPage
         }
 
         axios({
-            method:"post",
-            url:"/searchInputPaging",
-            params : object
+            method: "post",
+            url: "/searchInputPaging",
+            params: object
 
-        }).then((data)=>{
+        }).then((data) => {
             console.log(data);
             $('.list_restaurants_wrapper').empty();
             $('.list_restaurants_wrapper').append(searchTemplate(data));
 
             // 이미지, 조회수
-            data.data.r.forEach(value=> {
+            data.data.r.forEach(value => {
                 // 조회수
                 axios.post("detailCount", {"bno": value.num}).then((count) => {
                     count = count.data;
@@ -213,10 +154,9 @@ export class Search {
                     if (e.data === "") {
                         // console.log(value.workplace+" 이미지 없음");
                         // $i.attr("src", "/image/empty.png");
-
-                        axios.post("detailReplyImg", {"num":value.num}).then((data)=>{
+                        axios.post("detailReplyImg", {"num": value.num}).then((data) => {
                             // console.log(data.data[0].savedName);
-                            _.forEach(data.data, ()=>{
+                            _.forEach(data.data, () => {
                                 $i.attr('src', "/images/" + data.data[0].savedName);
                             });
                         });
@@ -242,11 +182,11 @@ export class Search {
             var geocoder = new kakao.maps.services.Geocoder();
 
 
-            _.forEach(data.data.r, (obj)=> {
+            _.forEach(data.data.r, (obj) => {
                 let roadAddr = obj.roadAddr;
                 let workplace = obj.workplace;
                 // 주소로 좌표를 검색합니다
-                geocoder.addressSearch(roadAddr, function(result, status) {
+                geocoder.addressSearch(roadAddr, function (result, status) {
 
                     // 정상적으로 검색이 완료됐으면
                     if (status === kakao.maps.services.Status.OK) {
@@ -260,7 +200,7 @@ export class Search {
                         });
 
                         var infowindow = new kakao.maps.InfoWindow({
-                            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+workplace+'</div>'
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + workplace + '</div>'
                         });
                         infowindow.open(map, marker);
 
@@ -269,17 +209,12 @@ export class Search {
                     }
                 });
             });
-
-
         }); // then
-
-
     }//serchEvent
 
 
-
-    pagination(){
-        $('.paginationUl > li').on('click', (e)=>{
+    pagination() {
+        $('.paginationUl > li').on('click', (e) => {
             // 지도 제거
             $('#map').remove();
 
@@ -294,16 +229,16 @@ export class Search {
             console.log(result)
             let searchTemplate = require('@/search/search2-1.html');
             let object = {
-                "result" : result,
+                "result": result,
                 "startPage": startPage,
-                "perPage" : perPage
+                "perPage": perPage
             }
             axios({
-                method:"post",
-                url:"/searchInputPaging",
-                params : object
+                method: "post",
+                url: "/searchInputPaging",
+                params: object
 
-            }).then((data)=>{
+            }).then((data) => {
                 console.log(data);
                 $('.list_restaurants_wrapper').empty();
                 $('.list_restaurants_wrapper').append(searchTemplate(data));
@@ -311,7 +246,7 @@ export class Search {
                 $('.list_map').append('<div id="map" style="width:400px;height:500px;"></div>');
 
                 // 페이징 넘길 때 이미지, 조회수
-                data.data.r.forEach(value=> {
+                data.data.r.forEach(value => {
                     // 조회수
                     axios.post("detailCount", {"bno": value.num}).then((count) => {
                         count = count.data;
@@ -325,9 +260,9 @@ export class Search {
                         if (e.data === "") {
                             // console.log(value.workplace+" 이미지 없음");
                             // $i.attr("src", "/image/empty.png");
-                            axios.post("detailReplyImg", {"num":value.num}).then((data)=>{
+                            axios.post("detailReplyImg", {"num": value.num}).then((data) => {
                                 // console.log(data.data[0].savedName);
-                                _.forEach(data.data, ()=>{
+                                _.forEach(data.data, () => {
                                     $i.attr('src', "/images/" + data.data[0].savedName);
                                 });
                             });
@@ -354,12 +289,12 @@ export class Search {
                 var geocoder = new kakao.maps.services.Geocoder();
 
 
-                _.forEach(data.data.r, (obj)=> {
+                _.forEach(data.data.r, (obj) => {
 
                     let roadAddr = obj.roadAddr;
                     let workplace = obj.workplace;
                     // 주소로 좌표를 검색합니다
-                    geocoder.addressSearch(roadAddr, function(result, status) {
+                    geocoder.addressSearch(roadAddr, function (result, status) {
 
                         // 정상적으로 검색이 완료됐으면
                         if (status === kakao.maps.services.Status.OK) {
@@ -373,7 +308,7 @@ export class Search {
                             });
 
                             var infowindow = new kakao.maps.InfoWindow({
-                                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+workplace+'</div>'
+                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + workplace + '</div>'
                             });
                             infowindow.open(map, marker);
 
@@ -384,7 +319,6 @@ export class Search {
                 });
 
 
-
             });
         });
 
@@ -392,10 +326,10 @@ export class Search {
     }//pagenationEvent
 
 
-    paginationBtn(){
+    paginationBtn() {
         $('.paginationUl > li:first').addClass('active');
 
-        $('.paginationUl > li').on('click', (e)=> {
+        $('.paginationUl > li').on('click', (e) => {
             if ($('.paginationUl > li').hasClass('active')) {
                 $('.paginationUl > li').removeClass('active');
                 $(e.currentTarget).addClass('active');
