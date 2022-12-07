@@ -37,7 +37,6 @@ export class Main {
             }
             str=str.substring(0,str.length-1);
             // console.log(str);
-
             axios.post("ViewTop2",{"resNumString":str}).then(()=>{
                 // console.log("조회수 top5 음식점 등록!")
             })
@@ -66,6 +65,8 @@ export class Main {
                         case "3":
                             $("."+e.num).find("span").text("🥉 ");
                             break;
+                        default:
+                            break;
                     }
 
 
@@ -82,14 +83,23 @@ export class Main {
             this.Event();
         })
 
-
+        
+        /*
+        * 카테고리
+         */
+        let category = ["한식","중식","일식","양식","카페","패스트푸드","분식","식육","치킨","횟집","외국음식","광산구","북구","동구","서구","남구"]
+        let s="";
+        category.forEach((e)=>{
+            s=s+"<a href='/searchInput?searchInput="+e+"' class='tagItem'>#"+e+"</a>";
+        })
+        $(".categoryBox").find("p").append(s);
 
 
 
         /**
          *  헤더 이미지 랜덤
          */
-        let headImageList=["https://pixabay.com/get/g1eaea14e9bec84ec66269468856a5405633b58574755e308181d5d190403f4e3fd3e43217adddd0ad325bcdfe07afd027b2051f2e57e24a1deaacc837a133f8c_1920.jpg",
+        let headImageList=[
             "https://pixabay.com/get/gde3cb999b9225b6fbd02f9c565826278cb0c8b9e0b0b638c427a24a0d8c6fcf6f68ea04c02f2b16c705322df820f7683_1920.jpg",
             "https://pixabay.com/get/g6e0595a2787818fc9caf41b78f07164c97153051c2fed419b64cd1add270f2bdf3ec277f3d5e8cf39bb467148058514015815e11f0637978e6cdc1be211707cd_1920.jpg",
             "https://pixabay.com/get/g7f5424553b0f237dcb368b6f0720a57af88063fce8f908a4376a99189b166b00fc2a9668608cf36fac48a73d4dd37b1e_1920.jpg",

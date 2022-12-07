@@ -5,6 +5,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutContents.html}">
 <head>
+
+    <style>
+        .tagItem{
+            text-decoration: none;
+            margin: 15px 3px 0 3px;
+            padding: 0 20px;
+            font-size: 0.938rem;
+            line-height: 38px;
+            letter-spacing: 0em;
+            display: inline-block;
+            color: #6a6a6a;
+            border: 1px solid #cbcbcb;
+            border-radius: 50px;
+            background-color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -32,15 +49,19 @@
         </div>
     </header>
     <!-- Section-->
+    <section class="popular_top_list_wrap categoryBox py-3" style="text-align: center;">
+        <p></p>
+    </section>
+
     <section class="popular_top_list_wrap py-5" style="border-bottom: 1px solid #dbdbdb">
-        <h2 style="color:rgba(0,0,0,0.5); font-size:medium; text-align: center; font-weight: bold">지금 광플에서 조회수가 높은
-            인기식당</h2>
+        <h2 style="color:rgba(0,0,0,0.5); font-size:medium; text-align: center; font-weight: bold">지금 광플에서 조회수가 높은 인기식당</h2>
         <div class="container px-4 px-lg-5 mt-5">
             <div id="TopResAppend"
                  class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             </div>
         </div>
     </section>
+
     <section class="popular_top_list_wrap py-5">
         <h2 style="color:rgba(0,0,0,0.5); font-size:medium; text-align: center; font-weight: bold">믿고 보는 맛집 리스트 </h2>
         <div class="container px-4 px-lg-5 mt-5">
@@ -48,6 +69,9 @@
                  class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"></div>
         </div>
     </section>
+
+
+
 </div>
 </body>
 <section layout:fragment="contentScriptFragment">
