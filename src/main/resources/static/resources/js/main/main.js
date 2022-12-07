@@ -144,7 +144,7 @@ export class Main {
         $('#logPW').on("keyup",(e)=>{
             let pw = document.getElementById("logPW").value;
             let id = document.getElementById("logID").value;
-
+       
             axios.post("logPwChk",{"id":id,"pw":pw}).then((matches)=>{
                 if(matches.data ==false){
                     $('#pwerror').removeClass("hidden");

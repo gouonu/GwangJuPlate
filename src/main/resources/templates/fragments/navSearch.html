@@ -21,7 +21,7 @@
   <div class="modal fade" id="favorite" aria-hidden="true" aria-labelledby="favoriteLabel" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header mhp">
           &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 
           <button type="button" id = "recent" class="btn btn-light btn-outline-secondary btn-lg recent">최근 본 맛집</button>
@@ -80,7 +80,7 @@
 
 
 
-        <div class="modal-footer d-grid gap-2 col-4 mx-auto">
+        <div class="modal-footer d-grid gap-2 col-4 mx-auto mfp">
           <button th:if="${session.able}" type="button" class="btn btn-outline-danger redel" >기록 삭제</button>
           <button th:if="${session.userId eq null}" id = "ddd" type="button" class="btn btn-outline-danger btn-lg" data-bs-target="#log1n" data-bs-toggle="modal" data-bs-dismiss="modal" >
             로그인

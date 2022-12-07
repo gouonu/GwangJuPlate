@@ -92,12 +92,6 @@ public class HomePageAct {
         MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
         session.setAttribute("userId",memberVO.getUserId());
-        session.setAttribute("userName",memberVO.getUserName());
-        session.setAttribute("userSex",memberVO.getUserSex());
-        session.setAttribute("userPhnum",memberVO.getUserPhnum());
-        session.setAttribute("userAuth",memberVO.getUserAuth());
-        session.setAttribute("appendDate",memberVO.getAppendDate());
-
         return "redirect:" + request.getHeader("Referer");
     }
 

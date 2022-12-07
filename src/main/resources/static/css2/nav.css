@@ -151,7 +151,12 @@ input:focus::placeholder{
     position: relative;
 }
 
-
+.mfp{
+    padding: 1.8em;
+}
+.mhp{
+    padding: 1rem 2.8rem;
+}
 #left{
     width: 50%;
     float: left;

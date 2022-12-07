@@ -35,6 +35,8 @@ public class HomeDataAct {
 
     ArrayList<String>wpl = new ArrayList<String>();
     ArrayList<String> wpn = new ArrayList<String>();
+
+
     @PostMapping (value = {"/searchInput", "/searchInputPaging"})
     public Map getSearch2(@ModelAttribute Criteria cri) {
         Map<String, Object> data = new HashMap<>();
@@ -130,6 +132,7 @@ public class HomeDataAct {
         test.bookMarkInsert(bookMarkVO);
         return data;
     }
+// 모달창에 즐겨찾기 기록들 표현
 @RequestMapping("bookModal")
 public List<BookMarkVO> bookModal(HttpServletRequest request){
         String userId =(String) request.getSession().getAttribute("userId");
@@ -159,13 +162,6 @@ public BookMarkVO bookDelete(HttpServletRequest request){
         log.error("리뷰 수 :: {}", count);
         return count;
     }
-//    @RequestMapping(value = "bookCount")
-//    public int bookCount(@RequestBody Map map){
-//        int resNum = Integer.valueOf(String.valueOf(map.get("bno")));
-//        log.error("왜");
-//        int count = test.bookMarkCount(resNum);
-//        return count;
-//    }
 
 //        즐겨찾기 선택 삭제
     @RequestMapping("bookSlct")
