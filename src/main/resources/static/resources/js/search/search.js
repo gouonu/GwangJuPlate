@@ -181,7 +181,6 @@ export class Search {
             // 주소-좌표 변환 객체를 생성합니다
             var geocoder = new kakao.maps.services.Geocoder();
 
-
             _.forEach(data.data.r, (obj) => {
                 let roadAddr = obj.roadAddr;
                 let workplace = obj.workplace;
@@ -223,7 +222,6 @@ export class Search {
             console.log(currentPage);
             console.log("페이징 이벤트");
             let result = $('#query').text();
-            //
             let startPage = currentPage;
             let perPage = 10;
             console.log(result)
@@ -233,6 +231,7 @@ export class Search {
                 "startPage": startPage,
                 "perPage": perPage
             }
+
             axios({
                 method: "post",
                 url: "/searchInputPaging",
@@ -321,8 +320,6 @@ export class Search {
 
             });
         });
-
-
     }//pagenationEvent
 
 
@@ -338,6 +335,5 @@ export class Search {
             }
         });
     }
-
 
 }// Search

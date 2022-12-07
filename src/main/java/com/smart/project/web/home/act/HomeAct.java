@@ -13,7 +13,6 @@ public class HomeAct {
 
 	@RequestMapping("/")
 	public String index(){
-
 		return "index";
 	}
 
@@ -30,10 +29,6 @@ public class HomeAct {
 	@RequestMapping("/join")
 	public String join(){
 		return "dddd/join";
-	}
-	@RequestMapping("/login")
-	public String login(){
-		return "apilogin";
 	}
 
 

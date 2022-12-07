@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -19,16 +19,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Principal;
-import java.util.*;
 
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 import java.util.UUID;
 
@@ -87,7 +84,7 @@ public class HomePageAct {
      * @return
      */
     @GetMapping("/user_access")
-    public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request, Principal principal) {
+    public String userAccess(Model model, Authentication authentication, HttpSession session, HttpServletRequest request) {
         //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
         MemberVO memberVO = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
 //            model.addAttribute("info", memberVO.getUserId() +"의 "+ memberVO.getUserName()+ "님");      //유저 아이디
@@ -96,11 +93,9 @@ public class HomePageAct {
     }
 
     @RequestMapping(value="logout.do", method= RequestMethod.GET)
-    public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
+    public String logoutMainGET(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.invalidate();
-
-
         return "redirect:" + request.getHeader("Referer");
 
     }
@@ -129,7 +124,7 @@ public class HomePageAct {
     }
 
     @PostMapping("reviewInput")
-    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+    public String reviewInput(String reviewText, String userId, Integer num, @RequestParam("imageFile") MultipartFile file) throws IOException {
         ReplyVO rep = new ReplyVO();
         rep.setReply(reviewText);
         rep.setBno(num);

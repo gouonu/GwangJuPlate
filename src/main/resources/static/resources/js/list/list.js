@@ -1,7 +1,6 @@
 "use strict";
 
 
-import replyImgTmpt from "@/detail/detailImage2.html";
 
 $(() => {
     new List();
@@ -18,7 +17,6 @@ export class List {
         this.bookMarkSlctDelete();
         this.recentEvent();
         this.logEvent();
-
     }
 
     bookmarkEvent() {
@@ -30,18 +28,11 @@ export class List {
             _.forEach(data, (e) => {
                 let workplace = e.resWorkplace;
                 let num4 = e.resNum;
-
                 console.log(workplace);
                 var html = [
                     '<form class="bookForm">',
-
-
                     '<a class="workplace" >' + workplace + '<br></a>',
-
-
                     '<button class="bnum" type="button" onclick="location.href=\'detail?num=' + num4 + '\'">이동하기</button>',
-
-
                     '<button type="reset" class = "btn btn-danger deleteWish">' + '삭제' + '</button>',
 
                     '</form>'
@@ -54,6 +45,7 @@ export class List {
     }
 
     bookMarkSlctDelete() {
+
         $('.deleteWish').on("click", (e) => {
             let workplace = $(e.currentTarget).prev().prev().text();
             console.log("가능?:", workplace);
@@ -61,7 +53,6 @@ export class List {
                 $(e.currentTarget).parent($('.bookForm')).remove();
             })
         })
-
     }
 
     logEvent() {
@@ -70,7 +61,7 @@ export class List {
             let id = document.getElementById("logID").value;
 
             axios.post("logIdChk", {"id": id}).then((result) => {
-                if (result.data == false) {
+                if (!result.data) {
                     $('#logerror').removeClass("hidden");
                 } else {
                     $('#logerror').addClass("hidden");
@@ -213,7 +204,7 @@ export class List {
 
     buttonEvent() {
 
-        $(".btn_copy_link").on("click", (e) => {
+        $(".btn_copy_link").on("click", () => {
             console.log("링크 복사 하기 클릭");
             let url = "";
             let textarea = document.createElement("textarea");
@@ -227,17 +218,17 @@ export class List {
             $(".alert.alert-primary").removeClass("hidden");
         })
 
-        $(".alert.alert-primary").on("click", (e) => {
+        $(".alert.alert-primary").on("click", () => {
             $(".alert.alert-primary").addClass("hidden");
         })
 
-        $(".btn_share_facebook").on("click", (e) => {
+        $(".btn_share_facebook").on("click", () => {
             let thisUrl = document.URL;
             let url = "http://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(thisUrl);
             window.open(url, "", "width=486, height=286");
         })
 
-        $(".btn_share_twitter").on("click", (e) => {
+        $(".btn_share_twitter").on("click", () => {
             let thisUrl = document.URL;
             let snsTitle = "광주 플레이트";
             let url = "http://twitter.com/share?url=" + encodeURIComponent(thisUrl) + "&text=" + encodeURIComponent(snsTitle);
