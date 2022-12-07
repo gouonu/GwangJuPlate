@@ -36,6 +36,7 @@ import java.util.UUID;
 @Controller
 @RequiredArgsConstructor
 public class HomePageAct {
+
     final private Test test;
 
     private final MemberService memberService;
@@ -53,7 +54,6 @@ public class HomePageAct {
     @PostMapping("/register")
     public String signUp(MemberVO memberVO) {
         memberService.joinUser(memberVO);
-
         return "redirect:/"; //로그인 구현 예정
     }
 
@@ -95,9 +95,8 @@ public class HomePageAct {
         return "redirect:" + request.getHeader("Referer");
     }
 
-
-    @RequestMapping(value = "logout.do", method = RequestMethod.GET)
-    public String logoutMainGET(HttpServletRequest request, MemberVO memberVO) throws Exception {
+    @RequestMapping(value="logout.do", method= RequestMethod.GET)
+    public String logoutMainGET(HttpServletRequest request,MemberVO memberVO) throws Exception{
         HttpSession session = request.getSession();
         session.invalidate();
 
@@ -197,14 +196,12 @@ public class HomePageAct {
 
     @PostMapping("updateReview")
     public String updateReview(String updateText, int rno, int bno, @RequestParam("updateImg") MultipartFile file) throws IOException {
-
         ReplyVO replyVO = new ReplyVO();
         replyVO.setRno(rno);
         replyVO.setBno(bno);
         replyVO.setReply(updateText);
-
-
 //        log.error("newReplyVO :: {}", replyVO);
+//        ReplyVO imgList = test.getImageInfo(rno);
 
         if(!file.isEmpty()){
             String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
@@ -226,7 +223,6 @@ public class HomePageAct {
             file.transferTo(new File(saveImage));
 
             test.updateReview(replyVO);
-
 
             File thumbnailImg = new File(filePath, "s_" + savedName);
 
@@ -250,6 +246,8 @@ public class HomePageAct {
 
         return "redirect:/detail?num=" + bno;
     }
+
+
 
 
 }

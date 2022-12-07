@@ -91,11 +91,12 @@ export class Detail {
                 // console.log(i.data);
                 if(i.data===""){
                     axios.post("detailReplyImg", {"num":num}).then((data)=>{
-
-                        console.log(data.data);
+                        console.log(data);
                         let replyImgTmpt = require('@/detail/detailImage2.html');
-                        $(".grid-image").empty();
-                        $(".grid-image").append(replyImgTmpt(data.data));
+                        let newData = data.data.slice(0, 4);
+                        console.log("newData", newData);
+                        $(".grid-image").empty()
+                        $(".grid-image").append(replyImgTmpt(newData));
                     })
                 }else{
                     $("#resContent").text(i.data.content);
@@ -123,9 +124,6 @@ export class Detail {
             $('.reviewCount').text("리뷰 ("+count+")");
             $('.reviewCountNum').text(count);
         })
-
-
-
     }
 
     reviewEvent(){
@@ -136,7 +134,6 @@ export class Detail {
             $e.children(".reviewHeader").addClass("hidden");
             $e.children(".reviewButton").addClass("hidden");
             $e.children('.update_img_box').removeClass('hidden');
-
         })
 
         $(".rollbackButton").on("click", (e)=>{
@@ -185,7 +182,7 @@ export class Detail {
          */
         $('#reviewText').on("keyup",(e)=>{
             let byteCount = document.getElementById("reviewText").value.length;
-            let $submit = $("#reviewSubmit"); // 리뷰 작성
+            let $submit = $("#reviewSubmit");
             let $bCount = $('#byteCount');
             $bCount.text(byteCount);
             if(byteCount === 0 || byteCount > 300) {
@@ -385,7 +382,6 @@ export class Detail {
 
     }
 
-
     setThumbnail(){
         let imageFile = $('#imageFile');
         let imgThumbnailBox = $('.img_thumbnail_box');
@@ -400,10 +396,16 @@ export class Detail {
             // 파일용량 체크
             if(fileSize > maxSize){
                 imageFile.val("");
-                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "1MB 이하의 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else if(!imageFile.val().match(fileForm)){
                 imageFile.val("");
-                return alert("이미지 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "이미지 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else{
                 reader.onload = function (e){
                     $('.img_thumbnail_box > img').attr('src', e.target.result);
@@ -417,8 +419,8 @@ export class Detail {
             imgThumbnailBox.addClass('hidden');
             imageFile.val("");
         });
-
     }
+
     updateThumbnail(){
         let updateImg = $('input[name=updateImg]');
         let udtImgBox = $('.update_img_box');
@@ -432,10 +434,16 @@ export class Detail {
 
             if(fileSize > maxSize){
                 updateImg.val("");
-                return alert("1MB 이하의 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "1MB 이하의 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else if(!updateImg.val().match(fileForm)){
                 updateImg.val("");
-                return alert("이미지 파일만 업로드 가능합니다.");
+                return swal({
+                    text: "이미지 파일만 업로드 가능합니다.",
+                    icon: "error",
+                });
             }else{
                 reader.onload = function (e) {
                     $('.update_thumbnail').attr('src', e.target.result);
@@ -449,7 +457,6 @@ export class Detail {
             $(e.currentTarget).prev().attr('src', null);
         });
     }
-
 
     //test
     thumbnailModal(){

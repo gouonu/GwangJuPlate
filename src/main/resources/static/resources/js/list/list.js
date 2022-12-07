@@ -1,6 +1,8 @@
 "use strict";
 
 
+import replyImgTmpt from "@/detail/detailImage2.html";
+
 $(()=>{
     new List();
 })
@@ -236,15 +238,22 @@ export class List {
                 }
 
                 for(let i=0; i<result.data.list.length; i++){
-                    // console.log("result :: ", result.data.list[i].workplace);
+                    let num=result.data.list[i].num;
+                    console.log("result :: ", num);
                     axios.post("DetailImg", {"workplace":result.data.list[i].workplace}).then((e)=>{
                         // console.log(e.data);
-                        let $i =  $("." + result.data.list[i].num).parent().parent().children().eq(0).children().children();
+                        let $i =  $("." + num).parent().parent().children().eq(0).children().children();
                         // console.log($i);
-                        $("." + result.data.list[i].num).children().children('a').children('span').text((i+1)+".");
+                        $("." + num).children().children('a').children('span').text((i+1)+".");
                         if(e.data===""){
                             // console.log(result.data.list[i].workplace+" 이미지 없음");
-                            $i.attr("src", "/image/empty.png");
+                            // $i.attr("src", "/image/empty.png");
+                            axios.post("detailReplyImg", {"num":num}).then((data)=>{
+                                // console.log(data.data[0].savedName);
+                                _.forEach(data.data, ()=>{
+                                    $i.attr('src', "/images/" + data.data[0].savedName);
+                                });
+                            });
                         }else {
                             console.log(result.data.list[i].workplace+" 이미지 있음");
                             $i.attr("src", e.data.img1src);

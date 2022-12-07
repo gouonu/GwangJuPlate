@@ -296,7 +296,6 @@ public BookMarkVO bookDelete(HttpServletRequest request){
     public List<ReplyVO> detailReplyImg(@RequestBody Map map){
         int num = Integer.valueOf(String.valueOf(map.get("num")));
         List<ReplyVO> data = test.detailReplyImg(num);
-//        log.error("data : {}", data);
         return data;
     }
 
