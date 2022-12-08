@@ -7,11 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -31,7 +29,7 @@ public class DataBaseInfoMasterConfig extends HikariConfig{
 
     @Bean(name = "infoMasterSqlSessionFactory")
     public SqlSessionFactory infoMasterSqlSessionFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
-        return new InforexSqlSessionlFactory().getSqlFactory(masterDataSource, mapperLocation);
+        return new SqlSessionlFactory().getSqlFactory(masterDataSource, mapperLocation);
     }
 
 }

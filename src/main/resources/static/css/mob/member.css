@@ -1,8 +1,0 @@
-@charset "utf-8";
-
-.member__nickname{display:inline-flex; align-items: center;}
-.member__nickname_txt{font-size:1rem; line-height:18px; font-weight:700; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
-.member__nickname_txt-male{color:#427FCF;}
-.member__nickname_txt-female{color:#ff5777;}
-
-.member__region_age{flex:0 0 auto; font-size:1rem; color:#333;}

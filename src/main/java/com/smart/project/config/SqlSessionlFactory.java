@@ -7,7 +7,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-public class InforexSqlSessionlFactory {
+public class SqlSessionlFactory {
 
     public SqlSessionFactory getSqlFactory(DataSource dataSource, String mapperLocation) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
