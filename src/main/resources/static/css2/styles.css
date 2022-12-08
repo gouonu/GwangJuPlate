@@ -14,12 +14,12 @@
 .mainTitle{
   color:#ff8b0f;
   /*text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;*/
-  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8);
+  text-shadow: 2px 2px 6px rgb(0, 0, 0);
 }
 
 .middleTitle{
   color: rgb(255, 255, 255); font-size: large;
-  text-shadow: 2px 2px 6px gray;
+  text-shadow: 2px 2px 6px #424242;
 }
 
 p.error{
