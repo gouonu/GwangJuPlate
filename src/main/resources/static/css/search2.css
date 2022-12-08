@@ -4,6 +4,9 @@
     margin: 0;
     padding: 0;
 }
+ul, ol, li{
+    list-style: none;
+}
 body{
     font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
     word-wrap: break-word;
